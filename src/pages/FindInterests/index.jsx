@@ -6,7 +6,7 @@ function FindInterestsPage() {
   
   return (
     <>
-    <div>Welcome to FindInterestsPage!</div>
+    <div>FindInterestsPage!</div>
     </>
   )
 }

@@ -1,7 +1,7 @@
 // src/pages/Home/Home.jsx
 import React from 'react';
 
-const HomePage = ({ navigate }) => {
+const HomePage = () => {
   return (
     <div>
       <h2>Home Page</h2>
