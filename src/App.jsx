@@ -16,7 +16,7 @@ export default function App() {
     if(curr_user.id){
       return page;
     }else{
-      return <Navigate to="/login" />;
+      return <Navigate to="/login" replace/>;
     }
   }
   return (
@@ -24,7 +24,7 @@ export default function App() {
     <Router>
       <Header user={curr_user}/>
       <Routes>
-        <Route path='/' element={<Navigate to="/home" />}/>
+        <Route path='/' element={<Navigate to="/home" replace/>}/>
         <Route path="/login" element={curr_user.id ? <Navigate to="/home"/> : <LoginAndRegister />} />
         <Route path="/home" element={checkLogin(<HomePage />)} />
         <Route path="/findInterests" element={checkLogin(<FindInterestsPage />)} />
