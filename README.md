@@ -1,13 +1,5 @@
 # Interest Circle miniProject
 
-## 依赖
-
-npm install react-helmet-async
-npm install @headlessui/react
-npm install @headlessicon/react
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-
 ## Vite + React
 
 Currently, two official plugins are available:
