@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import LoginAndRegister from './pages/Login/index';
 import FindInterestsPage from './pages/FindInterests/index';
 import MyInterests from './pages/MyInterests/index';
+import NotFoundPage from './pages/ErrorPages/NotFoundPage';
 let curr_user = {
   id: '123',
   name: 'Mojo',
@@ -24,11 +25,12 @@ export default function App() {
       <Router>
         <Header user={curr_user} />
         <Routes>
-          <Route path='/' element={<Navigate to="/home" />} />
+          <Route exact path='/' element={<Navigate to="/home" />} />
           <Route path="/login" element={curr_user.id ? <Navigate to="/home" /> : <LoginAndRegister />} />
           <Route path="/home" element={checkLogin(<HomePage />)} />
           <Route path="/findInterests" element={checkLogin(<FindInterestsPage />)} />
           <Route path="/myInterests" element={checkLogin(<MyInterests />)} />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </Router>
     </>
