@@ -12,25 +12,25 @@ let curr_user = {
   imageUrl: '/logo.svg',
 }
 export default function App() {
-  function checkLogin(page){
-    if(curr_user.id){
+  function checkLogin(page) {
+    if (curr_user.id) {
       return page;
-    }else{
+    } else {
       return <Navigate to="/login" />;
     }
   }
   return (
     <>
-    <Router>
-      <Header user={curr_user}/>
-      <Routes>
-        <Route path='/' element={<Navigate to="/home" />}/>
-        <Route path="/login" element={curr_user.id ? <Navigate to="/home"/> : <LoginAndRegister />} />
-        <Route path="/home" element={checkLogin(<HomePage />)} />
-        <Route path="/findInterests" element={checkLogin(<FindInterestsPage />)} />
-        <Route path="/myInterests" element={checkLogin(<MyInterests />)} />
-      </Routes>
-    </Router>
+      <Router>
+        <Header user={curr_user} />
+        <Routes>
+          <Route path='/' element={<Navigate to="/home" />} />
+          <Route path="/login" element={curr_user.id ? <Navigate to="/home" /> : <LoginAndRegister />} />
+          <Route path="/home" element={checkLogin(<HomePage />)} />
+          <Route path="/findInterests" element={checkLogin(<FindInterestsPage />)} />
+          <Route path="/myInterests" element={checkLogin(<MyInterests />)} />
+        </Routes>
+      </Router>
     </>
   );
 }

@@ -3,10 +3,9 @@ import './index.css'
 
 
 function FindInterestsPage() {
-  
   return (
     <>
-    <div>FindInterestsPage!</div>
+      <div>FindInterestsPage!</div>
     </>
   )
 }
