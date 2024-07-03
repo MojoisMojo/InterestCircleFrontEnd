@@ -1,6 +1,5 @@
 import Post from "../../components/Post/Post";
 import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
 const static_poster = {
   id: '123',
   name: 'Mojo',
