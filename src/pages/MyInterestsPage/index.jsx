@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyInterests = () => {
+const MyInterestsPage = () => {
   return (
     <div>
       {/* Your code here */}
@@ -8,4 +8,4 @@ const MyInterests = () => {
   );
 };
 
-export default MyInterests;
+export default MyInterestsPage;

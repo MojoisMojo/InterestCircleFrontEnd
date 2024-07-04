@@ -1,17 +1,35 @@
-// /src/components/CircleCard/CircleCard.jsx
+// src/components/CircleCard/CircleCard.jsx
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
 
-const CircleCard = ({ title, description, image }) => {
+export default function CircleCard(circle) {
   return (
-    <div className="circle-card">
-      <div className="circle-card__image">
-        <img src={image} alt={title} />
-      </div>
-      <div className="circle-card__content">
-        <h2>{title}</h2>
-        <p>{description}</p>
-      </div>
-    </div>
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={circle.image}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {circle.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {circle.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Share
+        </Button>
+      </CardActions>
+    </Card>
   );
-};
-
-export default CircleCard;
+}

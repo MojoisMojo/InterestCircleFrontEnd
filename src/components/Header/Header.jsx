@@ -1,6 +1,8 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import UserContext from '../../context/UserContext';
 
 const navigation = [
   { name: '主页', href: '/home'},
@@ -8,17 +10,19 @@ const navigation = [
   { name: '我的圈子', href: '/myInterests'},
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: '个人主页', href: '/home' },
+  { name: '个人设置', href: '#' },
+  { name: '联系我们', href: '/aboutus'},
+  { name: '登出', href: '#' },
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Header({user}) {
+export default function Header() {
   const location = useLocation();
+  const {currUser, setCurrUser} = useContext(UserContext);
   const isActive = (path) => location.pathname === path;
   return (
     <>
@@ -84,7 +88,7 @@ export default function Header({user}) {
                           <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="absolute -inset-1.5" />
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.avatarUrl} alt="" />
+                            <img className="h-8 w-8 rounded-full" src={currUser.avatarUrl} alt="" />
                           </MenuButton>
                         </div>
                         <MenuItems
@@ -145,11 +149,11 @@ export default function Header({user}) {
                 <div className="border-t border-gray-700 pb-3 pt-4">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.avatarUrl} alt="" />
+                      <img className="h-10 w-10 rounded-full" src={currUser.avatarUrl} alt="" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                      <div className="text-base font-medium leading-none text-white">{currUser.name}</div>
+                      <div className="text-sm font-medium leading-none text-gray-400">{currUser.email}</div>
                     </div>
                     <button
                       type="button"
