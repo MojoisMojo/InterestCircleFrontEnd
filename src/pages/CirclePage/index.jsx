@@ -1,22 +1,6 @@
 import Post from "../../components/Post/Post";
 import { useEffect, useState } from "react";
-const static_poster = {
-  id: '123',
-  name: 'Mojo',
-  email: 'mojo@example.com',
-  avatarUrl: '/logo.svg',
-}
-const static_post = {
-  id: '123',
-  time: '2021-09-01',
-  content: 'This is a post content',
-  img: '/logo.svg',
-  actinfo: {
-    watches: 10,
-    stars: 20,
-    likes: 30
-  }
-}
+import {static_poster,static_post} from "../../assets/static";
 
 async function fetchPosts(circleId) {
   // const response = await fetch(`https://myapi.com/circles/posts/?id=${circleId}`);

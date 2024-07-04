@@ -44,11 +44,11 @@ export default function Header({user}) {
                         alt="Your Company"
                       />
                     </div>
-                    <div className="ml-4 flex items-baseline text-gray-300 text-lg font-bold">
+                    <div className="ml-4 flex items-baseline text-gray-300 text-lg font-bold font-serif">
                       Interests Circle
                     </div>
                     <div className="hidden md:block">
-                      <div className="ml-10 flex items-baseline space-x-4">
+                      <div className="ml-10 flex items-baseline space-x-4 font-bold">
                         {navigation.map((item) => (
                           <a
                             key={item.name}
