@@ -1,18 +1,18 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 
-const navigation = [
-  { name: '主页', href: '/home'},
-  { name: '发现圈子', href: '/findInterests'},
-  { name: '我的圈子', href: '/myInterests'},
+const barNavigation = [
+  { name: '主页', href: '/home' },
+  { name: '发现圈子', href: '/findInterests' },
+  { name: '我的圈子', href: '/myInterests' },
 ]
 const userNavigation = [
   { name: '个人主页', href: '/home' },
   { name: '个人设置', href: '#' },
-  { name: '联系我们', href: '/aboutus'},
+  { name: '联系我们', href: '/aboutus' },
   { name: '登出', href: '#' },
 ]
 
@@ -21,8 +21,9 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const {currUser, setCurrUser} = useContext(UserContext);
+  const { currUser, setCurrUser } = useContext(UserContext);
   const isActive = (path) => location.pathname === path;
   return (
     <>
@@ -53,10 +54,10 @@ export default function Header() {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4 font-bold">
-                        {navigation.map((item) => (
-                          <a
+                        {barNavigation.map((item) => (
+                          <button
                             key={item.name}
-                            href={item.href}
+                            onClick={(e) => { navigate(item.href); return; }}
                             className={classNames(
                               isActive(item.href)
                                 ? 'bg-gray-900 text-white'
@@ -66,7 +67,7 @@ export default function Header() {
                             aria-current={isActive(item.href) ? 'page' : undefined}
                           >
                             {item.name}
-                          </a>
+                          </button>
                         ))}
                       </div>
                     </div>
@@ -93,20 +94,20 @@ export default function Header() {
                         </div>
                         <MenuItems
                           transition
-                          className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                          className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                         >
                           {userNavigation.map((item) => (
                             <MenuItem key={item.name}>
                               {({ focus }) => (
-                                <a
-                                  href={item.href}
+                                <button 
+                                  onClick={(e) => { navigate(item.href) }}
                                   className={classNames(
                                     focus ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700',
+                                    'block px-4 py-2 text-sm text-gray-700 text-center w-full',
                                   )}
                                 >
                                   {item.name}
-                                </a>
+                                </button>
                               )}
                             </MenuItem>
                           ))}
@@ -131,7 +132,7 @@ export default function Header() {
 
               <DisclosurePanel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                  {navigation.map((item) => (
+                  {barNavigation.map((item) => (
                     <DisclosureButton
                       key={item.name}
                       as="a"

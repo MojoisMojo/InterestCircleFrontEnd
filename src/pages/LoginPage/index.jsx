@@ -53,6 +53,7 @@ export default function LoginPage() {
     // else
     console.log(res.msg);
     setCurrUser(res.data.user);
+    console.log(res.data.user);
     navigate('/');
   };
   return (

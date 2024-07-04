@@ -15,6 +15,7 @@ import UserContext from './context/UserContext'
 export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
   function checkLogin(page) {
+    console.log(currUser);
     if (currUser.uid) {
       return page;
     } else {
@@ -28,12 +29,12 @@ export default function App() {
           <Header />
           <Routes>
             <Route exact path='/' element={<Navigate to="/home" replace />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={currUser.uid ? <Navigate to="/home" replace /> : <LoginPage />} />
             <Route path="/home" element={checkLogin(<HomePage />)} />
             <Route path="/findInterests" element={checkLogin(<FindInterestsPage />)} />
             <Route path="/myInterests" element={checkLogin(<MyInterestsPage />)} />
             <Route path="/circle" element={checkLogin(<CirclePage />)} />
-            <Route path='aboutus' element={<AboutusPage />}/>
+            <Route path='aboutus' element={<AboutusPage />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Router >

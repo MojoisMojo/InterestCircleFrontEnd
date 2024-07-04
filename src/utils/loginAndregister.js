@@ -9,6 +9,7 @@ async function loginRequest(email, password) {
   console.log('Email:', email, 'Password:', password, "UID:", uid);
   let user = {...static_empty_user};
   user.uid = uid;
+  user.email = email;
   return {status:'success',msg:'登录成功',data:
     {
       user:user
