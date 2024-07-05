@@ -23,18 +23,33 @@ const static_post = {
   }
 };
 
-const static_circle_card_info = {
-  cid:'123',
-  cname:'日常分享',
-  description:'日常分享 | 苏州',
-  image:'/logo.svg',
+const static_circle_card_info_daily = {
+  cid: 'daily123',
+  cname: '日常分享',
+  description: '日常分享 | 苏州',
+  image: '/logo.svg',
+  isJoined: false,
+};
+
+const static_circle_card_info_game = {
+  cid: 'game123',
+  cname: '游戏分享',
+  description: '游戏分享 | 苏州',
+  image: '/src/assets/img/gameCirclePic.png',
   isJoined: false,
 };
 
 const static_circle_posts = [
-  {poster:static_poster, post:static_post},
-  {poster:static_poster, post:static_post},
-  {poster:static_poster, post:static_post},
+  { poster: static_poster, post: static_post },
+  { poster: static_poster, post: static_post },
+  { poster: static_poster, post: static_post },
 ];
 
-export { static_poster, static_post, static_empty_user, static_circle_card_info, static_circle_posts  };
+export {
+  static_poster,
+  static_post, 
+  static_empty_user, 
+  static_circle_card_info_daily, 
+  static_circle_card_info_game,
+  static_circle_posts
+};
