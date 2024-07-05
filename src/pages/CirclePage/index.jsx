@@ -1,14 +1,11 @@
 import Post from "../../components/Post/Post";
 import { useEffect, useState } from "react";
-import {static_poster,static_post} from "../../assets/static";
+import {static_poster,static_post,static_circle_posts} from "../../assets/static";
 
 async function fetchPosts(circleId) {
   // const response = await fetch(`https://myapi.com/circles/posts/?id=${circleId}`);
   // return response.data;
-  return [
-    {poster:static_poster,post:static_post},
-    {poster:static_poster,post:static_post}
-  ]
+  return static_circle_posts;
 }
 
 const CirclePage = () => {

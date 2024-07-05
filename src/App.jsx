@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage'
 import Header from './components/Header/Header';
 import LoginPage from './pages/LoginPage/index';
-import FindInterestsPage from './pages/FindInterests/index';
+import FindCirclesPage from './pages/FindCirclesPage/index';
 import MyInterestsPage from './pages/MyInterestsPage/index';
 import NotFoundPage from './pages/ErrorPages/NotFoundPage';
 import CirclePage from './pages/CirclePage';
@@ -31,7 +31,7 @@ export default function App() {
             <Route exact path='/' element={<Navigate to="/home" replace />} />
             <Route path="/login" element={currUser.uid ? <Navigate to="/home" replace /> : <LoginPage />} />
             <Route path="/home" element={checkLogin(<HomePage />)} />
-            <Route path="/findInterests" element={checkLogin(<FindInterestsPage />)} />
+            <Route path="/findInterests" element={checkLogin(<FindCirclesPage />)} />
             <Route path="/myInterests" element={checkLogin(<MyInterestsPage />)} />
             <Route path="/circle" element={checkLogin(<CirclePage />)} />
             <Route path='aboutus' element={<AboutusPage />} />
