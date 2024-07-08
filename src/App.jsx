@@ -14,6 +14,7 @@ import UserContext from './context/UserContext'
 
 export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
+  
   function checkLogin(page) {
     console.log(currUser);
     if (currUser.uid) {

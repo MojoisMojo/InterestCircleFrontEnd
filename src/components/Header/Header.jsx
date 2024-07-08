@@ -5,13 +5,12 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 
 const barNavigation = [
-  { name: '主页', href: '/home' },
+  { name: '个人主页', href: '/home' },
   { name: '发现圈子', href: '/findInterests' },
   { name: '我的圈子', href: '/myInterests' },
 ]
 const userNavigation = [
-  { name: '个人主页', href: '/home' },
-  { name: '个人设置', href: '#' },
+  { name: '个人设置', href: '/settings' },
   { name: '联系我们', href: '/aboutus' },
   { name: '登出', href: '#' },
 ]

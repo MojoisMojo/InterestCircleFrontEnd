@@ -16,6 +16,7 @@ import { useState, useContext } from 'react';
 import { loginRequest, registerRequest } from '../../utils/loginAndregister'
 import UserContext from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom';
+import Cookie from 'js-cookie';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +26,14 @@ export default function LoginPage() {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
+  function checkCookieAndSetUser() {
+    let uid = Cookie.get('uid');
+    if (uid) {
+      let user = { ...static_empty_user };
+      user.uid = uid;
+      setCurrUser(user);
+    }
+  };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
