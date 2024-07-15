@@ -3,6 +3,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useContext } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
+import { static_empty_user } from '../../assets/static';
+import { logoutRequest } from '../../utils/loginAndregister';
 
 const barNavigation = [
   { name: '个人主页', href: '/home' },
@@ -12,7 +14,7 @@ const barNavigation = [
 const userNavigation = [
   { name: '个人设置', href: '/settings' },
   { name: '联系我们', href: '/aboutus' },
-  { name: '登出', href: '#' },
+  { name: '登出', href: '/login' },
 ]
 
 function classNames(...classes) {
@@ -23,6 +25,13 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const { currUser, setCurrUser } = useContext(UserContext);
+  const userNaviFunc = (name) => {
+    if (name !== '登出') {
+      return;
+    }
+    setCurrUser(static_empty_user);
+    logoutRequest();
+  };
   const isActive = (path) => location.pathname === path;
   return (
     <>
@@ -98,8 +107,11 @@ export default function Header() {
                           {userNavigation.map((item) => (
                             <MenuItem key={item.name}>
                               {({ focus }) => (
-                                <button 
-                                  onClick={(e) => { navigate(item.href) }}
+                                <button
+                                  onClick={(e) => {
+                                    userNaviFunc(item.name);
+                                    navigate(item.href);
+                                  }}
                                   className={classNames(
                                     focus ? 'bg-gray-100' : '',
                                     'block px-4 py-2 text-sm text-gray-700 text-center w-full',
@@ -134,8 +146,10 @@ export default function Header() {
                   {barNavigation.map((item) => (
                     <DisclosureButton
                       key={item.name}
-                      as="a"
-                      href={item.href}
+                      onClick={(e) => {
+                        userNaviFunc(item.name);
+                        navigate(item.href);
+                      }}
                       className={classNames(
                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                         'block rounded-md px-3 py-2 text-base font-medium',
@@ -168,8 +182,10 @@ export default function Header() {
                     {userNavigation.map((item) => (
                       <DisclosureButton
                         key={item.name}
-                        as="a"
-                        href={item.href}
+                        onClick={(e) => {
+                          userNaviFunc(item.name);
+                          navigate(item.href);
+                        }}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}

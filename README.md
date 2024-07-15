@@ -1,5 +1,13 @@
 # Interest Circle miniProject
 
+## 信息传递的结构
+
+```js
+status：'success' or 'failed' or 'error'
+所有需要传递或显示的信息放在 msg 里面
+所有需要传递的内容放在 data 里面
+```
+
 ## Vite + React
 
 Currently, two official plugins are available:

@@ -8,21 +8,44 @@ import MyInterestsPage from './pages/MyInterestsPage/index';
 import NotFoundPage from './pages/ErrorPages/NotFoundPage';
 import CirclePage from './pages/CirclePage';
 import AboutusPage from './pages/AboutUsPage';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { static_empty_user } from './assets/static'
 import UserContext from './context/UserContext'
+import Cookie from 'js-cookie';
+import { getUserInfoWithUid } from './utils/loginAndregister';
 
 export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
-  
+
   function checkLogin(page) {
-    console.log(currUser);
     if (currUser.uid) {
       return page;
     } else {
       return <Navigate to="/login" replace />;
     }
   }
+
+  async function checkCookieAndSetUser() {
+    let uid = Cookie.get('uid');
+    if (uid) {
+      console.log('Cookie:', uid);
+      let userRes = await getUserInfoWithUid(uid);
+      if(userRes.status !== 'success') {
+        alert(userRes.msg);
+        return null;
+      }
+      let user = userRes.data.user;
+      user.uid = uid;
+      setCurrUser(user);
+      return uid;
+    }
+    return null;
+  };
+  // 使用useEffect确保checkCookieAndSetUser仅在组件挂载时执行一次
+  useEffect(() => {
+    checkCookieAndSetUser();
+  }, []); // 依赖数组为空，意味着仅在组件挂载时执行
+
   return (
     <>
       <UserContext.Provider value={{ currUser, setCurrUser }}>
