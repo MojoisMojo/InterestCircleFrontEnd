@@ -13,7 +13,8 @@ export default function TransverseCircleCard({ circle, cardHeight, onEnterCircle
   const [isJoined, setIsJoined] = useState(circle.isJoined);
 
   const cardWidthMin = 1.618 * cardHeight, cardWidthMax = 3 * 1.618 * cardHeight;
-  const imgWidth = cardHeight * 0.9, imgHeight = cardHeight * 0.9;
+  const cardWidth = cardHeight * 1.618 * 2;
+  const imgWidth = cardHeight * 0.85, imgHeight = cardHeight * 0.85;
   const handleJoinOrLeaveCircle = (event) => {
     console.log('Joins circle:', circle.cname);
     isJoined ? setIsJoined(false) : setIsJoined(true);
@@ -30,39 +31,33 @@ export default function TransverseCircleCard({ circle, cardHeight, onEnterCircle
     <Card elevation={3}
       sx={{
         minWidth: cardWidthMin, maxWidth: cardWidthMax,
-        height: cardHeight, borderRadius: "10px",
+        width: cardWidth,
+        height: cardHeight,
+        borderRadius: "10px",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
-      <Grid sx={{ width:"10%",maxWidth: "30px" }} />
+      <Grid sx={{ width: "7%", maxWidth: "25px" }} />
       <CardActionArea
         onClick={handleEnterCircle}
         sx={{
           width: "75%",
           display: "flex",
           borderRadius: '5px',
-          '&:hover': {
-            '& .MuiCardMedia-root': {
-              opacity: 0.95,
-            },
-            backgroundColor: 'rgba(0, 0, 0, 0.3)', // 修改为您想要的颜色和透明度
-          },
-          transition: 'background-color 0.3s', // 添加显示隐藏的过渡效果
-          justifyContent:"left",
+          justifyContent: "left",
         }}
       >
         <Grid sx={{ height: imgHeight, }}>
           <CardMedia
             component="img"
             sx={{
-              width: imgHeight,
+              width: imgWidth,
+              borderRadius: '5px',
               height: "100%",
-              transition: 'opacity 0.3s', // 添加显示隐藏的过渡效果
             }}
             image={circle.image}
             alt="circle image"
           />
         </Grid>
-        <Grid sx={{width:"5%"}}/>
         <CardContent >
           <Typography gutterBottom variant="h6" component="div">
             {circle.cname}
@@ -80,7 +75,7 @@ export default function TransverseCircleCard({ circle, cardHeight, onEnterCircle
           borderRadius: '5px',
           width: '25%',
           maxHeight: "150px",
-          height: "90%",
+          height: "85%",
         }}
         onClick={handleJoinOrLeaveCircle}
       >
@@ -88,7 +83,7 @@ export default function TransverseCircleCard({ circle, cardHeight, onEnterCircle
           {isJoined ? "退出圈子" : "加入圈子"}
         </Typography>
       </CardActionArea>
-      <Grid sx={{ width:"10%",maxWidth: "30px" }} />
+      <Grid sx={{ width: "5%", maxWidth: "20px" }} />
     </Card>
   );
 }
