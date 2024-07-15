@@ -45,11 +45,26 @@ const static_circle_posts = [
   { poster: static_poster, post: static_post },
 ];
 
+const static_circles = [
+  static_circle_card_info_daily,
+  static_circle_card_info_game,
+  static_circle_card_info_daily,
+  static_circle_card_info_daily,
+  static_circle_card_info_game,
+  static_circle_card_info_daily,
+  static_circle_card_info_game,
+  static_circle_card_info_game,
+  static_circle_card_info_daily,
+  static_circle_card_info_daily,
+  static_circle_card_info_game,
+]
+
 export {
   static_poster,
   static_post, 
   static_empty_user, 
   static_circle_card_info_daily, 
   static_circle_card_info_game,
-  static_circle_posts
+  static_circle_posts,
+  static_circles,
 };
