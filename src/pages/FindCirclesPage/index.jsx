@@ -1,6 +1,6 @@
 import { parsePath, useNavigate } from 'react-router-dom'
 import CirclePage from '../CirclePage'
-import CircleCard from '../../components/CircleCard/CircleCard'
+import CircleCard from '../../components/CircleCard/VerticalCard'
 import { static_circles } from '../../assets/static';
 import { useContext, useState } from 'react';
 import UserContext from '../../context/UserContext';

@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage'
 import Header from './components/Header/Header';
 import LoginPage from './pages/LoginPage/index';
 import FindCirclesPage from './pages/FindCirclesPage/index';
-import MyInterestsPage from './pages/MyInterestsPage/index';
+import MyCirclePage from './pages/MyCirclePage/index';
 import NotFoundPage from './pages/ErrorPages/NotFoundPage';
 import CirclePage from './pages/CirclePage';
 import AboutusPage from './pages/AboutUsPage';
@@ -12,7 +12,8 @@ import { useState, useEffect } from 'react';
 import { static_empty_user } from './assets/static'
 import UserContext from './context/UserContext'
 import Cookie from 'js-cookie';
-import { getUserInfoWithUid } from './utils/loginAndregister';
+import { getUserInfoWithUid } from './utils/loginAndregistration';
+import TmpApp from './tmp';
 
 export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
@@ -30,7 +31,7 @@ export default function App() {
     if (uid) {
       console.log('Cookie:', uid);
       let userRes = await getUserInfoWithUid(uid);
-      if(userRes.status !== 'success') {
+      if (userRes.status !== 'success') {
         alert(userRes.msg);
         return null;
       }
@@ -49,20 +50,23 @@ export default function App() {
   return (
     <>
       <UserContext.Provider value={{ currUser, setCurrUser }}>
-        <Router>
-          <Header />
-          <Routes>
-            <Route exact path='/' element={<Navigate to="/home" replace />} />
-            <Route path="/login" element={currUser.uid ? <Navigate to="/home" replace /> : <LoginPage />} />
-            <Route path="/home" element={checkLogin(<HomePage />)} />
-            <Route path="/findInterests" element={checkLogin(<FindCirclesPage />)} />
-            <Route path="/myInterests" element={checkLogin(<MyInterestsPage />)} />
-            <Route path="/circle" element={checkLogin(<CirclePage />)} />
-            <Route path='aboutus' element={<AboutusPage />} />
-            <Route path='*' element={<NotFoundPage />} />
-          </Routes>
-        </Router >
-      </UserContext.Provider>
+        <div className='scrollElement'>
+          <Router>
+            <Header />
+              <Routes>
+                <Route exact path='/' element={<Navigate to="/home" replace />} />
+                <Route path="/login" element={currUser.uid ? <Navigate to="/home" replace /> : <LoginPage />} />
+                <Route path="/home" element={checkLogin(<HomePage />)} />
+                <Route path="/findCircles" element={checkLogin(<FindCirclesPage />)} />
+                <Route path="/myCircles" element={checkLogin(<MyCirclePage />)} />
+                <Route path="/circle" element={checkLogin(<CirclePage />)} />
+                <Route path='/aboutus' element={<AboutusPage />} />
+                <Route path='/tmp' element={<TmpApp />} />
+                <Route path='*' element={<NotFoundPage />} />
+              </Routes>
+          </Router >
+        </div>
+      </UserContext.Provider >
     </>
   );
 }

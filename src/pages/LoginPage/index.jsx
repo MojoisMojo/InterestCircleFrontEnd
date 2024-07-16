@@ -13,7 +13,7 @@
   ```
 */
 import { useState, useContext } from 'react';
-import { loginRequest, registerRequest } from '../../utils/loginAndregister'
+import { loginRequest, registerRequest } from '../../utils/loginAndregistration'
 import UserContext from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom';
 import Cookie from 'js-cookie';

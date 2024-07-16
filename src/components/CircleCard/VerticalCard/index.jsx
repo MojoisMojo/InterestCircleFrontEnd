@@ -8,7 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
-export default function CircleCard({ circle, cardWidth, onEnterCircle, onJoinOrLeaveCircle }) {
+export default function VerticalCircleCard({ circle, cardWidth, onEnterCircle, onJoinOrLeaveCircle }) {
   const [isJoined, setIsJoined] = useState(circle.isJoined);
 
   const imgHeightMin = 0.618 * cardWidth, imgHeightMax = 1.618 * cardWidth;
@@ -43,8 +43,8 @@ export default function CircleCard({ circle, cardWidth, onEnterCircle, onJoinOrL
         <CardMedia
           component="img"
           sx={{ 
-            minHeight: imgHeightMin, 
-            maxHeight: imgHeightMax, 
+            maxHeight: imgHeightMax,
+            minHeight: imgHeightMin,
             transition: 'opacity 0.3s', // 添加显示隐藏的过渡效果
           }}
           image={circle.image}
