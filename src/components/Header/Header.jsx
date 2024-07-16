@@ -58,10 +58,12 @@ export default function Header() {
                         alt="Your Company"
                       />
                     </div>
-                    <div className="ml-4 flex items-baseline text-gray-300 text-lg font-bold font-serif"> {/** name */}
+                    <div className=
+                    "ml-4 flex items-baseline \
+                    text-gray-300 text-lg font-bold font-serif"> {/** name */}
                       Interests Circle
                     </div>
-                    <div className="hidden md:block"> {/** nav button */}
+                    <div className="hidden sm:block"> {/** nav button */}
                       <div className="ml-10 flex items-baseline space-x-4 font-bold">
                         {barNavigation.map((item) => (
                           <button
@@ -81,14 +83,15 @@ export default function Header() {
                       </div>
                     </div>
                   </div>
-                  <div className="hidden md:block">
+                  <div className="hidden sm:block">
                     <div className="ml-4 flex items-center md:ml-6"> {/* PC menu buttons */}
                       <BellButton />
-                      {/* Profile dropdown */} <Menu as="div" className="relative ml-3">
+                      <Menu as="div" className="relative ml-3"> {/* Profile dropdown */} 
                         <div>
                           <MenuButton className=
                             "relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm \
-                          focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                          focus:outline-none focus:ring-2 focus:ring-white \
+                          focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="absolute -inset-1.5" />
                             <span className="sr-only">Open user menu</span>
                             <img className="h-8 w-8 rounded-full" src={currUser.avatarUrl} alt="" />
@@ -97,7 +100,8 @@ export default function Header() {
                         <MenuItems
                           transition
                           className=
-                          "absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition \
+                          "absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md \
+                          bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition \
                           focus:outline-none \
                           data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 \
                           data-[enter]:duration-100 data-[leave]:duration-75 \
@@ -126,8 +130,13 @@ export default function Header() {
                     </div>
                   </div>
 
-                  <div className="-mr-2 flex md:hidden"> {/* Mobile menu button */}
-                    <DisclosureButton className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <div className="-mr-2 flex sm:hidden"> {/* Mobile menu button */}
+                    <DisclosureButton className=
+                    "relative inline-flex items-center justify-center \
+                    rounded-md bg-gray-800 p-2 text-gray-400 \
+                    hover:bg-gray-700 hover:text-white \
+                    focus:outline-none focus:ring-2 \
+                    focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">Open main menu</span>
                       {open ? (
@@ -140,7 +149,7 @@ export default function Header() {
                 </div>
               </div>
 
-              <DisclosurePanel className="md:hidden">
+              <DisclosurePanel className="sm:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3"> {/** part 1 */}
                   {barNavigation.map((item) => (
                     <DisclosureButton
