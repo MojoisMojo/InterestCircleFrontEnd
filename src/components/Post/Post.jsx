@@ -32,7 +32,7 @@ export default function Post({ poster, post }) {
           <Grid item xs={8} container spacing={1} alignItems="center">
             <Grid item xs={2}>
               <ButtonBase sx={{ width: 50, height: 50 }}>
-                <Img alt="complex" src={poster.avatarUrl} sx={{ width: 50, height: 50, borderRadius: '50%', objectFit: 'cover' }}/>
+                <Img alt="complex" src={poster.avatarUrl} sx={{ width: 50, height: 50, borderRadius: '50%', objectFit: 'cover' }} />
               </ButtonBase>
             </Grid>
             <Grid item xs={6}>
@@ -56,17 +56,17 @@ export default function Post({ poster, post }) {
           <Grid container rowSpacing={1} columnSpacing={1}>
             {post.img.map((img) => (
               <Grid item xs={6} key={img.id}>
-                <Img alt="complex" src={img} sx={{borderRadius: '2%', objectFit:'cover'}}/>
+                <Img alt="complex" src={img} sx={{ borderRadius: '2%', objectFit: 'cover' }} />
               </Grid>
             ))}
           </Grid>
         </Grid>
         {/* Acted info of the post */}
-        <Grid item container direction="row" spacing={2} sx={{ height: '100%' }}>
-          {['Watches', 'Stars', 'Likes'].map((info, index) => (
-            <Grid item xs={4} key={index} sx={{ height: '150%' }}>
-              <ButtonBase sx={{ width: '100%', justifyContent: 'center'}} variant="h5" component="div">
-                {info}: {post.actinfo[info.toLowerCase()]}
+        <Grid item container direction="row" spacing={0.5} sx={{ height: '60px' }}>
+          {post.actinfo.map((info, index) => (
+            <Grid item xs={4} key={index} sx={{ height: '100%' }}>
+              <ButtonBase sx={{ height: '100%', width: '100%', justifyContent: 'center' }} variant="h5" component="div">
+                <Typography> {info.name}: {info.value} </Typography>
               </ButtonBase>
             </Grid>
           ))}
