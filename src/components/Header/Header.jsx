@@ -63,7 +63,7 @@ export default function Header() {
                     text-gray-300 text-lg font-bold font-serif"> {/** name */}
                       Interests Circle
                     </div>
-                    <div className="hidden sm:block"> {/** nav button */}
+                    <div className="hidden md:block"> {/** nav button */}
                       <div className="ml-10 flex items-baseline space-x-4 font-bold">
                         {barNavigation.map((item) => (
                           <button
@@ -83,7 +83,7 @@ export default function Header() {
                       </div>
                     </div>
                   </div>
-                  <div className="hidden sm:block">
+                  <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6"> {/* PC menu buttons */}
                       <BellButton />
                       <Menu as="div" className="relative ml-3"> {/* Profile dropdown */} 
@@ -130,7 +130,7 @@ export default function Header() {
                     </div>
                   </div>
 
-                  <div className="-mr-2 flex sm:hidden"> {/* Mobile menu button */}
+                  <div className="-mr-2 flex md:hidden"> {/* Mobile menu button */}
                     <DisclosureButton className=
                     "relative inline-flex items-center justify-center \
                     rounded-md bg-gray-800 p-2 text-gray-400 \
@@ -149,7 +149,7 @@ export default function Header() {
                 </div>
               </div>
 
-              <DisclosurePanel className="sm:hidden">
+              <DisclosurePanel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3"> {/** part 1 */}
                   {barNavigation.map((item) => (
                     <DisclosureButton

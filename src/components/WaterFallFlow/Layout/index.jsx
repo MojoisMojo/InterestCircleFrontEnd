@@ -46,11 +46,11 @@ export default function WaterfallFlowLayout() {
     let width = frameInfo.width || 0;
     if (width >= 1200) {
       return 6
-    } else if (width >= 950 && width < 1200) {
+    } else if (width >= 1000 && width < 1200) {
       return 5
-    } else if (width >= 780 && width < 950) {
+    } else if (width >= 840 && width < 1000) {
       return 4
-    } else if (width >= 475 && width < 780) {
+    } else if (width >= 750 && width < 840) {
       return 3
     } else {
       return 2
