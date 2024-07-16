@@ -19,7 +19,7 @@ export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
 
   function checkLogin(page) {
-    if (currUser.uid) {
+    if (currUser.uid || Cookie.get('uid')) {
       return page;
     } else {
       return <Navigate to="/login" replace />;
@@ -29,18 +29,17 @@ export default function App() {
   async function checkCookieAndSetUser() {
     let uid = Cookie.get('uid');
     if (uid) {
-      console.log('Cookie:', uid);
+      console.log('getCookie');
       let userRes = await getUserInfoWithUid(uid);
       if (userRes.status !== 'success') {
+        Cookie.remove('uid');
         alert(userRes.msg);
-        return null;
+        return;
       }
       let user = userRes.data.user;
       user.uid = uid;
       setCurrUser(user);
-      return uid;
     }
-    return null;
   };
   // 使用useEffect确保checkCookieAndSetUser仅在组件挂载时执行一次
   useEffect(() => {
