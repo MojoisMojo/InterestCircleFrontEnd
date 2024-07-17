@@ -114,7 +114,6 @@ export default function Post({ poster, post }) {
           justifyContent: 'center', // 水平居中
           height: '100vh',
           width: '100vw',
-          overflow: 'clip',
           padding: 'auto',
         }}
       >
@@ -123,9 +122,8 @@ export default function Post({ poster, post }) {
           src={selectedImg}
           sx={{
             objectFit: 'contain', // 图片填充方式，保持图片长宽比的同时填充容器
-            maxHeight: '100vh', // 最大高度限制为视口高度的 85%
-            maxWidth: '100%', // 确保图片宽度不超过容器宽度
-            overflow: 'clip',
+            height: 'calc(100vh - 64px)',
+            width: 'auto',
           }}
         />
       </Dialog>
