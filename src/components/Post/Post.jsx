@@ -14,7 +14,7 @@ const Img = styled('img')({
   maxWidth: '100%',
   maxHeight: '100%',
 });
-const FullImg = styled('img')({
+const FlexImg = styled('img')({
   margin: 'auto',
   padding: 'auto',
 });
@@ -110,19 +110,16 @@ export default function Post({ poster, post }) {
         open={imgOpen}
         onClose={handleClose}
         sx={{
-          alignItems: 'center', // 垂直居中
+          alignItems: 'center',     // 垂直居中
           justifyContent: 'center', // 水平居中
-          height: '100vh',
-          width: '100vw',
-          padding: 'auto',
         }}
       >
-        <FullImg
+        <FlexImg
           alt="img"
           src={selectedImg}
           sx={{
-            objectFit: 'contain', // 图片填充方式，保持图片长宽比的同时填充容器
-            height: 'calc(100vh - 64px)',
+            objectFit: 'contain',
+            height: 'calc(100vh - 64px)', // 不要动它！至少不要改得比他大！
             width: 'auto',
           }}
         />
