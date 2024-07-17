@@ -7,7 +7,7 @@ const static_empty_user = {
 
 const static_poster = {
   uid: '123',
-  name: 'Mojo',
+  name: '孤灯明月映落叶',
   email: 'mojo@example.com',
   avatarUrl: '/logo.svg',
 };

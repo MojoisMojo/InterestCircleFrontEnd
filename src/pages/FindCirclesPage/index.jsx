@@ -22,7 +22,7 @@ function FindCirclesPage() {
   return (
     <Grid container spacing={2} sx={{padding:'20px'}} justifyContent={"center"}>
       {circles.map(circle => (
-        <Grid item xs={6} sm={5} md={4} lg={3} xl={2.4} key={circle.id}>
+        <Grid item xs={10} sm={5.5} md={3.5} lg={3} xl={2.4} key={circle.id}>
 
           <CircleCard
             key={circle.id}
