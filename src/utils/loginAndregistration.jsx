@@ -2,6 +2,7 @@ import { static_empty_user } from "../assets/static";
 import React from "react";
 import Cookie from 'js-cookie';
 import { sleep } from "./sleep";
+import { encode,decode } from "./cookie";
 async function getUserInfoWithUid(uid) {
   /// TODO: connect to database and get user info with uid
   //let user = dbClient.getUserInfoWithUid(uid);
@@ -29,8 +30,7 @@ async function loginRequest(email, password) {
   console.log('Email:', email, 'Password:', password, "UID:", uid);
   let userRes = await getUserInfoWithUid(uid);
   if (userRes.status == 'success') {
-    Cookie.set('uid', uid, { expires: 1 });
-    console.log('Cookie:', Cookie.get('uid'));
+    Cookie.set('uid', encode(uid), { expires: 1 });
   }
   return {
     status: userRes.status, msg: userRes.msg, data:

@@ -1,10 +1,18 @@
 import React from 'react';
-import WaterfallFlowLayout from './components/WaterFallFlow/Layout';
+import { useState } from 'react';
+import Viewer from 'react-viewer';
 const TmpApp = () => {
+  const [ visible, setVisible ] = useState(false);
+
   return (
-
-      <WaterfallFlowLayout />
-
+    <div>
+      <button onClick={() => { setVisible(true); } }>{"show"}</button>
+      <Viewer
+      visible={visible}
+      onClose={() => { setVisible(false); } }
+      images={[{src: "/logo.svg", alt: "logo"}]}
+      />
+    </div>
   );
 }
 

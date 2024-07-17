@@ -42,7 +42,7 @@ export default function VerticalCircleCard({ circle, cardWidth, onEnterCircle, o
       >
         <CardMedia
           component="img"
-          sx={{ 
+          sx={{
             maxHeight: imgHeightMax,
             minHeight: imgHeightMin,
             transition: 'opacity 0.3s', // 添加显示隐藏的过渡效果
@@ -50,16 +50,36 @@ export default function VerticalCircleCard({ circle, cardWidth, onEnterCircle, o
           image={circle.image}
           alt="circle image"
         />
-        <CardContent >
-          <Typography gutterBottom variant="h6" component="div">
+        <CardContent
+          sx = {{maxHeight:120}}>
+          <Typography
+            gutterBottom variant="h6"
+            component="div"
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {circle.cname}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {circle.description}
           </Typography>
         </CardContent>
       </CardActionArea>
-
       <CardActionArea
         sx={{
           display: 'flex',

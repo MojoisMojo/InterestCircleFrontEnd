@@ -1,19 +1,22 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon,  XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useContext } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import { static_empty_user } from '../../assets/static';
 import { logoutRequest } from '../../utils/loginAndregistration';
 import BellButton from '../Button/BellButton';
+
+// 最好改成这样 https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu
+// https://mui.com/material-ui/react-menu/
 const barNavigation = [
-  { name: '个人主页', href: '/home' },
-  { name: '发现圈子', href: '/findCircles' },
-  { name: '我的圈子', href: '/myCircles' },
+  { name: '发现圈子', href: '/home' },
+  { name: '联系我们', href: '/aboutus' },
 ]
 const userNavigation = [
+  { name: '我的贴子', href: '/myPosts' },
+  { name: '我的圈子', href: '/myCircles' },
   { name: '个人设置', href: '/settings' },
-  { name: '联系我们', href: '/aboutus' },
   { name: '登出', href: '/login' },
 ]
 
@@ -59,7 +62,7 @@ export default function Header() {
                       />
                     </div>
                     <div className=
-                    "ml-4 flex items-baseline \
+                      "ml-4 flex items-baseline \
                     text-gray-300 text-lg font-bold font-serif"> {/** name */}
                       Interests Circle
                     </div>
@@ -86,7 +89,7 @@ export default function Header() {
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6"> {/* PC menu buttons */}
                       <BellButton />
-                      <Menu as="div" className="relative ml-3"> {/* Profile dropdown */} 
+                      <Menu as="div" className="relative ml-3"> {/* Profile dropdown */}
                         <div>
                           <MenuButton className=
                             "relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm \
@@ -132,7 +135,7 @@ export default function Header() {
 
                   <div className="-mr-2 flex md:hidden"> {/* Mobile menu button */}
                     <DisclosureButton className=
-                    "relative inline-flex items-center justify-center \
+                      "relative inline-flex items-center justify-center \
                     rounded-md bg-gray-800 p-2 text-gray-400 \
                     hover:bg-gray-700 hover:text-white \
                     focus:outline-none focus:ring-2 \

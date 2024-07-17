@@ -28,7 +28,6 @@ export default function LoginPage() {
     return re.test(email);
   }
 
-
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
