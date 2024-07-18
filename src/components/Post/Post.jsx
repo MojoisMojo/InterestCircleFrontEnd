@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import ImgViewer from '../ImgViewer';
+import Avatar from '@mui/material/Avatar';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -13,6 +14,15 @@ const Img = styled('img')({
   maxHeight: '100%',
 });
 
+const Int2sStr = (int) => {
+  if (int < 1e3) { return int.toString(); } // 0~999
+  if (int < 1e4) { return (int / 1e3).toFixed(1) + 'k'; } // 1.0k ~ 9.9k
+  if (int < 1e6) { return (int / 1e4).toFixed(1) + 'w'; } // 1.0w ~ 99.9w
+  if (int < 1e8) { return (int / 1e6).toFixed(1) + 'm'; } // 1.0m ~ 99.9m
+  if (int < 1e9) { return (int / 1e6).toFixed(0) + 'm'; } // 100m ~ 999m
+  if (int < 1e10) { return (int / 1e9).toFixed(1) + 'bn'; } // 1.0b ~ 9.9bn
+  return '10bn+';
+}
 export default function Post({ poster, post }) {
   const [imgOpen, setImgOpen] = React.useState(false);
   const [selectedImg, setSelectedImg] = React.useState('');
@@ -29,47 +39,51 @@ export default function Post({ poster, post }) {
       <Paper
         elevation={3}
         sx={{
-          p: 2,
+          p: 3,
+          paddingTop: 2,
           margin: 'auto',
-          maxWidth: '550px',
+          maxWidth: '750px',
           flexGrow: 0.5,
           backgroundColor: '#fff',
         }}
       >
-        <Grid container direction="column" spacing={2}>
+        <Grid container 
+          direction="column" 
+          spacing={2}
+          alignItems='center'
+        >
           {/* Poster info & post's time */}
           <Grid item container direction="row"
             alignItems="center"
-            justifyContent="flex-start"
+            justifyContent="space-between"
           >
             {/** poster's avatar */}
-            <Grid item xs={4} sm={2} md={2}
+            <Grid item
+              sx={{ width: 50 }}
               justifyContent={{ xs: 'flex-start', sm: 'center' }}
             >
               <ButtonBase sx={{
                 height: 50,
                 width: 50,
               }}>
-                <Img alt="complex" src={poster.avatarUrl}
+                <Avatar alt="Avatar" src={poster.avatarUrl}
                   sx={{
                     width: 50,
                     height: 50,
-                    borderRadius: '50%',
-                    objectFit: 'cover'
                   }} />
               </ButtonBase>
             </Grid>
-            <Grid item xs={8} sm={9.8} md={10}
+            <Grid item
+              sx={{ width: 'calc(100% - 60px)' }}
               container
               direction={{ xs: 'column', sm: 'row' }}
               spacing={2}
-              alignItems={{ xs: 'flex-end', sm: "center" }}
+              alignItems={{ xs: 'flex-start', sm: "center" }}
               justifyContent={{ xs: 'center', sm: 'space-between' }}
-              paddingTop={{ xs: '20px', sm: '16px' }}
+              paddingTop={{ xs: '10px', sm: '16px' }}
             >
               <Typography
                 variant="h5"
-                paddingLeft={{ xs: '0px', sm: '5px' }}
                 sx={{
                   fontWeight: 'bold',
                   fontSize: {
@@ -77,10 +91,11 @@ export default function Post({ poster, post }) {
                     sm: '1.2rem', // 小型设备
                     // md: '1.2rem', // 中型设备
                   },
-                  textAlign: {
-                    xs: 'end',
-                    sm: 'start',
-                  }
+                  display: '-webkit-box',
+                  WebkitLineClamp: 1,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 {poster.name}
@@ -88,6 +103,7 @@ export default function Post({ poster, post }) {
               <Typography
                 variant="overline"
                 sx={{
+                  lineHeight: '1',
                   fontSize: {
                     xs: '0.8rem', // 小屏幕
                     sm: '1rem', // 小型设备
@@ -97,7 +113,6 @@ export default function Post({ poster, post }) {
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  textAlign: 'right',
                 }}
               >
                 {post.time}
@@ -105,9 +120,12 @@ export default function Post({ poster, post }) {
             </Grid>
           </Grid>
           {/* Post's content */}
-          <Grid item container>
+          <Grid item container 
+            sx = {{width:{xs:'100%', sm:'80%'}}}
+            paddingTop='8px !important'
+          >
             <Typography
-              variant="h5"
+              variant="body2"
               component="div"
               sx={{
                 width: '100%',
@@ -122,9 +140,9 @@ export default function Post({ poster, post }) {
               {post.content}
             </Typography>
             {/* Post's images */}
-            <Grid item container rowSpacing={1} columnSpacing={1}>
+            <Grid item container rowSpacing={1} columnSpacing={1} paddingTop='8px !important'>
               {post.img.map((img) => (
-                <Grid item xs={6} key={img.id} sx={{ display: 'flex' }}>
+                <Grid item xs={4} key={img.id} sx={{ display: 'flex' }}>
                   <ButtonBase
                     sx={{
                       width: '100%', flex: '1 1 auto',
@@ -149,17 +167,25 @@ export default function Post({ poster, post }) {
             {/* Post's images dialog */}
           </Grid>
           {/* Acted info of the post */}
-          <Grid item container direction="row" spacing={0.5} sx={{ height: '60px' }}>
+          <Grid item container 
+            direction="row" 
+            spacing={0.5} 
+            sx={{ height: '60px' }}
+            justifyContent='center'
+          >
             {post.actinfo.map((info, index) => (
-              <Grid item xs={4} key={index} sx={{ height: '100%' }}>
+              <Grid container item xs={3} key={index} sx={{ height: '100%' }}>
                 <ButtonBase
                   sx={{
                     height: '100%', width: '100%',
                     justifyContent: 'center'
                   }}
-                  variant="h5" component="div"
                 >
-                  <Typography> {info.name}: {info.value} </Typography>
+                  <Typography
+
+                  >
+                    {info.name}:{Int2sStr(info.value)}
+                  </Typography>
                 </ButtonBase>
               </Grid>
             ))}
