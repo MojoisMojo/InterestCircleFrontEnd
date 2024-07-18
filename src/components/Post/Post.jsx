@@ -6,21 +6,29 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import ImgViewer from '../ImgViewer';
 import Avatar from '@mui/material/Avatar';
+import { Box } from '@mui/material';
 
 const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
+  // margin: 'auto',
+  // display: 'block',
+  // maxWidth: '100%',
+  // maxHeight: '100%',
 });
 
 const Int2sStr = (int) => {
   if (int < 1e3) { return int.toString(); } // 0~999
-  if (int < 1e4) { return (int / 1e3).toFixed(1) + 'k'; } // 1.0k ~ 9.9k
-  if (int < 1e6) { return (int / 1e4).toFixed(1) + 'w'; } // 1.0w ~ 99.9w
-  if (int < 1e8) { return (int / 1e6).toFixed(1) + 'm'; } // 1.0m ~ 99.9m
-  if (int < 1e9) { return (int / 1e6).toFixed(0) + 'm'; } // 100m ~ 999m
-  if (int < 1e10) { return (int / 1e9).toFixed(1) + 'bn'; } // 1.0b ~ 9.9bn
+  let table = [
+    [1e4, 1e3, 1, 'k'], // if (int < 1e4) { return (int / 1e3).toFixed(1) + 'k'; } // 1.0k ~ 9.9k
+    [1e6, 1e4, 1, 'w'], // if (int < 1e6) { return (int / 1e4).toFixed(1) + 'w'; } // 1.0w ~ 99.9w
+    [1e8, 1e6, 1, 'm'], // if (int < 1e8) { return (int / 1e6).toFixed(1) + 'm'; } // 1.0m ~ 99.9m
+    [1e9, 1e6, 0, 'm'], // if (int < 1e9) { return (int / 1e6).toFixed(0) + 'm'; } // 100m ~ 999m
+    [1e10, 1e9, 1, 'bn'], // if (int < 1e10) { return (int / 1e9).toFixed(1) + 'bn'; } // 1.0b ~ 9.9bn
+  ]
+  for (let i = 0; i < table.length; i++) {
+    if (int < table[i][0]) {
+      return (int / table[i][1]).toFixed(table[i][2]) + table[i][3];
+    }
+  }
   return '10bn+';
 }
 export default function Post({ poster, post }) {
@@ -47,8 +55,8 @@ export default function Post({ poster, post }) {
           backgroundColor: '#fff',
         }}
       >
-        <Grid container 
-          direction="column" 
+        <Grid container
+          direction="column"
           spacing={2}
           alignItems='center'
         >
@@ -76,11 +84,11 @@ export default function Post({ poster, post }) {
             <Grid item
               sx={{ width: 'calc(100% - 60px)' }}
               container
-              direction={{ xs: 'column', sm: 'row' }}
+              direction={{ xs: 'column' }}
               spacing={2}
-              alignItems={{ xs: 'flex-start', sm: "center" }}
-              justifyContent={{ xs: 'center', sm: 'space-between' }}
-              paddingTop={{ xs: '10px', sm: '16px' }}
+              alignItems='flex-start'
+              justifyContent='center'
+              paddingTop={{ xs: '10px', sm: '14px' }}
             >
               <Typography
                 variant="h5"
@@ -103,10 +111,10 @@ export default function Post({ poster, post }) {
               <Typography
                 variant="overline"
                 sx={{
-                  lineHeight: '1',
+                  lineHeight: '1.2',
                   fontSize: {
                     xs: '0.8rem', // 小屏幕
-                    sm: '1rem', // 小型设备
+                    sm: '0.9rem', // 小型设备
                   },
                   display: '-webkit-box',
                   WebkitLineClamp: 1,
@@ -120,8 +128,8 @@ export default function Post({ poster, post }) {
             </Grid>
           </Grid>
           {/* Post's content */}
-          <Grid item container 
-            sx = {{width:{xs:'100%', sm:'80%'}}}
+          <Grid item container
+            sx={{ width: { xs: '100%', sm: '80%' } }}
             paddingTop='8px !important'
           >
             <Typography
@@ -140,14 +148,23 @@ export default function Post({ poster, post }) {
               {post.content}
             </Typography>
             {/* Post's images */}
-            <Grid item container rowSpacing={1} columnSpacing={1} paddingTop='8px !important'>
+            <Grid item container
+              rowSpacing={1}
+              columnSpacing={1}
+              paddingTop='8px !important'
+              sx={{ width: '100%' }}
+            >
               {post.img.map((img) => (
-                <Grid item xs={4} key={img.id} sx={{ display: 'flex' }}>
+                <Box item
+                  key={img.id}
+                  sx={{
+                    display: 'flex',
+                    width: { xs: '48% !important', md: '33.33% !important' },
+                  }}
+                >
                   <ButtonBase
                     sx={{
-                      width: '100%', flex: '1 1 auto',
-                      objectFit: 'cover',
-                      overflow: 'hidden',
+                      width: '100%',
                     }}
                     onClick={() => handleClickOpenImg(img)}
                   >
@@ -155,26 +172,28 @@ export default function Post({ poster, post }) {
                       alt="img"
                       src={img}
                       sx={{
-                        width: '100%',
+                        width: 'auto',
+                        height: 'auto',
                         borderRadius: '2%',
-
+                        objectFit: 'fill',
+                        overflow: 'hidden',
                       }}
                     />
                   </ButtonBase>
-                </Grid>
+                </Box>
               ))}
             </Grid>
             {/* Post's images dialog */}
           </Grid>
           {/* Acted info of the post */}
-          <Grid item container 
-            direction="row" 
-            spacing={0.5} 
+          <Grid item container
+            direction="row"
+            spacing={0.5}
             sx={{ height: '60px' }}
             justifyContent='center'
           >
             {post.actinfo.map((info, index) => (
-              <Grid container item xs={3} key={index} sx={{ height: '100%' }}>
+              <Grid container item xs={4} key={index} sx={{ height: '100%' }}>
                 <ButtonBase
                   sx={{
                     height: '100%', width: '100%',

@@ -61,7 +61,6 @@ const static_post_3 = {
     '/logo.svg',
     '/../src/assets/img/gameCirclePic.png',
     '/logo.svg',
-    '/../src/assets/img/FamilyCirclePic.png',
     '/../src/assets/img/gameCirclePic.png',
     '/../src/assets/img/FamilyCirclePic.png',
   ],
