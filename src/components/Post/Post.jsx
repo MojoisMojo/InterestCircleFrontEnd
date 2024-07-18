@@ -43,7 +43,8 @@ export default function Post({ poster, post }) {
             justifyContent="flex-start"
           >
             {/** poster's avatar */}
-            <Grid item xs={4} sm={2} justifyContent={{ xs: 'flex-start', sm: 'center' }}
+            <Grid item xs={4} sm={2} md={2}
+              justifyContent={{ xs: 'flex-start', sm: 'center' }}
             >
               <ButtonBase sx={{
                 height: 50,
@@ -58,7 +59,7 @@ export default function Post({ poster, post }) {
                   }} />
               </ButtonBase>
             </Grid>
-            <Grid item xs={8} sm={10}
+            <Grid item xs={8} sm={9.8} md={10}
               container
               direction={{ xs: 'column', sm: 'row' }}
               spacing={2}
@@ -68,6 +69,7 @@ export default function Post({ poster, post }) {
             >
               <Typography
                 variant="h5"
+                paddingLeft='5px'
                 sx={{
                   fontWeight: 'bold',
                   fontSize: {
@@ -111,8 +113,8 @@ export default function Post({ poster, post }) {
               sx={{
                 fontFamily: 'monospace',
                 fontSize: {
-                  xs: '0.9rem', // 小屏幕
-                  sm: '1rem', // 小型设备
+                  xs: '1rem', // 小屏幕
+                  sm: '1.1rem', // 小型设备
                   md: '1.2rem', // 中型设备
                 },
               }}
@@ -164,7 +166,7 @@ export default function Post({ poster, post }) {
           </Grid>
         </Grid>
       </Paper>
-      <ImgViewer 
+      <ImgViewer
         open={imgOpen}
         img={selectedImg}
         onClose={handleClose}
