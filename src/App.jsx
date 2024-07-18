@@ -15,7 +15,19 @@ import Cookie from 'js-cookie';
 import { getUserInfoWithUid } from './utils/loginAndregistration';
 import TmpApp from './tmp';
 import { checkCookie } from './utils/cookie';
-
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0, // 0
+      sm: 600, // 600
+      md: 768, // 900
+      lg: 1280, // 1280
+      xl: 1920, // 1920
+    },
+  },
+});
 export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
 
@@ -49,7 +61,7 @@ export default function App() {
   }, []); // 依赖数组为空，意味着仅在组件挂载时执行
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <UserContext.Provider value={{ currUser, setCurrUser }}>
         <div className='scrollElement'>
           <Router>
@@ -58,7 +70,7 @@ export default function App() {
               <Route exact path='/' element={<Navigate to="/home" replace />} />
               <Route path="/login" element={currUser.uid ? <Navigate to="/home" replace /> : <LoginPage />} />
               <Route path="/myPosts" element={checkLogin(<MyPostsPage />)} />
-              <Route path="findCircles" element={<Navigate to="/home" replace/>}/>
+              <Route path="findCircles" element={<Navigate to="/home" replace />} />
               <Route path="/home" element={checkLogin(<FindCirclesPage />)} />
               <Route path="/myCircles" element={checkLogin(<MyCirclePage />)} />
               <Route path="/circle" element={checkLogin(<CirclePage />)} />
@@ -69,7 +81,7 @@ export default function App() {
           </Router >
         </div>
       </UserContext.Provider >
-    </>
+    </ThemeProvider>
   );
 }
 

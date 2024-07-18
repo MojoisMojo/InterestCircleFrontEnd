@@ -1,12 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
-import CssBaseline from '@mui/material/CssBaseline';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
+import ImgViewer from '../ImgViewer';
 
 const Img = styled('img')({
   margin: 'auto',
@@ -14,11 +12,6 @@ const Img = styled('img')({
   maxWidth: '100%',
   maxHeight: '100%',
 });
-const FlexImg = styled('img')({
-  margin: 'auto',
-  padding: 'auto',
-});
-
 
 export default function Post({ poster, post }) {
   const [imgOpen, setImgOpen] = React.useState(false);
@@ -36,66 +29,73 @@ export default function Post({ poster, post }) {
       <Paper
         elevation={3}
         sx={{
-          p: 1,
+          p: 2,
           margin: 'auto',
           maxWidth: '550px',
-          flexGrow: 1,
+          flexGrow: 0.5,
           backgroundColor: '#fff',
         }}
       >
         <Grid container direction="column" spacing={2}>
           {/* Poster info & post's time */}
-          <Grid item container direction="row" alignItems="center" justifyContent="space-between">
-            <Grid item xs={7} md={5}
-              container direction="row"
-              spacing={2}
-              alignItems="center"
-              justifyContent='flex-start'
+          <Grid item container direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+          >
+            {/** poster's avatar */}
+            <Grid item xs={4} sm={2} justifyContent={{ xs: 'flex-start', sm: 'center' }}
             >
-              <Grid item justifyContent='flex-start'
+              <ButtonBase sx={{
+                height: 50,
+                width: 50,
+              }}>
+                <Img alt="complex" src={poster.avatarUrl}
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: '50%',
+                    objectFit: 'cover'
+                  }} />
+              </ButtonBase>
+            </Grid>
+            <Grid item xs={8} sm={10}
+              container
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              alignItems={{ xs: 'flex-end', sm: "center" }}
+              justifyContent={{ xs: 'center', sm: 'space-between' }}
+              paddingTop={{ xs: '20px', sm: '16px' }}
+            >
+              <Typography
+                variant="h5"
                 sx={{
-                  width: '60px',
+                  fontWeight: 'bold',
+                  fontSize: {
+                    xs: '1rem', // 小屏幕
+                    sm: '1.2rem', // 小型设备
+                    // md: '1.2rem', // 中型设备
+                  },
+                  textAlign: {
+                    xs: 'end',
+                    sm: 'start',
+                  }
                 }}
               >
-                <ButtonBase sx={{
-                  height: 50,
-                  width: 50,
-                }}>
-                  <Img alt="complex" src={poster.avatarUrl}
-                    sx={{
-                      width: 50,
-                      height: 'auto',
-                      borderRadius: '50%',
-                      objectFit: 'cover'
-                    }} />
-                </ButtonBase>
-              </Grid>
-              <Grid item >
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: 'bold',
-                    fontSize: {
-                      xs: '0.8rem', // 小屏幕
-                      sm: '1rem', // 小型设备
-                      md: '1.2rem', // 中型设备
-                    }
-                  }}
-                >
-                  {poster.name}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item xs={0} md={4} />
-            <Grid item xs={5} md={3} justifyContent="flex-end" sx={{ textAlign: 'right' }}>
+                {poster.name}
+              </Typography>
               <Typography
                 variant="overline"
                 sx={{
+                  fontSize: {
+                    xs: '0.8rem', // 小屏幕
+                    sm: '1rem', // 小型设备
+                  },
                   display: '-webkit-box',
                   WebkitLineClamp: 1,
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
+                  textAlign: 'right',
                 }}
               >
                 {post.time}
@@ -108,7 +108,14 @@ export default function Post({ poster, post }) {
               gutterBottom
               variant="subtitle1"
               component="div"
-              sx={{ fontFamily: 'monospace' }}
+              sx={{
+                fontFamily: 'monospace',
+                fontSize: {
+                  xs: '0.9rem', // 小屏幕
+                  sm: '1rem', // 小型设备
+                  md: '1.2rem', // 中型设备
+                },
+              }}
             >
               {post.content}
             </Typography>
@@ -157,24 +164,11 @@ export default function Post({ poster, post }) {
           </Grid>
         </Grid>
       </Paper>
-      <Dialog
+      <ImgViewer 
         open={imgOpen}
+        img={selectedImg}
         onClose={handleClose}
-        sx={{
-          alignItems: 'center',     // 垂直居中
-          justifyContent: 'center', // 水平居中
-        }}
-      >
-        <FlexImg
-          alt="img"
-          src={selectedImg}
-          sx={{
-            objectFit: 'contain',
-            maxHeight: 'calc(100vh - 64px)', // 不要动它！至少不要改得比他大！
-            width: 'auto',
-          }}
-        />
-      </Dialog>
+      />
     </>
   );
 }

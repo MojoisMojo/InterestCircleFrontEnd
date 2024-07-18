@@ -15,7 +15,7 @@ const static_post = {
   pid: '123',
   time: '2021-09-01',
   content: 'This is a post content',
-  img: ['/logo.svg', '/../src/assets/img/FamilyCirclePic.png', '../src/assets/img/gameCirclePic.png'],
+  img: ['/logo.svg', '/../src/assets/img/FamilyCirclePic.png', '/../src/assets/img/gameCirclePic.png'],
   actinfo: [
     { name: 'Likes', value: 30 },
     { name: 'Stars', value: 20 },
