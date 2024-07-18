@@ -69,7 +69,7 @@ export default function Post({ poster, post }) {
             >
               <Typography
                 variant="h5"
-                paddingLeft='5px'
+                paddingLeft={{ xs: '0px', sm: '5px' }}
                 sx={{
                   fontWeight: 'bold',
                   fontSize: {
@@ -105,24 +105,24 @@ export default function Post({ poster, post }) {
             </Grid>
           </Grid>
           {/* Post's content */}
-          <Grid item xs={12}>
+          <Grid item container>
             <Typography
-              gutterBottom
-              variant="subtitle1"
+              variant="h5"
               component="div"
               sx={{
+                width: '100%',
                 fontFamily: 'monospace',
                 fontSize: {
                   xs: '1rem', // 小屏幕
                   sm: '1.1rem', // 小型设备
-                  md: '1.2rem', // 中型设备
+                  lg: '1.2rem', // 大型设备
                 },
               }}
             >
               {post.content}
             </Typography>
             {/* Post's images */}
-            <Grid container rowSpacing={1} columnSpacing={1}>
+            <Grid item container rowSpacing={1} columnSpacing={1}>
               {post.img.map((img) => (
                 <Grid item xs={6} key={img.id} sx={{ display: 'flex' }}>
                   <ButtonBase
