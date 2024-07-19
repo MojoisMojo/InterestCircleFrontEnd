@@ -14,13 +14,13 @@ export default function ImgViewer({ open, img, onClose }) {
       <IconButton
         sx={{
           display: open ? 'flex' : 'none',
-          position: 'absolute',
+          position: 'fixed',
           top: 8,
           left: 8,
           zIndex: 1500,
-          backgroundColor: 'rgba(206, 204, 204, 0.8)',
+          backgroundColor: 'darkgrey',
           '&:hover': {
-            backgroundColor: 'darkgrey', // 鼠标悬浮时的背景颜色
+            backgroundColor: 'rgba(206, 204, 204, 0.8)',
           },
         }}
         aria-label="close"

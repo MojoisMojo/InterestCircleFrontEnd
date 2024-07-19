@@ -1,17 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
-import Viewer from 'react-viewer';
+import SquareContainer from './components/SquareContainer';
 const TmpApp = () => {
-  const [ visible, setVisible ] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   return (
     <div>
-      <button onClick={() => { setVisible(true); } }>{"show"}</button>
-      <Viewer
-      visible={visible}
-      onClose={() => { setVisible(false); } }
-      images={[{src: "/logo.svg", alt: "logo"}]}
-      />
+      <SquareContainer
+      >
+        <img
+          src='/src/assets/img/gameCirclePic.png'
+          alt='gameCirclePic'
+          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+        />
+      </SquareContainer>
     </div>
   );
 }

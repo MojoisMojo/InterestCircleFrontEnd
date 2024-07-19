@@ -7,6 +7,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import ImgViewer from '../ImgViewer';
 import Avatar from '@mui/material/Avatar';
 import { Box } from '@mui/material';
+import SquareContainer from '../SquareContainer';
 
 const Img = styled('img')({
   // margin: 'auto',
@@ -129,7 +130,7 @@ export default function Post({ poster, post }) {
           </Grid>
           {/* Post's content */}
           <Grid item container
-            sx={{ width: { xs: '100%', sm: '80%' } }}
+            sx={{ width: { xs: '100%', sm: '90%', md:'80%' } }}
             paddingTop='8px !important'
           >
             <Typography
@@ -155,32 +156,46 @@ export default function Post({ poster, post }) {
               sx={{ width: '100%' }}
             >
               {post.img.map((img) => (
-                <Box item
-                  key={img.id}
-                  sx={{
-                    display: 'flex',
-                    width: { xs: '48% !important', md: '33.33% !important' },
-                  }}
+                <Grid item
+                  xs={6}
+                  sm={4}
+                  sx={{ borderRadius: '2%', }}
                 >
-                  <ButtonBase
+                  <SquareContainer
+                    item
+                    key={img.id}
                     sx={{
-                      width: '100%',
+                      borderRadius: '2%',
                     }}
-                    onClick={() => handleClickOpenImg(img)}
+
                   >
-                    <Img
+                    <ButtonBase
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '2%',
+                      }}
+                      onClick={() => handleClickOpenImg(img)}
+                    >
+                      {/* <Img
                       alt="img"
                       src={img}
                       sx={{
-                        width: 'auto',
+                        width: '100%',
                         height: 'auto',
                         borderRadius: '2%',
-                        objectFit: 'fill',
+                        objectFit: 'cotain',
                         overflow: 'hidden',
                       }}
-                    />
-                  </ButtonBase>
-                </Box>
+                    /> */}
+                      <img
+                        src={img}
+                        alt="img"
+                        style={{ borderRadius: '2%', objectFit: 'cover', width: '100%', height: '100%' }}
+                      />
+                    </ButtonBase>
+                  </SquareContainer>
+                </Grid>
               ))}
             </Grid>
             {/* Post's images dialog */}
