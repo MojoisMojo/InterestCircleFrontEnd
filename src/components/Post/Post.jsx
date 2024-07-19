@@ -2,12 +2,25 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import ButtonBase from '@mui/material/ButtonBase';
 import ImgViewer from '../ImgViewer';
-import Avatar from '@mui/material/Avatar';
 import { Box } from '@mui/material';
 import SquareContainer from '../SquareContainer';
+
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { red } from '@mui/material/colors';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ButtonBase from '@mui/material/ButtonBase';
 
 const Img = styled('img')({
   // margin: 'auto',
@@ -45,13 +58,13 @@ export default function Post({ poster, post }) {
   };
   return (
     <>
-      <Paper
+      <Card
         elevation={3}
         sx={{
           p: 3,
           paddingTop: 2,
           margin: 'auto',
-          maxWidth: '750px',
+          maxWidth: 750,
           flexGrow: 0.5,
           backgroundColor: '#fff',
         }}
@@ -74,6 +87,7 @@ export default function Post({ poster, post }) {
               <ButtonBase sx={{
                 height: 50,
                 width: 50,
+                borderRadius: '50%',
               }}>
                 <Avatar alt="Avatar" src={poster.avatarUrl}
                   sx={{
@@ -89,16 +103,16 @@ export default function Post({ poster, post }) {
               spacing={2}
               alignItems='flex-start'
               justifyContent='center'
-              paddingTop={{ xs: '10px', sm: '14px' }}
+              paddingTop={{ xs: '10px', sm: '12px' }}
             >
               <Typography
                 variant="h5"
                 sx={{
                   fontWeight: 'bold',
                   fontSize: {
-                    xs: '1rem', // 小屏幕
-                    sm: '1.2rem', // 小型设备
-                    // md: '1.2rem', // 中型设备
+                    xs: '1.1rem', // 小屏幕
+                    sm: '1.15rem', // 小型设备
+                    md: '1.2rem', // 中型设备
                   },
                   display: '-webkit-box',
                   WebkitLineClamp: 1,
@@ -110,13 +124,16 @@ export default function Post({ poster, post }) {
                 {poster.name}
               </Typography>
               <Typography
-                variant="overline"
+                variant="body2"
                 sx={{
-                  lineHeight: '1.2',
+                  lineHeight: '1.43',
                   fontSize: {
                     xs: '0.8rem', // 小屏幕
-                    sm: '0.9rem', // 小型设备
+                    sm: '0.85rem', // 小型设备
+                    md: '0.875rem'
                   },
+                  fontWeight: 400,
+                  color:'rgba(0, 0, 0, 0.6)',
                   display: '-webkit-box',
                   WebkitLineClamp: 1,
                   WebkitBoxOrient: 'vertical',
@@ -130,7 +147,7 @@ export default function Post({ poster, post }) {
           </Grid>
           {/* Post's content */}
           <Grid item container
-            sx={{ width: { xs: '100%', sm: '90%', md:'80%' } }}
+            sx={{ width: { xs: '100%', sm: '90%', md: '80%' } }}
             paddingTop='8px !important'
           >
             <Typography
@@ -150,8 +167,8 @@ export default function Post({ poster, post }) {
             </Typography>
             {/* Post's images */}
             <Grid item container
-              rowSpacing={1}
-              columnSpacing={1}
+              rowSpacing={{ xs: 1, md: 1.5 }}
+              columnSpacing={{ xs: 1, md: 1.5 }}
               paddingTop='8px !important'
               sx={{ width: '100%' }}
             >
@@ -159,21 +176,16 @@ export default function Post({ poster, post }) {
                 <Grid item
                   xs={6}
                   sm={4}
-                  sx={{ borderRadius: '2%', }}
                 >
                   <SquareContainer
                     item
                     key={img.id}
-                    sx={{
-                      borderRadius: '2%',
-                    }}
-
                   >
                     <ButtonBase
                       sx={{
                         width: '100%',
                         height: '100%',
-                        borderRadius: '2%',
+                        borderRadius: { xs: '5px', sm: '10px' },
                       }}
                       onClick={() => handleClickOpenImg(img)}
                     >
@@ -183,7 +195,7 @@ export default function Post({ poster, post }) {
                       sx={{
                         width: '100%',
                         height: 'auto',
-                        borderRadius: '2%',
+                        borderRadius: 'inherit',
                         objectFit: 'cotain',
                         overflow: 'hidden',
                       }}
@@ -191,7 +203,7 @@ export default function Post({ poster, post }) {
                       <img
                         src={img}
                         alt="img"
-                        style={{ borderRadius: '2%', objectFit: 'cover', width: '100%', height: '100%' }}
+                        style={{ borderRadius: 'inherit', objectFit: 'cover', width: '100%', height: '100%' }}
                       />
                     </ButtonBase>
                   </SquareContainer>
@@ -215,17 +227,15 @@ export default function Post({ poster, post }) {
                     justifyContent: 'center'
                   }}
                 >
-                  <Typography
-
-                  >
-                    {info.name}:{IntShown(info.value)}
+                  <Typography>
+                    {info.name}: {IntShown(info.value)}
                   </Typography>
                 </ButtonBase>
               </Grid>
             ))}
           </Grid>
         </Grid>
-      </Paper>
+      </Card>
       <ImgViewer
         open={imgOpen}
         img={selectedImg}

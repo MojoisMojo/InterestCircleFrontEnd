@@ -15,8 +15,8 @@ export default function ImgViewer({ open, img, onClose }) {
         sx={{
           display: open ? 'flex' : 'none',
           position: 'fixed',
-          top: 8,
-          left: 8,
+          top: 20,
+          right: 20,
           zIndex: 1500,
           backgroundColor: 'darkgrey',
           '&:hover': {

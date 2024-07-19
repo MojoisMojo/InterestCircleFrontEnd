@@ -16,7 +16,7 @@ const barNavigation = [
 const userNavigation = [
   { name: '我的贴子', href: '/myPosts' },
   { name: '我的圈子', href: '/myCircles' },
-  { name: '个人设置', href: '/settings' },
+  { name: '个人设置', href: '/mySettings' },
   { name: '登出', href: '/login' },
 ]
 

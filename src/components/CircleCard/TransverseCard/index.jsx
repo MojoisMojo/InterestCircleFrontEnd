@@ -9,12 +9,11 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { Grid } from '@mui/material';
 
-export default function TransverseCircleCard({ circle, cardHeight, onEnterCircle, onJoinOrLeaveCircle }) {
+export default function TransverseCircleCard({ circle, cardWidth, onEnterCircle, onJoinOrLeaveCircle }) {
   const [isJoined, setIsJoined] = useState(circle.isJoined);
-
-  const cardWidthMin = 1.618 * cardHeight, cardWidthMax = 3 * 1.618 * cardHeight;
-  const cardWidth = cardHeight * 1.618 * 2;
-  const imgWidth = cardHeight * 0.85, imgHeight = cardHeight * 0.85;
+  const cardHeight = 'calc(0.85 * ' + cardWidth + ')';
+  const  imgWidth = 'calc(0.6 * ' + cardWidth + ')',
+        imgHeight = 'calc(0.6 * ' + cardWidth + ')';
   const handleJoinOrLeaveCircle = (event) => {
     console.log('Joins circle:', circle.cname);
     isJoined ? setIsJoined(false) : setIsJoined(true);
@@ -30,7 +29,6 @@ export default function TransverseCircleCard({ circle, cardHeight, onEnterCircle
   return (
     <Card elevation={3}
       sx={{
-        minWidth: cardWidthMin, maxWidth: cardWidthMax,
         width: cardWidth,
         height: cardHeight,
         borderRadius: "10px",
@@ -51,18 +49,40 @@ export default function TransverseCircleCard({ circle, cardHeight, onEnterCircle
             component="img"
             sx={{
               width: imgWidth,
+              maxWidth: imgWidth,
               borderRadius: '5px',
               height: "100%",
+              overflow: 'hidden',
             }}
             image={circle.image}
             alt="circle image"
           />
         </Grid>
         <CardContent >
-          <Typography gutterBottom variant="h6" component="div">
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}>
             {circle.cname}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {circle.description}
           </Typography>
         </CardContent>
