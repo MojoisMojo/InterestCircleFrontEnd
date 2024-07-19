@@ -12,9 +12,9 @@ import { useState, useEffect } from 'react';
 import { static_empty_user } from './assets/static'
 import UserContext from './context/UserContext'
 import Cookie from 'js-cookie';
-import { getUserInfoWithUid } from './utils/loginAndregistration';
+import { getUserInfoWithUid } from './server/loginAndregistration';
 import TmpApp from './tmp';
-import { checkCookie } from './utils/cookie';
+import { getCookie } from './utils/cookie';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 const theme = createTheme({
@@ -32,7 +32,7 @@ export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
 
   function checkLogin(page) {
-    if (currUser.uid || Cookie.get('uid')) {
+    if (currUser.uid || getCookie() != null) {
       return page;
     } else {
       return <Navigate to="/login" replace />;
@@ -40,7 +40,7 @@ export default function App() {
   }
 
   async function checkCookieAndSetUser() {
-    let uid = await checkCookie();
+    let uid = await getCookie();
     if (uid) {
       console.log('getCookie:', uid);
       let userRes = await getUserInfoWithUid(uid);

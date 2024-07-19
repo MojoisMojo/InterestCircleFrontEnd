@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import { static_empty_user } from '../../assets/static';
-import { logoutRequest } from '../../utils/loginAndregistration';
+import { logoutRequest } from '../../server/loginAndregistration';
 import BellButton from '../Button/BellButton';
 
 // 最好改成这样 https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu

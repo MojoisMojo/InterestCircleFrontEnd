@@ -15,14 +15,14 @@ const Img = styled('img')({
   // maxHeight: '100%',
 });
 
-const Int2sStr = (int) => {
+const IntShown = (int) => {
   if (int < 1e3) { return int.toString(); } // 0~999
   let table = [
-    [1e4, 1e3, 1, 'k'], // if (int < 1e4) { return (int / 1e3).toFixed(1) + 'k'; } // 1.0k ~ 9.9k
-    [1e6, 1e4, 1, 'w'], // if (int < 1e6) { return (int / 1e4).toFixed(1) + 'w'; } // 1.0w ~ 99.9w
-    [1e8, 1e6, 1, 'm'], // if (int < 1e8) { return (int / 1e6).toFixed(1) + 'm'; } // 1.0m ~ 99.9m
-    [1e9, 1e6, 0, 'm'], // if (int < 1e9) { return (int / 1e6).toFixed(0) + 'm'; } // 100m ~ 999m
-    [1e10, 1e9, 1, 'bn'], // if (int < 1e10) { return (int / 1e9).toFixed(1) + 'bn'; } // 1.0b ~ 9.9bn
+    [1e4, 1e3, 1, 'k'],   // 1.0k ~ 9.9k
+    [1e6, 1e4, 1, 'w'],   // 1.0w ~ 99.9w
+    [1e8, 1e6, 1, 'm'],   // 1.0m ~ 99.9m
+    [1e9, 1e6, 0, 'm'],   // 100m ~ 999m
+    [1e10, 1e9, 1, 'bn'],  // 1.0b ~ 9.9bn
   ]
   for (let i = 0; i < table.length; i++) {
     if (int < table[i][0]) {
@@ -203,7 +203,7 @@ export default function Post({ poster, post }) {
                   <Typography
 
                   >
-                    {info.name}:{Int2sStr(info.value)}
+                    {info.name}:{IntShown(info.value)}
                   </Typography>
                 </ButtonBase>
               </Grid>

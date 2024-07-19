@@ -7,7 +7,6 @@ import UserContext from '../../context/UserContext';
 import { sleep } from '../../utils/sleep';
 import { Grid } from '@mui/material';
 function FindCirclesPage() {
-  // Assuming you have an array of circle data
   const navigate = useNavigate();
   const circles = static_circles;
   const { currUser, setCurrUser } = useContext(UserContext);

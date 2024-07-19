@@ -1,6 +1,6 @@
 import Cookie from 'js-cookie';
 function encode(value) {
-  if(value == null){
+  if (value == null) {
     return null;
   }
   return value.split('').map(char => {
@@ -11,15 +11,15 @@ function encode(value) {
 }
 
 function decode(value) {
-  if(value == null){
+  if (value == null) {
     return null;
   }
-  
+
 };
 
-async function checkCookie() {
+async function getCookie() {
   let uid = Cookie.get('uid');
   return decode(uid);
 }
 
-export { encode, decode, checkCookie};
+export { encode, decode, getCookie };
