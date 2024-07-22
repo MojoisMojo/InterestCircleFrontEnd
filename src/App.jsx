@@ -1,22 +1,37 @@
+// react
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-import MyPostsPage from './pages/MyPostsPage'
+import { useState, useEffect } from 'react';
+
+// mui
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+
+// context
+import UserContext from './context/UserContext'
+
+// statics
+import { static_empty_user } from './assets/static'
+
+// components
 import Header from './components/Header/Header';
+
+// pages
+import MyPostsPage from './pages/MyPostsPage'
 import LoginPage from './pages/LoginPage/index';
 import FindCirclesPage from './pages/FindCirclesPage/index';
 import MyCirclePage from './pages/MyCirclePage/index';
 import NotFoundPage from './pages/ErrorPages/NotFoundPage';
 import CirclePage from './pages/CirclePage';
 import AboutusPage from './pages/AboutUsPage';
-import { useState, useEffect } from 'react';
-import { static_empty_user } from './assets/static'
-import UserContext from './context/UserContext'
+import MySettingsPage from './pages/MySettingsPage';
+
+// utils
 import Cookie from 'js-cookie';
-import { getUserInfoWithUid } from './server/loginAndregistration';
-import TmpApp from './tmp';
 import { getCookie } from './utils/cookie';
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@mui/material/styles';
+import { getUserInfoWithUid } from './server/loginAndregistration';
+
+
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -28,11 +43,14 @@ const theme = createTheme({
     },
   },
 });
+
+import TmpApp from './tmp';
+
 export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
 
   function checkLogin(page) {
-    if (currUser.uid || getCookie() != null) {
+    if ((!!currUser.uid) || (!!getCookie())) {
       return page;
     } else {
       return <Navigate to="/login" replace />;
@@ -41,8 +59,7 @@ export default function App() {
 
   async function checkCookieAndSetUser() {
     let uid = await getCookie();
-    if (uid) {
-      console.log('getCookie:', uid);
+    if (!!uid) {
       let userRes = await getUserInfoWithUid(uid);
       if (userRes.status !== 'success') {
         Cookie.remove('uid');
@@ -74,6 +91,7 @@ export default function App() {
               <Route path="/home" element={checkLogin(<FindCirclesPage />)} />
               <Route path="/myCircles" element={checkLogin(<MyCirclePage />)} />
               <Route path="/circle" element={checkLogin(<CirclePage />)} />
+              <Route path="/mySettings" element={checkLogin(<MySettingsPage />)} />
               <Route path='/aboutus' element={<AboutusPage />} />
               <Route path='/tmp' element={<TmpApp />} />
               <Route path='*' element={<NotFoundPage />} />
