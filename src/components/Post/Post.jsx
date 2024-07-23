@@ -64,9 +64,9 @@ export default function Post({ poster, post }) {
           p: 3,
           paddingTop: 2,
           margin: 'auto',
-          maxWidth: 750,
           flexGrow: 0.5,
           backgroundColor: '#fff',
+          textAlign: 'left',
         }}
       >
         <Grid container

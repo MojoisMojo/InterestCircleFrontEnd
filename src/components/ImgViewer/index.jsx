@@ -30,6 +30,7 @@ export default function ImgViewer({ open, img, onClose }) {
         <CloseIcon fontSize="inherit" />
       </IconButton>
       <Dialog
+        maxWidth={false}
         open={open}
         onClose={onClose}
         sx={{
@@ -49,6 +50,6 @@ export default function ImgViewer({ open, img, onClose }) {
           }}
         />
       </Dialog>
-    </div>
+    </div >
   );
 }
