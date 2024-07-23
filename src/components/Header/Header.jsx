@@ -198,7 +198,7 @@ export default function Header() {
                   ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4"> {/** part 2 */}
-                  <div className="flex items-center px-5">
+                  <div className={classNames(!!currUser.uid ? 'flex px-5' : 'hidden', "items-center")}>
                     <div className="flex-shrink-0">
                       <img className="h-10 w-10 rounded-full" src={currUser.avatarUrl} alt="" />
                     </div>
@@ -209,32 +209,47 @@ export default function Header() {
                     </div>
                     <BellButton className="ml-auto flex-shrink-0" />
                   </div>
-                  <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
+                  <div className="space-y-1 px-2">
+                    <div className={!!currUser.uid ? 'mt-3 block' : 'hidden'}>
+                      {userNavigation.map((item) => (
+                        <DisclosureButton
+                          key={item.name}
+                          onClick={(e) => {
+                            navigate(item.href);
+                            return;
+                          }}
+                          className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 \
+                        hover:bg-gray-700 hover:text-white"
+                        >
+                          {item.name}
+                        </DisclosureButton>
+                      ))}
                       <DisclosureButton
-                        key={item.name}
+                        key={logoutNavigation.name}
                         onClick={(e) => {
-                          navigate(item.href);
-                          return;
+                          setCurrUser(static_empty_user);
+                          logoutRequest();
+                          navigate(logoutNavigation.href);
                         }}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 \
-                        hover:bg-gray-700 hover:text-white"
-                      >
-                        {item.name}
-                      </DisclosureButton>
-                    ))}
-                    <DisclosureButton
-                      key={logoutNavigation.name}
-                      onClick={(e) => {
-                        setCurrUser(static_empty_user);
-                        logoutRequest();
-                        navigate(logoutNavigation.href);
-                      }}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 \
                       hover:bg-gray-700 hover:text-white"
-                    >
-                      {logoutNavigation.name}
-                    </DisclosureButton>
+                      >
+                        {logoutNavigation.name}
+                      </DisclosureButton>
+                    </div>
+                    <div className={!currUser.uid ? 'block' : 'hidden'}>
+                      <DisclosureButton
+                        className=
+                        "block rounded-md px-3 py-2 text-base font-medium text-gray-400 \
+                      hover:bg-gray-700 hover:text-white"
+                        key={loginNavigation.name}
+                        onClick={(e) => {
+                          navigate(loginNavigation.href);
+                        }}
+                      >
+                        {loginNavigation.name}
+                      </DisclosureButton>
+                    </div>
                   </div>
                 </div>
               </DisclosurePanel>
