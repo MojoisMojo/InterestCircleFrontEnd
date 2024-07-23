@@ -114,6 +114,7 @@ export default function Header() {
                                   <button
                                     onClick={(e) => {
                                       navigate(item.href);
+                                      return;
                                     }}
                                     className={classNames(
                                       focus ? 'bg-gray-100' : '',
@@ -184,8 +185,7 @@ export default function Header() {
                     <DisclosureButton
                       key={item.name}
                       onClick={(e) => {
-                        userNaviFunc(item.name);
-                        navigate(item.href);
+                        navigate(item.href); return;
                       }}
                       className={classNames(
                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -214,8 +214,8 @@ export default function Header() {
                       <DisclosureButton
                         key={item.name}
                         onClick={(e) => {
-                          userNaviFunc(item.name);
                           navigate(item.href);
+                          return;
                         }}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 \
                         hover:bg-gray-700 hover:text-white"

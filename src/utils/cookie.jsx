@@ -17,7 +17,7 @@ function decode(value) {
   return encode(value);
 };
 
-async function getCookie() {
+function getCookie() {
   let uid = Cookie.get('uid');
   return decode(uid);
 }
