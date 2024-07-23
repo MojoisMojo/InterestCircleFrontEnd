@@ -3,6 +3,8 @@ const static_empty_user = {
   name: '',
   email: '',
   avatarUrl: '/logo.svg',
+  likeCount: 0,
+  circlesCount: 0,
 };
 
 const static_poster = {

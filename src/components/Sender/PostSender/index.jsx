@@ -116,7 +116,6 @@ export default function PostSender(props) {
         '& .MuiButton-root': { m: 1 },
         height: 'fit-content',
         width: '100%',
-        marginTop: 1,
       }}
       noValidate
       autoComplete="off"
@@ -175,7 +174,19 @@ export default function PostSender(props) {
         onChange={handlePostChange}
         variant="outlined"
         sx={{
-          width: 'calc(100% - 16px)'
+          width: 'calc(100% - 16px)',
+          '& .MuiOutlinedInput-root': {
+            padding: '8px', // 设置你想要的内边距
+            '& fieldset': {
+              border: 'none', // 移除边框
+            },
+            '&:hover fieldset': {
+              border: 'none', // 鼠标悬停时也不显示边框
+            },
+            '&.Mui-focused fieldset': {
+              border: 'none', // 聚焦时也不显示边框
+            },
+          },
         }}
         InputLabelProps={{
           sx: {
@@ -184,41 +195,43 @@ export default function PostSender(props) {
         }}
       />
       {/* Post's images */}
-      <Grid item container
-        rowSpacing={{ xs: 1, md: 1.5 }}
-        columnSpacing={{ xs: 1, md: 1.5 }}
-        paddingTop='8px !important'
-        sx={{ width: 'calc(90% - 16px)' }}
-      >
-        {postImgs.map((imgfile, index) => (
-          <Grid item
-            xs={6}
-            sm={4}
-            md={3}
-            lg={2.4}
-          >
-            <SquareContainer
-              item
-              key={index}
+      <Grid item sx={{ width: 'calc(95% - 16px)', margin: 'auto', }}>
+        <Grid item container
+          rowSpacing={{ xs: 1, md: 1.5 }}
+          columnSpacing={{ xs: 1, md: 1.5 }}
+          paddingTop='8px !important'
+          sx={{ width: '100%' }}
+        >
+          {postImgs.map((imgfile, index) => (
+            <Grid item
+              xs={6}
+              sm={4}
+              md={3}
+              lg={2.4}
             >
-              <ButtonBase
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: { xs: '5px', sm: '10px' },
-                }}
-                onClick={() => handleClickOpenImg(imgfile)}
+              <SquareContainer
+                item
+                key={index}
               >
-                <img
-                  src={imgfile}
-                  alt="img"
-                  loading='lazy'
-                  style={{ borderRadius: 'inherit', objectFit: 'cover', width: '100%', height: '100%' }}
-                />
-              </ButtonBase>
-            </SquareContainer>
-          </Grid>
-        ))}
+                <ButtonBase
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: { xs: '5px', sm: '10px' },
+                  }}
+                  onClick={() => handleClickOpenImg(imgfile)}
+                >
+                  <img
+                    src={imgfile}
+                    alt="img"
+                    loading='lazy'
+                    style={{ borderRadius: 'inherit', objectFit: 'cover', width: '100%', height: '100%' }}
+                  />
+                </ButtonBase>
+              </SquareContainer>
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
       <input
         accept="image/*"
@@ -230,7 +243,11 @@ export default function PostSender(props) {
         disabled={postImgs.length >= 9}
       />
       {/* Post's images Icon And Post Button */}
-      <Box display='flex' justifyContent='flex-end' alignItems='center'>
+      <Box
+        display='flex'
+        justifyContent='flex-end'
+        alignItems='center'
+      >
         <label htmlFor="raised-button-file">
           <IconButton component="span">
             <PhotoCamera />

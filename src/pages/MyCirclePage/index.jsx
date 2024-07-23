@@ -14,6 +14,8 @@ import { getCirclePostsRequest } from '../../server/circles';
 
 import { static_circle_posts, static_circles } from '../../assets/static';
 import { sleep } from '../../utils/sleep';
+import AdivertiseCard from '../../components/Adivertise';
+import UserInfoCard from '../../components/UserCard';
 
 export default function MyCirclePage() {
   const { currUser, setCurrUser } = useContext(UserContext);
@@ -73,10 +75,20 @@ export default function MyCirclePage() {
           display={{ xs: 'none', lg: 'flex' }}
           container
           direction='column'
+          rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Box item sx={{ backgroundColor: 'red' }}>
-            left
-          </Box>
+          <Grid item width={'100%'}>
+            <UserInfoCard
+              id={currUser.uid}
+              name={currUser.name}
+              avatar={currUser.avatar}
+              circleCount={myCircles.length}
+              likeCount={currUser.likeCount}
+            />
+          </Grid>
+          <Grid item>
+            <AdivertiseCard />
+          </Grid>
         </Grid>
         {/* middle */}
         <Grid item xs={12} sm={11} md={8.5} lg={7.5}
@@ -84,11 +96,14 @@ export default function MyCirclePage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <PostSender circles={myCircles} />
+          <Grid item sx={{ width: "100%" }}>
+            <PostSender circles={myCircles} />
+          </Grid>
           <Grid item sx={{
             marginTop: 2,
             backgroundColor: 'yellow',
             height: 100,
+            borderRadius: '8px',
           }}>
             Nav
           </Grid>
@@ -101,40 +116,10 @@ export default function MyCirclePage() {
           rowSpacing={{ xs: 1, sm: 2 }}
         >
           <Grid item>
-            <Paper
-              elevation={3}
-              sx=
-              {{
-                backgroundColor: '#283593',
-                height: 150, display: 'flex',
-                alignItems: 'center', justifyContent: 'center',
-                borderRadius: '10px',
-              }}
-            >
-              <ButtonBase sx={{ width: '100%', height: '100%' }}>
-                <Typography variant='h5' style={{ color: '#E8EAF6' }}>
-                  广告位出租
-                </Typography>
-              </ButtonBase>
-            </Paper>
+            <AdivertiseCard />
           </Grid>
           <Grid item>
-            <Paper
-              elevation={3}
-              sx=
-              {{
-                backgroundColor: '#283593',
-                height: 150, display: 'flex',
-                alignItems: 'center', justifyContent: 'center',
-                borderRadius: '10px',
-              }}
-            >
-              <ButtonBase sx={{ width: '100%', height: '100%' }}>
-                <Typography variant='h5' style={{ color: '#E8EAF6' }}>
-                  广告位出租
-                </Typography>
-              </ButtonBase>
-            </Paper>
+            <AdivertiseCard />
           </Grid>
         </Grid>
       </Grid >
