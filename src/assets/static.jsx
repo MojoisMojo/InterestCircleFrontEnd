@@ -28,7 +28,7 @@ const static_post = {
   目前已确定的HPV型别有200余种，根据有无致癌性将HPV分为高危型和低危型；\
   我国国家药品监督管理局根据世界卫生组织国际癌症研究机构的建议，\
   将HPV16、18、31、33、35、39、45、51、52、56、58、59、68定义为高危型.',
-  img: ['/logo.svg', '/../src/assets/img/FamilyCirclePic.png', '/../src/assets/img/gameCirclePic.png'],
+  imgs: ['/logo.svg', '/../src/assets/img/FamilyCirclePic.png', '/../src/assets/img/gameCirclePic.png'],
   actinfo: [
     { name: 'Looks', value: 20 },
     { name: 'Likes', value: 3 },
@@ -39,7 +39,7 @@ const static_post_2 = {
   pid: '1234455',
   time: '2024-1-1 17:34',
   content: '吃饭',
-  img: [
+  imgs: [
     '/logo.svg',
     '/../src/assets/img/gameCirclePic.png',
     '/logo.svg',
@@ -57,7 +57,7 @@ const static_post_3 = {
   pid: '1234455',
   time: '2024-12-30 12:34',
   content: '吃饭',
-  img: [
+  imgs: [
     '/logo.svg',
     '/../src/assets/img/gameCirclePic.png',
     '/logo.svg',
@@ -90,7 +90,6 @@ const static_circle_posts = [
   { poster: static_poster, post: static_post_3 },
   { poster: static_poster_2, post: static_post },
   { poster: static_poster_2, post: static_post_2 },
-  { poster: static_poster, post: static_post },
 ];
 
 const static_circles = [

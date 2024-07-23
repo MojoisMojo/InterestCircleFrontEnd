@@ -172,14 +172,14 @@ export default function Post({ poster, post }) {
               paddingTop='8px !important'
               sx={{ width: '100%' }}
             >
-              {post.img.map((img) => (
+              {post.imgs.map((img) => (
                 <Grid item
                   xs={6}
                   sm={4}
                 >
                   <SquareContainer
                     item
-                    key={img.id}
+                    key={post.pid + img.id}
                   >
                     <ButtonBase
                       sx={{

@@ -2,7 +2,10 @@ import * as React from 'react';
 import { Button, TextField, Box, IconButton, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import ButtonBase from '@mui/material/ButtonBase';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,8 +14,16 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 import SquareContainer from '../../SquareContainer';
 import ImgViewer from '../../ImgViewer';
+import UserContext from '../../../context/UserContext';
+
+import { releasePostRequest } from '../../../server/post';
 
 export default function PostSender(props) {
+
+  let { circles, _ } = props;
+
+  const { currUser, setCurrUser } = React.useContext(UserContext);
+
   const [postContent, setPostContent] = React.useState('');
   const [selectedCircle, setSelectedCircle] = React.useState(null);
   const [postImgs, setPostImgs] = React.useState([]);
@@ -27,9 +38,6 @@ export default function PostSender(props) {
   const handleClose = () => {
     setImgOpen(false);
   };
-
-  // destructure the props
-  let { circles, onSubmit, _ } = props;
 
   const handlePostChange = (event) => {
     setPostContent(event.target.value);
@@ -74,24 +82,46 @@ export default function PostSender(props) {
   };
 
   const handlePostSubmit = () => {
-    if (onSubmit) {
-      onSubmit({ postContent, cid: selectedCircle.cid, postImgs });
+
+    // 检查合法性
+    if (!selectedCircle) {
+      alert('请选择一个圈子!');
+      return;
     }
+    if (!postContent) {
+      alert('请输入帖子内容!');
+      return;
+    }
+    if (!currUser.uid) {
+      alert('请先登录!');
+      return;
+    }
+    let poster = { uid: currUser.uid, uname: currUser.uname, avatarUrl: currUser.avatarUrl };
+    let post = { content: postContent, imgs: postImgs };
+    let cid = selectedCircle.cid;
+    releasePostRequest({ poster, post, cid }).then(res => { console.log(res.msg); });
+
     setPostContent('');
     setSelectedCircle(null);
     setPostImgs([]);
   };
 
   return (
-    <Box
-      p={1}
+    <Paper
+      p={3}
+      elevation={3}
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1 },
         '& .MuiButton-root': { m: 1 },
+        height: 'fit-content',
+        width: '100%',
+        marginTop: 1,
       }}
       noValidate
       autoComplete="off"
+      alignItems='center'
+      justifyContent='center'
     >
       <Autocomplete
         options={circles}
@@ -100,14 +130,20 @@ export default function PostSender(props) {
         renderOption={(props, option) => {
           const { key, ...optionProps } = props;
           return (
-            <Typography variant='h6' sx={{lineHeight:'2rem', textAlign:'center', fontSize: '0.9rem' }}>
+            <Box
+              key={key}
+              component='li'
+              sx={{ fontSize: '0.8rem' }}
+              {...optionProps}
+            >
               {option.cname}
-            </Typography>
+            </Box>
           );
         }}
         renderInput={(params) =>
           <TextField
-            {...params} label="选择话题"
+            {...params}
+            label="选择圈子"
             size='small'
             InputLabelProps={{
               sx: {
@@ -152,7 +188,7 @@ export default function PostSender(props) {
         rowSpacing={{ xs: 1, md: 1.5 }}
         columnSpacing={{ xs: 1, md: 1.5 }}
         paddingTop='8px !important'
-        sx={{ width: 'calc(100% - 16px)' }}
+        sx={{ width: 'calc(90% - 16px)' }}
       >
         {postImgs.map((imgfile, index) => (
           <Grid item
@@ -184,26 +220,31 @@ export default function PostSender(props) {
           </Grid>
         ))}
       </Grid>
+      <input
+        accept="image/*"
+        style={{ display: 'none' }}
+        id="raised-button-file"
+        multiple
+        type="file"
+        onChange={handleImageChange}
+        disabled={postImgs.length >= 9}
+      />
       {/* Post's images Icon And Post Button */}
       <Box display='flex' justifyContent='flex-end' alignItems='center'>
-        <input
-          accept="image/*"
-          style={{ display: 'none' }}
-          id="raised-button-file"
-          multiple
-          type="file"
-          onChange={handleImageChange}
-          disabled={postImgs.length >= 9}
-        />
         <label htmlFor="raised-button-file">
           <IconButton component="span">
             <PhotoCamera />
           </IconButton>
         </label>
-        <IconButton>
-          <RefreshIcon onClick={(e) => { e.stopPropagation(); setPostImgs([]) }} />
+        <IconButton onClick={(e) => { e.stopPropagation(); setPostImgs([]) }}>
+          <RefreshIcon />
         </IconButton>
-        <Button onClick={handlePostSubmit} variant="contained" color="primary">
+        <Button
+          onClick={handlePostSubmit}
+          variant="contained"
+          color="primary"
+          disabled={postContent.length === 0 || !selectedCircle}
+        >
           发帖
         </Button>
       </Box>
@@ -212,6 +253,6 @@ export default function PostSender(props) {
         img={selectedImg}
         onClose={handleClose}
       />
-    </Box>
+    </Paper>
   );
 }

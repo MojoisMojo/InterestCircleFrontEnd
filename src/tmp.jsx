@@ -36,7 +36,7 @@ const TmpApp = () => {
   return (
     <div style={{ width: '80%', margin: 'auto'}}>
       {/* <TagsAutocomplete/> */}
-      <PostSender circles={[static_circle_card_info_daily, static_circle_card_info_game, static_circle_card_info_daily]} />
+      <PostSender circles={[static_circle_card_info_game, static_circle_card_info_daily]} />
     </div>
   );
 }
