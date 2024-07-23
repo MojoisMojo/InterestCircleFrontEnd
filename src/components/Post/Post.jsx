@@ -210,7 +210,6 @@ export default function Post({ poster, post }) {
                 </Grid>
               ))}
             </Grid>
-            {/* Post's images dialog */}
           </Grid>
           {/* Acted info of the post */}
           <Grid item container
