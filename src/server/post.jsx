@@ -28,9 +28,12 @@ async function getPostAllCommentsRequest(pid) {
   };
 }
 
-async function releaseCommentRequest(commenter, content, pid) {
+async function releaseCommentRequest(comment) {
   await sleep(1000);
-  return { status: 'success', msg: '评论成功', data: {} };
+  let comid = Math.floor(Math.random() * 100000).toString();
+  return { status: 'success', msg: '评论成功', data: {
+    comid: comid
+  } };
 }
 
 async function getUserPostsRequest(uid) {
@@ -41,10 +44,16 @@ async function getUserPostsRequest(uid) {
     }
   }
 }
+
+async function changePostActsRequest(pid, uid, act_type) {
+  await sleep(1000);
+  return { status: 'success', msg: '操作成功', data: {} };
+}
+
 export {
   releasePostRequest,
   getPostCommentsRequest,
   getUserPostsRequest,
   releaseCommentRequest,
-  getPostAllCommentsRequest
+  getPostAllCommentsRequest,
 };

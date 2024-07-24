@@ -1,5 +1,5 @@
 import { sleep } from "../utils/sleep";
-import { static_circle_posts } from "../assets/static";
+import { static_circle_info, static_circle_posts } from "../assets/static";
 async function getCirclePostsRequest(cid) {
   await sleep(1000);
   let posts = static_circle_posts;
@@ -40,4 +40,16 @@ async function getCircleActiveUsersRequest(cid) {
   };
 }
 
-export { getCirclePostsRequest, getCircleActiveUsersRequest };
+async function getCircleInfoRequest(cid) {
+  await sleep(1000);
+  let circle = { ...static_circle_info };
+  return {
+    status: 'success',
+    msg: '获取圈子信息成功',
+    data: {
+      circle: circle
+    }
+  };
+}
+
+export { getCirclePostsRequest, getCircleActiveUsersRequest, getCircleInfoRequest };

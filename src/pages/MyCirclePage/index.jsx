@@ -9,7 +9,7 @@ import PostSender from '../../components/Sender/PostSender';
 import Post from '../../components/Post/Post';
 import PostsLayout from '../../components/Post/PostsLayout';
 
-import { getCirclesRequest } from '../../server/userInfo';
+import { getAllCirclesRequest } from '../../server/userInfo';
 import { getCirclePostsRequest } from '../../server/circles';
 
 import { static_circle_posts, static_circles } from '../../assets/static';
@@ -25,8 +25,8 @@ export default function MyCirclePage() {
   const [currCircleIdx, setCurrCircleIdx] = useState(-1);
   const [currPosts, setCurrPosts] = useState([]);
   const [currCid, setCurrCid] = useState('');
-  async function getMyCircles() {
-    let res = await getCirclesRequest(currUser.uid);
+  async function getAndsetMyCircles() {
+    let res = await getAllCirclesRequest(currUser.uid);
     if (res.status !== 'success') {
       alert(res.msg);
       return;
@@ -36,7 +36,7 @@ export default function MyCirclePage() {
     setMyCircles(circles);
     setCurrCircleIdx(0);
   };
-  async function getPosts(cid) {
+  async function getAndsetPosts(cid) {
     let res = await getCirclePostsRequest(cid);
     if (res.status !== 'success') {
       alert(res.msg);
@@ -46,10 +46,10 @@ export default function MyCirclePage() {
     setCurrPosts(posts);
   };
 
-  useEffect(() => { getMyCircles() }, []);
+  useEffect(() => { getAndsetMyCircles() }, []);
   useEffect(() => {
     if (currCircleIdx < 0) return;
-    getPosts(myCircles[currCircleIdx].cid);
+    getAndsetPosts(myCircles[currCircleIdx].cid);
     setCurrCid(myCircles[currCircleIdx].cid)
   }, [currCircleIdx]);
 
@@ -71,7 +71,7 @@ export default function MyCirclePage() {
           width:
             { xs: 'calc(100% - 20px)', sm: 'calc(94% + 20px)', md: 'calc(85% + 80px)' },
         }}
-        maxWidth='calc(max(80%, 1280px))'
+        maxWidth='calc(min(90%, 1980px))'
         direction='row'
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         alignItems='flex-start'
@@ -79,6 +79,7 @@ export default function MyCirclePage() {
         textAlign={'center'}
         justifySelf={'center'}
       >
+        {/* left */}
         <Grid item xs={0} sm={0} md={0} lg={2}
           display={{ xs: 'none', lg: 'flex' }}
           container
@@ -87,10 +88,10 @@ export default function MyCirclePage() {
         >
           <Grid item width={'100%'}>
             <UserInfoCard
-              id={currUser.uid}
+              bio={currUser.bio}
               name={currUser.name}
               avatar={currUser.avatarUrl}
-              circleCount={myCircles.length}
+              circleCount={currUser.circleCount}
               likeCount={currUser.likeCount}
             />
           </Grid>
@@ -124,6 +125,7 @@ export default function MyCirclePage() {
           </Grid>
           <PostsLayout posts={currPosts} />
         </Grid>
+        {/* right */}
         <Grid item xs={0} sm={0} md={3} lg={2.5}
           display={{ xs: 'none', md: 'flex' }}
           container

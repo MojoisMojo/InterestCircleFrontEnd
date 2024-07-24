@@ -1,5 +1,5 @@
 import { sleep } from "../utils/sleep";
-import { static_empty_user } from "../assets/static";
+import { static_empty_user, static_mojo_user } from "../assets/static";
 import { static_circle_card_info_game, static_circle_card_info_daily } from "../assets/static";
 
 async function getUserInfoWithUid(uid) {
@@ -7,10 +7,7 @@ async function getUserInfoWithUid(uid) {
   //let user = dbClient.getUserInfoWithUid(uid);
   //模拟等待请求
   await sleep(1000);
-  let user = { ...static_empty_user };
-  user.uid = uid;
-  user.name = "mojo";
-  user.email = "221900175@smail.nju.edu.cn";
+  let user = {...static_mojo_user}
   return {
     status: 'success', msg: '登录成功', data:
     {
@@ -36,7 +33,7 @@ async function getUserInfoWithEmail(email) {
   }
 }
 
-async function getCirclesRequest(uid) {
+async function getAllCirclesRequest(uid) {
   // const response = await fetch(`https://myapi.com/circles`);
   // return response.data;
   await sleep(1000);
@@ -56,4 +53,4 @@ async function getCirclesRequest(uid) {
   };
 }
 
-export { getUserInfoWithUid, getUserInfoWithEmail, getCirclesRequest };
+export { getUserInfoWithUid, getUserInfoWithEmail, getAllCirclesRequest };

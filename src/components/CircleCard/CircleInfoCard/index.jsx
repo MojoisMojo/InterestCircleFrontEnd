@@ -1,5 +1,5 @@
-// 展示用户信息的卡片组件，包括头像、用户名、圈子数、获赞数
-// 通过 props 传入用户信息，包括 id、name、avatar、circleCount、likeCount
+// 展示圈子信息的卡片组件，包括圈子icon、圈子名、简介、人数、帖子数
+// 通过 props 传入用户信息，包括 ciconurl, cname、cdesc, cusernumber、cpostnumber
 
 import React from 'react';
 import Card from '@mui/material/Card';
@@ -10,7 +10,7 @@ import CardHeader from '@mui/material/CardHeader';
 import { blue } from '@mui/material/colors';
 import { Grid } from '@mui/material';
 
-function UserInfoCard({name, bio, avatar, circleCount, likeCount }) {
+function CircleInfoCard({ cicon, cdesc, cname, cusernumber, cpostnumber }) {
   return (
     <Card
       width='100%'
@@ -19,12 +19,12 @@ function UserInfoCard({name, bio, avatar, circleCount, likeCount }) {
     >
       <CardHeader
         avatar={
-          <Avatar src={avatar}>
+          <Avatar src={cicon}>
           </Avatar>
         }
-        title={name}
+        title={cname}
         titleTypographyProps={{ align: 'center', variant: 'h6', fontWeight: 'bold' }}
-        subheader={bio}
+        subheader={cdesc}
       />
 
       <Grid container spacing={2} sx={{
@@ -41,10 +41,10 @@ function UserInfoCard({name, bio, avatar, circleCount, likeCount }) {
             flexDirection: 'column',
           }}>
           <Typography variant="h6" color='text.primary' align="center" sx={{ fontWeight: 'bold' }}>
-            {circleCount}
+            {cusernumber}
           </Typography>
           <Typography variant="body2" color="text.secondary" align="center">
-            圈子数
+            圈内人数
           </Typography>
         </Grid>
         <Grid item
@@ -53,10 +53,10 @@ function UserInfoCard({name, bio, avatar, circleCount, likeCount }) {
             flexDirection: 'column',
           }}>
           <Typography variant="h6" color="text.primary" align="center" sx={{ fontWeight: 'bold' }}>
-            {likeCount}
+            {cpostnumber}
           </Typography>
           <Typography variant="body2" color="text.secondary" align="center">
-            获赞数
+            贴子数
           </Typography>
         </Grid>
       </Grid>
@@ -64,4 +64,4 @@ function UserInfoCard({name, bio, avatar, circleCount, likeCount }) {
   );
 }
 
-export default UserInfoCard;
+export default CircleInfoCard;

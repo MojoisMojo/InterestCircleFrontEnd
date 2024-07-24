@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -22,6 +23,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ButtonBase from '@mui/material/ButtonBase';
 
+
+
+import UserContext from '../../context/UserContext';
+
+
+
+import CommentsViewer from './CommentsViewer';
+import { formateDateToString } from '../../utils/mTime';
+
 const Img = styled('img')({
   // margin: 'auto',
   // display: 'block',
@@ -29,7 +39,11 @@ const Img = styled('img')({
   // maxHeight: '100%',
 });
 
-const IntShown = (int) => {
+const IntShown = (i) => {
+  let int = parseInt(i);
+  if (!Number.isInteger(int)) {
+    return 'NaN';
+  }
   if (int < 1e3) { return int.toString(); } // 0~999
   let table = [
     [1e4, 1e3, 1, 'k'],   // 1.0k ~ 9.9k
@@ -46,16 +60,61 @@ const IntShown = (int) => {
   return '10bn+';
 }
 export default function Post({ poster, post }) {
+  const { currUser, setCurrUser } = React.useContext(UserContext);
+
   const [imgOpen, setImgOpen] = React.useState(false);
   const [selectedImg, setSelectedImg] = React.useState('');
-  const handleClickOpenImg = (imgUrl) => {
+
+  const [comOpen, setComOpen] = React.useState(false);
+
+  const [likesNum, setlikesNum] = React.useState(post.likes);
+  const [looksNum, setlooksNum] = React.useState(post.looks);
+  const [comsNum, setcomsNum] = React.useState(post.comments);
+
+  const handleImgOpen = (imgUrl) => {
     setSelectedImg(imgUrl);
     setImgOpen(true);
   };
 
-  const handleClose = () => {
+  const handleImgClose = () => {
     setImgOpen(false);
   };
+
+  const handleComOpen = () => {
+    setComOpen(true);
+  };
+
+  const handleComClose = () => {
+    setComOpen(false);
+  }
+
+  const handleAct = (act_type) => {
+    // check validness
+    if (!currUser.uid) {
+      alert('请先登录');
+      return;
+    }
+    switch (act_type) {
+      case 'Coms':
+        handleComOpen();
+        break;
+      case 'Looks':
+        setlooksNum(looksNum + 1);
+        break;
+      case 'Likes':
+        setlikesNum(likesNum + 1);
+        break;
+      default:
+        console.log('Unknown act_type');
+        break;
+    }
+
+  };
+
+  const onCommentReleased = () => {
+    setcomsNum(comsNum + 1);
+  };
+
   return (
     <>
       <Card
@@ -134,7 +193,7 @@ export default function Post({ poster, post }) {
                     md: '0.875rem'
                   },
                   fontWeight: 400,
-                  color:'rgba(0, 0, 0, 0.6)',
+                  color: 'rgba(0, 0, 0, 0.6)',
                   display: '-webkit-box',
                   WebkitLineClamp: 1,
                   WebkitBoxOrient: 'vertical',
@@ -142,7 +201,7 @@ export default function Post({ poster, post }) {
                   textOverflow: 'ellipsis',
                 }}
               >
-                {post.time}
+                {formateDateToString(post.time)}
               </Typography>
             </Grid>
           </Grid>
@@ -158,9 +217,10 @@ export default function Post({ poster, post }) {
                 width: '100%',
                 fontFamily: 'monospace',
                 fontSize: {
-                  xs: '1rem', // 小屏幕
-                  sm: '1.1rem', // 小型设备
-                  lg: '1.2rem', // 大型设备
+                  xs: '0.9rem', // 小屏幕
+                  sm: '1rem', // 小型设备
+                  md: '1.1rem', // 中型设备
+                  lg: '1.15rem', // 大型设备
                 },
               }}
             >
@@ -188,19 +248,8 @@ export default function Post({ poster, post }) {
                         height: '100%',
                         borderRadius: { xs: '5px', sm: '10px' },
                       }}
-                      onClick={() => handleClickOpenImg(img)}
+                      onClick={() => handleImgOpen(img)}
                     >
-                      {/* <Img
-                      alt="img"
-                      src={img}
-                      sx={{
-                        width: '100%',
-                        height: 'auto',
-                        borderRadius: 'inherit',
-                        objectFit: 'cotain',
-                        overflow: 'hidden',
-                      }}
-                    /> */}
                       <img
                         src={img}
                         alt="img"
@@ -219,13 +268,18 @@ export default function Post({ poster, post }) {
             sx={{ height: '60px' }}
             justifyContent='center'
           >
-            {post.actinfo.map((info, index) => (
-              <Grid container item xs={4} key={index} sx={{ height: '100%' }}>
+            {[
+              { name: 'Likes', value: likesNum },
+              { name: 'Looks', value: looksNum },
+              { name: 'Coms', value: comsNum },
+            ].map((info, index) => (
+              <Grid container item xs={4} key={info.name} sx={{ height: '100%' }}>
                 <ButtonBase
                   sx={{
                     height: '100%', width: '100%',
                     justifyContent: 'center'
                   }}
+                  onClick={(e) => { handleAct(info.name) }}
                 >
                   <Typography>
                     {info.name}: {IntShown(info.value)}
@@ -239,8 +293,15 @@ export default function Post({ poster, post }) {
       <ImgViewer
         open={imgOpen}
         img={selectedImg}
-        onClose={handleClose}
+        onClose={handleImgClose}
       />
+      <CommentsViewer
+        open={comOpen}
+        pid={post.pid}
+        onClose={handleComClose}
+        onCommentReleased={onCommentReleased}
+      >
+      </CommentsViewer>
     </>
   );
 }

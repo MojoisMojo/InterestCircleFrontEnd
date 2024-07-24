@@ -7,6 +7,7 @@ import { static_empty_user } from '../../assets/static';
 import { logoutRequest } from '../../server/loginAndregistration';
 import BellButton from '../Button/BellButton';
 
+
 // 最好改成这样 https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu
 // https://mui.com/material-ui/react-menu/
 const barNavigation = [
@@ -44,25 +45,27 @@ export default function Header() {
         ```
       */}
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-gray-700">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-none px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
-
-                    <div className="flex-shrink-0"> {/** logo */}
-                      <img
-                        className="h-8 w-8"
-                        src="/logo.svg"
-                        alt="Your Company"
-                      />
-                    </div>
-                    <div className=
-                      "ml-4 flex items-baseline \
+                    <button className="flex items-center" onClick={(e) => { navigate('/home'); return; }}>
+                      <div className="flex-shrink-0"
+                      > {/** logo */}
+                        <img
+                          className="h-8 w-8"
+                          src="/logo.svg"
+                          alt="Your Company"
+                        />
+                      </div>
+                      <div className=
+                        "ml-4 flex items-baseline \
                     text-gray-300 text-lg font-bold font-serif"> {/** name */}
-                      Interests Circle
-                    </div>
+                        Interests Circle
+                      </div>
+                    </button>
                     <div className="hidden md:block"> {/** nav button */}
                       <div className="ml-10 flex items-baseline space-x-4 font-bold">
                         {barNavigation.map((item) => (
@@ -71,7 +74,7 @@ export default function Header() {
                             onClick={(e) => { navigate(item.href); return; }}
                             className={classNames(
                               isActive(item.href)
-                                ? 'bg-gray-900 text-white'
+                                ? 'bg-gray-800 text-white'
                                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                               'rounded-md px-3 py-2 text-sm font-medium',
                             )}
@@ -86,13 +89,13 @@ export default function Header() {
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6"> {/* PC menu buttons */}
                       <div className={!!currUser.uid ? 'flex' : 'hidden'}>
-                        <BellButton />
+                        <BellButton className='bg-gray-700' />
                         <Menu as="div" className="relative ml-3"> {/* Profile dropdown */}
                           <div>
                             <MenuButton className=
-                              "relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm \
+                              "relative flex max-w-xs items-center rounded-full bg-gray-700 text-sm \
                           focus:outline-none focus:ring-2 focus:ring-white \
-                          focus:ring-offset-2 focus:ring-offset-gray-800">
+                          focus:ring-offset-2 focus:ring-offset-gray-700">
                               <span className="absolute -inset-1.5" />
                               <span className="sr-only">Open user menu</span>
                               <img className="h-8 w-8 rounded-full" src={currUser.avatarUrl} alt="" />
@@ -163,10 +166,10 @@ export default function Header() {
                   <div className="-mr-2 flex md:hidden"> {/* Mobile menu button */}
                     <DisclosureButton className=
                       "relative inline-flex items-center justify-center \
-                    rounded-md bg-gray-800 p-2 text-gray-400 \
+                    rounded-md bg-gray-700 p-2 text-gray-400 \
                     hover:bg-gray-700 hover:text-white \
                     focus:outline-none focus:ring-2 \
-                    focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-700">
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">Open main menu</span>
                       {open ? (
@@ -188,7 +191,7 @@ export default function Header() {
                         navigate(item.href); return;
                       }}
                       className={classNames(
-                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        item.current ? 'bg-gray-800 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                         'block rounded-md px-3 py-2 text-base font-medium',
                       )}
                       aria-current={item.current ? 'page' : undefined}
@@ -207,7 +210,7 @@ export default function Header() {
                       <div style={{ marginTop: '0.5rem' }}></div>
                       <div className="text-sm font-medium leading-none text-gray-400">{currUser.email}</div>
                     </div>
-                    <BellButton className="ml-auto flex-shrink-0" />
+                    <BellButton className="ml-auto flex-shrink-0 bg-gray-700" />
                   </div>
                   <div className="space-y-1 px-2">
                     <div className={!!currUser.uid ? 'mt-3 block' : 'hidden'}>

@@ -14,8 +14,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { releaseCommentRequest } from '/src/server/post';
 import { Typography } from '@mui/material';
 
-export default function CommentsViewer({ open, pid, onClose }) {
+export default function CommentsViewer({ open, pid, onClose, onCommentReleased }) {
   const { currUser, setCurrUser } = useContext(UserContext);
+
   const [comments, setComments] = useState([]);
   const [myCommentContent, setMyCommentContent] = useState('');
 
@@ -27,22 +28,31 @@ export default function CommentsViewer({ open, pid, onClose }) {
       alert('评论不能为空！');
       return;
     }
-    releaseCommentRequest(
-      {
+    let comment = {
+      comid: '',
+      commenter: {
         cid: currUser.cid,
         name: currUser.name,
         avatarUrl: currUser.avatarUrl
       },
-      myCommentContent,
-      pid
-    ).then((res) => {
+      time: new Date().getTime(),
+      content: myCommentContent,
+      pid: pid,
+    };
+
+    // 发送评论请求
+    releaseCommentRequest(comment).then((res) => {
       if (res.status !== 'success') {
         alert(res.msg);
         return;
       }
+      // 请求成功
+      if (onCommentReleased) { onCommentReleased(); }
+      comment.comid = res.data.comid;
+      setComments([comment, ...comments]);
+      setMyCommentContent('');
       alert('评论成功！');
     });
-    setMyCommentContent('');
   };
 
   useEffect(() => {

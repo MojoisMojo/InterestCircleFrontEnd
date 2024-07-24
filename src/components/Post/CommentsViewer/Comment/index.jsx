@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
+import { formateDateToString } from '/src/utils/mTime';
 
 function Comment({ comment }) {
   let commenter = comment.commenter;
@@ -91,7 +92,7 @@ function Comment({ comment }) {
                 textOverflow: 'ellipsis',
               }}
             >
-              {comment.time}
+              {formateDateToString(comment.time)}
             </Typography>
           </Grid>
         </Grid>

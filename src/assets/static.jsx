@@ -1,3 +1,5 @@
+import { comment } from "postcss";
+
 const static_empty_user = {
   uid: '',
   name: '',
@@ -33,7 +35,7 @@ const static_poster_2 = {
 
 const static_post = {
   pid: '123',
-  time: '2021-09-01 00:12',
+  time: new Date('2021-09-01 00:12').getTime(),
   content: 'HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒。\
   HPV属于乳多空病毒科乳头瘤空泡病毒A属，是一种球形DNA病毒。\
   HPV感染可引起生殖道皮肤、黏膜发生一系列病变，与子宫颈癌相关性最高。\
@@ -42,16 +44,14 @@ const static_post = {
   我国国家药品监督管理局根据世界卫生组织国际癌症研究机构的建议，\
   将HPV16、18、31、33、35、39、45、51、52、56、58、59、68定义为高危型.',
   imgs: ['/logo.svg', '/../src/assets/img/FamilyCirclePic.png', '/../src/assets/img/gameCirclePic.png'],
-  actinfo: [
-    { name: 'Looks', value: 20 },
-    { name: 'Likes', value: 3 },
-    { name: 'Coms', value: 104 }
-  ]
+  likes: 20,
+  looks: 3,
+  comments: 104,
 };
 
 const static_post_2 = {
   pid: '1234455',
-  time: '2024-1-1 17:34',
+  time: new Date('2024-1-1 17:34'),
   content: '吃饭',
   imgs: [
     '/logo.svg',
@@ -61,16 +61,14 @@ const static_post_2 = {
     '/../src/assets/img/gameCirclePic.png',
     '/../src/assets/img/FamilyCirclePic.png',
   ],
-  actinfo: [
-    { name: 'Looks', value: 23456 },
-    { name: 'Likes', value: 1222 },
-    { name: 'Coms', value: 789012 }
-  ]
+  likes: 20,
+  looks: 3,
+  comments: 104,
 };
 
 const static_post_3 = {
   pid: '1234455',
-  time: '2024-12-30 12:34',
+  time: new Date('2024-12-30 12:34'),
   content: '吃饭',
   imgs: [
     '/logo.svg',
@@ -79,11 +77,9 @@ const static_post_3 = {
     '/../src/assets/img/gameCirclePic.png',
     '/../src/assets/img/FamilyCirclePic.png',
   ],
-  actinfo: [
-    { name: 'Looks', value: 12345678 },
-    { name: 'Likes', value: 7890123 },
-    { name: 'Coms', value: 123456789999 }
-  ]
+  likes: 20,
+  looks: 3,
+  comments: 104,
 };
 const static_circle_card_info_daily = {
   cid: 'daily123',
@@ -124,7 +120,7 @@ const static_circles = [
 const static_comment = {
   comid: '123',
   commenter: static_poster,
-  time: '2021-09-01 00:12',
+  time: new Date('2021-09-01 00:12'),
   content: 'HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
   HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
   HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
@@ -141,7 +137,7 @@ const static_comment = {
 const static_comment2 = {
   comid: '1234',
   commenter: static_poster,
-  time: '2021-09-01 12:12',
+  time: new Date('2021-09-01 12:12').getTime(),
   content: 'HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
   HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
   HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
@@ -154,7 +150,7 @@ const static_comment2 = {
 const static_comment3 = {
   comid: '12345',
   commenter: static_poster,
-  time: '2021-09-01 13:12',
+  time: new Date('2021-09-01 13:12').getTime(),
   content: 'HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
   HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
   HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
@@ -166,6 +162,30 @@ const static_comment3 = {
 }
 
 const static_comments = [static_comment, static_comment2, static_comment3];
+
+const static_circle_info = {
+  cid: 'hf23fnwev',
+  cname: '游戏分享',
+  cdesc: '游戏分享 | 苏州',
+  ccreator_id: '14431213',
+  ctime: new Date('2021-10-01').getTime(),
+  cicon: '/logo.svg',
+  cposts: 100,
+  cusers: 100,
+  cpopularity: 100,
+};
+
+const static_empty_circle_info = {
+  cid: '',
+  cname: '',
+  cdesc: '',
+  ccreator_id: '',
+  ctime: 0,
+  cicon: '',
+  cposts: 0,
+  cusers: 0,
+  cpopularity: 0,
+};
 
 export {
   static_poster,
@@ -182,4 +202,7 @@ export {
   static_comment,
   static_comment2,
   static_comments,
+
+  static_circle_info,
+  static_empty_circle_info,
 };

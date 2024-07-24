@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import { getCircleActiveUsersRequest } from '../../server/circles';
 
 export default function UsersList({ cid }) {
-  const [users, setUsers] = React.useState([]);
+  const [users, setUsers] = React.useState([{}, {}, {}]);
 
   React.useEffect(() => {
     getCircleActiveUsersRequest(cid).then((res) => {
@@ -23,7 +23,7 @@ export default function UsersList({ cid }) {
   return (
     <List sx={{ width: '100%', p: 0 }}>
       {
-        users.slice(0,6).flatMap((user, index) => [
+        users.slice(0, 6).flatMap((user, index) => [
           <ListItem alignItems="flex-start">
             <ListItemAvatar sx={{ display: { xs: 'none', sm: 'flex' } }} >
               <Avatar alt={user.name} src={user.avatarUrl} />
