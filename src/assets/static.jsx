@@ -8,6 +8,16 @@ const static_empty_user = {
   circlesCount: 0,
 };
 
+const static_mojo_user = {
+  uid: 'mojo163com',
+  name: 'mojo',
+  email: 'mojo@163.com',
+  bio: 'mojomojo',
+  avatarUrl: '/logo.svg',
+  likeCount: 1345,
+  circlesCount: 14,
+};
+
 const static_poster = {
   uid: '123',
   name: '孤灯明月映落叶',
@@ -38,6 +48,7 @@ const static_post = {
     { name: 'Coms', value: 104 }
   ]
 };
+
 const static_post_2 = {
   pid: '1234455',
   time: '2024-1-1 17:34',
@@ -56,6 +67,7 @@ const static_post_2 = {
     { name: 'Coms', value: 789012 }
   ]
 };
+
 const static_post_3 = {
   pid: '1234455',
   time: '2024-12-30 12:34',
@@ -109,12 +121,65 @@ const static_circles = [
   static_circle_card_info_game,
 ]
 
+const static_comment = {
+  comid: '123',
+  commenter: static_poster,
+  time: '2021-09-01 00:12',
+  content: 'HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\n\
+  换行',
+  pid: '123',
+}
+const static_comment2 = {
+  comid: '1234',
+  commenter: static_poster,
+  time: '2021-09-01 12:12',
+  content: 'HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\n\
+  换行',
+  pid: '123',
+}
+const static_comment3 = {
+  comid: '12345',
+  commenter: static_poster,
+  time: '2021-09-01 13:12',
+  content: 'HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\
+  HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒\n\
+  换行',
+  pid: '123',
+}
+
+const static_comments = [static_comment, static_comment2, static_comment3];
+
 export {
   static_poster,
+  static_poster_2,
   static_post,
+  static_post_2,
+  static_post_3,
   static_empty_user,
+  static_mojo_user,
   static_circle_card_info_daily,
   static_circle_card_info_game,
   static_circle_posts,
   static_circles,
+  static_comment,
+  static_comment2,
+  static_comments,
 };
