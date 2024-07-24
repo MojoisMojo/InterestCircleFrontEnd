@@ -48,7 +48,7 @@ export default function PostSender(props) {
   };
 
   const handleImageChange = (event) => {
-    console.log(event.target.files);
+    // console.log(event.target.files);
     // 忽略
 
     // 过滤掉非图片文件

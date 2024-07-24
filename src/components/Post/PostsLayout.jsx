@@ -1,7 +1,5 @@
 import Post from "./Post";
 export default function PostsLayout({ posts }) {
-  console.log(posts, Array.isArray(posts));
-
   return (
     <div >
       {posts.map(post => (

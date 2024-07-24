@@ -2,6 +2,7 @@ const static_empty_user = {
   uid: '',
   name: '',
   email: '',
+  bio: '',
   avatarUrl: '/logo.svg',
   likeCount: 0,
   circlesCount: 0,

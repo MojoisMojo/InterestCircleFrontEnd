@@ -69,7 +69,7 @@ export default function App() {
       let user = userRes.data.user;
       user.uid = uid;
       setCurrUser(user);
-      console.log(user);
+      // console.log(user);
     }
   };
   // 使用useEffect确保checkCookieAndSetUser仅在组件挂载时执行一次

@@ -16,12 +16,15 @@ import { static_circle_posts, static_circles } from '../../assets/static';
 import { sleep } from '../../utils/sleep';
 import AdivertiseCard from '../../components/Adivertise';
 import UserInfoCard from '../../components/UserCard';
+import UsersList from '../../components/UsersList';
+import { Divider } from '@mui/material';
 
 export default function MyCirclePage() {
   const { currUser, setCurrUser } = useContext(UserContext);
   const [myCircles, setMyCircles] = useState([]);
-  const [currCircleIdx, setCurrCircleIdx] = useState(0);
+  const [currCircleIdx, setCurrCircleIdx] = useState(-1);
   const [currPosts, setCurrPosts] = useState([]);
+  const [currCid, setCurrCid] = useState('');
   async function getMyCircles() {
     let res = await getCirclesRequest(currUser.uid);
     if (res.status !== 'success') {
@@ -29,6 +32,7 @@ export default function MyCirclePage() {
       return;
     }
     let circles = res.data.circles;
+    // console.log(circles);
     setMyCircles(circles);
     setCurrCircleIdx(0);
   };
@@ -43,7 +47,11 @@ export default function MyCirclePage() {
   };
 
   useEffect(() => { getMyCircles() }, []);
-  useEffect(() => { getPosts(myCircles[currCircleIdx]) }, [currCircleIdx]);
+  useEffect(() => {
+    if (currCircleIdx < 0) return;
+    getPosts(myCircles[currCircleIdx].cid);
+    setCurrCid(myCircles[currCircleIdx].cid)
+  }, [currCircleIdx]);
 
   return (
     <div style={{
@@ -85,6 +93,13 @@ export default function MyCirclePage() {
               circleCount={myCircles.length}
               likeCount={currUser.likeCount}
             />
+          </Grid>
+          <Grid item>
+            <Paper sx={{ paddingTop: 1, borderRadius: '10px' }} elevation={3}>
+              <Typography variant='h6' fontWeight='bold' marginBottom={1}> 活跃用户 </Typography>
+              <Divider variant="fullWidth" />
+              <UsersList cid={currCid} />
+            </Paper>
           </Grid>
           <Grid item>
             <AdivertiseCard />
