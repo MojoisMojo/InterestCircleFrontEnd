@@ -19,8 +19,7 @@ function UserInfoCard({ id, name, avatar, circleCount, likeCount }) {
     >
       <CardHeader
         avatar={
-          <Avatar src={avatar} aria-label="user-avatar">
-            {name[0]}
+          <Avatar src={avatar}>
           </Avatar>
         }
         title={name}

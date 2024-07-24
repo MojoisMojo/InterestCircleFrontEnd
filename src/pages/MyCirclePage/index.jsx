@@ -15,9 +15,9 @@ import { getCirclePostsRequest } from '../../server/circles';
 import { static_circle_posts, static_circles } from '../../assets/static';
 import { sleep } from '../../utils/sleep';
 import AdivertiseCard from '../../components/Adivertise';
-import UserInfoCard from '../../components/UserCard';
 import UsersList from '../../components/UsersList';
 import { Divider } from '@mui/material';
+import UserInfoCard from '../../components/UserInfoCard';
 
 export default function MyCirclePage() {
   const { currUser, setCurrUser } = useContext(UserContext);
@@ -89,7 +89,7 @@ export default function MyCirclePage() {
             <UserInfoCard
               id={currUser.uid}
               name={currUser.name}
-              avatar={currUser.avatar}
+              avatar={currUser.avatarUrl}
               circleCount={myCircles.length}
               likeCount={currUser.likeCount}
             />

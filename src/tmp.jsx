@@ -1,5 +1,5 @@
 import React from 'react';
-import UserInfoCard from './components/UserCard';
+import UserInfoCard from './components/UserInfoCard';
 
 const TmpApp = () => {
   return (

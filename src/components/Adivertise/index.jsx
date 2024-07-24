@@ -10,12 +10,12 @@ export default function AdivertiseCard({ advertise }) {
       color: '#283593',
       textColor: '#E8EAF6',
       imgUrl: '',
+      href: '/aboutus',
     }
   }
   return (
     <Paper
       elevation={3}
-      
       sx=
       {{
         backgroundImage: advertise.imgUrl ? `url(${advertise.imgUrl})` : 'none',
@@ -29,9 +29,12 @@ export default function AdivertiseCard({ advertise }) {
       <ButtonBase sx={{
         width: '100%', height: '100%', display: 'flex',
         flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      }}>
+
+      }}
+        href={advertise.href}
+      >
         <Typography
-          variant='h5' style={{ 
+          variant='h5' style={{
             color: advertise.textColor,
             margin: '10px',
           }}
