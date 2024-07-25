@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import UserContext from '../../context/UserContext';
 
-import PostSender from '../../components/Sender/PostSender';
+import PostSender from '../../components/Post/PostSender';
 import PostsLayout from '../../components/Post/PostsLayout';
 import AdivertiseCard from '../../components/Adivertise';
 import UsersList from '../../components/UsersList';

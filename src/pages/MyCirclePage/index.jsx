@@ -7,7 +7,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 
 import UserContext from '../../context/UserContext';
 
-import PostSender from '../../components/Sender/PostSender';
+import PostSender from '../../components/Post/PostSender';
 import Post from '../../components/Post/Post';
 import PostsLayout from '../../components/Post/PostsLayout';
 
