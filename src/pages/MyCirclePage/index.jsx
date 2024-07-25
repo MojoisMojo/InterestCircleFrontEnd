@@ -78,6 +78,7 @@ export default function MyCirclePage() {
         maxWidth='calc(min(90%, 1980px))'
         direction='row'
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+        rowSpacing={{ xs: 1, sm: 2, md: 3 }}
         alignItems='flex-start'
         justifyContent='center'
         textAlign={'center'}
@@ -90,14 +91,14 @@ export default function MyCirclePage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <Paper sx={{ paddingTop: 1, borderRadius: '10px' }} elevation={3}>
               <Typography variant='h6' fontWeight='bold' marginBottom={1}> 活跃用户 </Typography>
               <Divider variant="fullWidth" />
               <UsersList cid={currCid} />
             </Paper>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
         </Grid>
@@ -180,10 +181,10 @@ export default function MyCirclePage() {
               likesCount={currUser.likesCount}
             />
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
         </Grid>

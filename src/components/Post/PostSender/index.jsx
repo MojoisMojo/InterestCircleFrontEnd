@@ -116,10 +116,10 @@ export default function PostSender(props) {
 
   return (
     <Paper
-      p={3}
       elevation={3}
       component="form"
       sx={{
+        p: 1,
         '& .MuiTextField-root': { m: 1 },
         '& .MuiButton-root': { m: 1 },
         height: 'fit-content',
@@ -142,7 +142,9 @@ export default function PostSender(props) {
             <Box
               key={key}
               component='li'
-              sx={{ fontSize: '0.8rem' }}
+              sx={{ 
+                fontSize: '0.8rem',
+              }}
               {...optionProps}
             >
               {option.cname}
@@ -164,7 +166,7 @@ export default function PostSender(props) {
         size='small'
         disablePortal
         sx={{
-          width: '25%',
+          width: '40%',
           maxWidth: '200px',
           minWidth: '100px',
           '& .MuiAutocomplete-inputRoot': {
@@ -172,6 +174,15 @@ export default function PostSender(props) {
           },
           '& .MuiAutocomplete-option': {
             fontSize: '0.8rem !important', // 更改选项的字体大小
+          },
+          '& fieldset': {
+            border: 'none', // 移除边框
+          },
+          '&:hover fieldset': {
+            border: 'none', // 鼠标悬停时也不显示边框
+          },
+          '&.Mui-focused fieldset': {
+            border: 'none', // 聚焦时也不显示边框
           },
         }}
       />
@@ -186,7 +197,7 @@ export default function PostSender(props) {
         sx={{
           width: 'calc(100% - 16px)',
           '& .MuiOutlinedInput-root': {
-            padding: '8px', // 设置你想要的内边距
+            padding: '8px', 
             '& fieldset': {
               border: 'none', // 移除边框
             },

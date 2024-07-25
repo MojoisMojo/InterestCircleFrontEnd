@@ -62,7 +62,7 @@ async function joinOrleaveCircleRequest(cid, uid, isJoined) {
   };
 }
 
-async function getInterestCircles(uid){
+async function getInterestCirclesRequest(uid) {
   await sleep(1000);
   return {
     status: 'success',
@@ -74,10 +74,19 @@ async function getInterestCircles(uid){
   }
 }
 
+async function createCircleRequest(uid, cname, cdesc, cicon, ctime) {
+  await sleep(1000);
+  return {
+    status: 'success',
+    msg: '创建圈子成功',
+  };
+}
+
 export {
   getCirclePostsRequest,
   getCircleActiveUsersRequest,
   getCircleInfoRequest,
   joinOrleaveCircleRequest,
-  getInterestCircles,
+  getInterestCirclesRequest,
+  createCircleRequest,
 };

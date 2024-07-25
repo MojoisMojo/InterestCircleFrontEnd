@@ -106,7 +106,7 @@ export default function CirclePage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <Paper sx={{ paddingTop: 1, borderRadius: '10px' }} elevation={3}>
               <Typography variant='h6' fontWeight='bold' marginBottom={1}>
                 活跃用户
@@ -115,7 +115,7 @@ export default function CirclePage() {
               <UsersList cid={currCircle.cid} />
             </Paper>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
         </Grid>
@@ -159,10 +159,10 @@ export default function CirclePage() {
               handleJoinOrLeaveCircle={handleJoinOrLeaveCircle}
             />
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
         </Grid>

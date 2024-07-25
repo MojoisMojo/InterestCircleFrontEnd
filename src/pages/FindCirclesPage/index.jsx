@@ -15,7 +15,7 @@ import Divider from '@mui/material/Divider';
 
 import { static_circles } from '../../assets/static';
 import { static_circles_joined } from '../../assets/static';
-import { getInterestCircles, joinOrleaveCircleRequest } from '../../server/circles';
+import { getInterestCirclesRequest, joinOrleaveCircleRequest } from '../../server/circles';
 
 function FindCirclesPage() {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ function FindCirclesPage() {
     navigate(`/circle?id=${cId}`);
   };
 
-  getInterestCircles(currUser.uid).then(res => {
+  getInterestCirclesRequest(currUser.uid).then(res => {
     if (res.status !== 'success') {
       alert(res.msg);
       return;
@@ -80,7 +80,7 @@ function FindCirclesPage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <Paper sx={{ paddingTop: 1, borderRadius: '10px' }} elevation={3}>
               <Typography variant='h6' fontWeight='bold' marginBottom={1}>
                 活跃圈子
@@ -89,7 +89,7 @@ function FindCirclesPage() {
               TBC 敬请期待
             </Paper>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
         </Grid>
@@ -149,10 +149,10 @@ function FindCirclesPage() {
               likesCount={currUser.likesCount}
             />
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
-          <Grid item>
+          <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />
           </Grid>
         </Grid>

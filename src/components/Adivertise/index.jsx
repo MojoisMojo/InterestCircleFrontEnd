@@ -6,7 +6,11 @@ export default function AdivertiseCard({ advertise }) {
   if (!advertise) {
     advertise = {
       title: '广告位出租',
-      content: '广告位出租',
+      content: (
+        <p className="text-lg text-center text-yellow-200 hover:text-yellow-400">
+          Connect Us
+        </p>
+      ),
       color: '#283593',
       textColor: '#E8EAF6',
       imgUrl: '',
@@ -18,6 +22,7 @@ export default function AdivertiseCard({ advertise }) {
       elevation={3}
       sx=
       {{
+        width: '100%',
         backgroundImage: advertise.imgUrl ? `url(${advertise.imgUrl})` : 'none',
         backgroundColor: advertise.color,
         height: 150, display: 'flex',
