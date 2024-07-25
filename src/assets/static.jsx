@@ -1,22 +1,24 @@
 import { comment } from "postcss";
 
+import { static_circle_info, static_circles_info, static_empty_circle_info, } from "./circle";
+
 const static_empty_user = {
   uid: '',
   name: '',
   email: '',
   bio: '',
   avatarUrl: '/logo.svg',
-  likeCount: 0,
+  likesCount: 0,
   circlesCount: 0,
 };
 
 const static_mojo_user = {
   uid: 'mojo163com',
-  name: 'mojo',
+  name: 'mojomojomojomojo',
   email: 'mojo@163.com',
-  bio: 'mojomojo',
+  bio: 'gudengmingyueyingluoye',
   avatarUrl: '/logo.svg',
-  likeCount: 1345,
+  likesCount: 1345,
   circlesCount: 14,
 };
 
@@ -36,13 +38,12 @@ const static_poster_2 = {
 const static_post = {
   pid: '123',
   time: new Date('2021-09-01 00:12').getTime(),
-  content: 'HPV是Human papilloma virus的缩写，中文名称为人乳头瘤病毒。\
-  HPV属于乳多空病毒科乳头瘤空泡病毒A属，是一种球形DNA病毒。\
-  HPV感染可引起生殖道皮肤、黏膜发生一系列病变，与子宫颈癌相关性最高。\
-  **几乎100%的子宫颈癌与高危HPV的持续感染相关**，其中HPV16/18诱发癌变的风险最高。\
-  目前已确定的HPV型别有200余种，根据有无致癌性将HPV分为高危型和低危型；\
-  我国国家药品监督管理局根据世界卫生组织国际癌症研究机构的建议，\
-  将HPV16、18、31、33、35、39、45、51、52、56、58、59、68定义为高危型.',
+  content: 'ffffffffffffffffffffffffffff\
+    fffffffffffffffffffffffffffff\
+    ffffff\n\
+    fffffffffffffffffffffffffffffffffff\
+    fffffffffffffffffffffffffffffffffff\
+    fffffffffffffffffffffffffffffffffff',
   imgs: ['/logo.svg', '/../src/assets/img/FamilyCirclePic.png', '/../src/assets/img/gameCirclePic.png'],
   likes: 20,
   looks: 3,
@@ -97,25 +98,31 @@ const static_circle_card_info_game = {
   isJoined: false,
 };
 
+const static_circle_card_info_game2 = {
+  cid: 'game1234',
+  cname: '游戏分享',
+  description: '游戏分享 | 苏州',
+  image: '/src/assets/img/gameCirclePic.png',
+  isJoined: false,
+};
+
 const static_circle_posts = [
   { poster: static_poster, post: static_post_3 },
   { poster: static_poster_2, post: static_post },
   { poster: static_poster_2, post: static_post_2 },
 ];
 
-const static_circles = [
+const static_circles_card_info = [
   static_circle_card_info_daily,
   static_circle_card_info_game,
-  static_circle_card_info_daily,
-  static_circle_card_info_daily,
-  static_circle_card_info_game,
-  static_circle_card_info_daily,
-  static_circle_card_info_game,
-  static_circle_card_info_game,
-  static_circle_card_info_daily,
-  static_circle_card_info_daily,
-  static_circle_card_info_game,
-]
+  static_circle_card_info_game2,
+];
+
+const static_circles_joined = {
+  'daily123': true,
+  'game123': true,
+  'game1234': true,
+};
 
 const static_comment = {
   comid: '123',
@@ -163,30 +170,6 @@ const static_comment3 = {
 
 const static_comments = [static_comment, static_comment2, static_comment3];
 
-const static_circle_info = {
-  cid: 'hf23fnwev',
-  cname: '游戏分享',
-  cdesc: '游戏分享 | 苏州',
-  ccreator_id: '14431213',
-  ctime: new Date('2021-10-01').getTime(),
-  cicon: '/logo.svg',
-  cposts: 100,
-  cusers: 100,
-  cpopularity: 100,
-};
-
-const static_empty_circle_info = {
-  cid: '',
-  cname: '',
-  cdesc: '',
-  ccreator_id: '',
-  ctime: 0,
-  cicon: '',
-  cposts: 0,
-  cusers: 0,
-  cpopularity: 0,
-};
-
 export {
   static_poster,
   static_poster_2,
@@ -195,14 +178,20 @@ export {
   static_post_3,
   static_empty_user,
   static_mojo_user,
+
+  static_circle_posts,
+
   static_circle_card_info_daily,
   static_circle_card_info_game,
-  static_circle_posts,
-  static_circles,
+  static_circle_card_info_game2,
+  static_circles_card_info as static_circles,
+  static_circles_joined,
+
   static_comment,
   static_comment2,
   static_comments,
 
   static_circle_info,
+  static_circles_info,
   static_empty_circle_info,
 };

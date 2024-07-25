@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Grid, Typography, Paper, Divider } from '@mui/material';
+import { Grid, Typography, Paper, Divider, ButtonBase } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import UserContext from '../../context/UserContext';
@@ -10,24 +10,45 @@ import AdivertiseCard from '../../components/Adivertise';
 import UsersList from '../../components/UsersList';
 import CircleInfoCard from '../../components/CircleCard/CircleInfoCard';
 
-import { getCirclePostsRequest, getCircleInfoRequest } from '/src/server/circles';
-
+import {
+  getCirclePostsRequest,
+  getCircleInfoRequest,
+  joinOrleaveCircleRequest
+} from '/src/server/circles';
 import { static_empty_circle_info } from '../../assets/static';
+
 export default function CirclePage() {
   const { currUser, setCurrUser } = useContext(UserContext);
   const [currPosts, setCurrPosts] = useState([]);
-  const [currCircle, setCurrCircle] = useState({...static_empty_circle_info});
+  const [currCircle, setCurrCircle] = useState({ ...static_empty_circle_info });
+  const [isJoined, setIsJoined] = useState(null);
   const navigate = useNavigate();
 
-  async function getAndsetCircle(cid) {
-    let res = await getCircleInfoRequest(cid);
+  function handleJoinOrLeaveCircle(event) {
+    console.log('Join or leave circle:', currCircle.cname);
+    joinOrleaveCircleRequest(
+      currCircle.cid, currUser.uid, !isJoined
+    ).then(res => {
+      if (res.status !== 'success') {
+        alert(res.msg);
+        return;
+      }
+      alert('操作成功');
+      setIsJoined(res.data.isJoined);
+    });
+
+  }
+  async function getAndsetCircle(cid, uid) {
+    let res = await getCircleInfoRequest(cid, uid);
     if (res.status !== 'success') {
       alert(res.msg);
       navigate('/NotFound');
       return;
     }
     let circle = res.data.circle;
+    let isJoined = res.data.isJoined;
     setCurrCircle(circle);
+    setIsJoined(isJoined);
   };
   async function getAndsetPosts(cid) {
     let res = await getCirclePostsRequest(cid);
@@ -44,7 +65,7 @@ export default function CirclePage() {
     const queryParams = new URLSearchParams(window.location.search);
     const circleId = queryParams.get('id'); // 假设URL是这样的: /circle/?id=123
     if (circleId) {
-      getAndsetCircle(circleId);
+      getAndsetCircle(circleId, currUser.uid);
       getAndsetPosts(circleId);
     }
     else {
@@ -85,15 +106,6 @@ export default function CirclePage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Grid item width={'100%'}>
-            <CircleInfoCard
-              cicon={currCircle.cicon}
-              cname={currCircle.cname}
-              cdesc={currCircle.cdesc}
-              cusernumber={currCircle.cusers}
-              cpostnumber={currCircle.cposts}
-            />
-          </Grid>
           <Grid item>
             <Paper sx={{ paddingTop: 1, borderRadius: '10px' }} elevation={3}>
               <Typography variant='h6' fontWeight='bold' marginBottom={1}>
@@ -114,7 +126,18 @@ export default function CirclePage() {
           rowSpacing={{ xs: 1, sm: 2 }}
         >
           <Grid item sx={{ width: "100%" }}>
-            <PostSender circles={[currCircle]} />
+            <PostSender circles={isJoined ? [currCircle] : []} />
+          </Grid>
+          <Grid item sx={{ width: "100%" }} display={{ xs: 'flex', md: 'none' }}>
+            <CircleInfoCard
+              cicon={currCircle.cicon}
+              cname={currCircle.cname}
+              cdesc={currCircle.cdesc}
+              cusernumber={currCircle.cusers}
+              cpostnumber={currCircle.cposts}
+              isJoined={isJoined}
+              handleJoinOrLeaveCircle={handleJoinOrLeaveCircle}
+            />
           </Grid>
           <PostsLayout posts={currPosts} />
         </Grid>
@@ -125,6 +148,17 @@ export default function CirclePage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
+          <Grid item sx={{ width: "100%" }}>
+            <CircleInfoCard
+              cicon={currCircle.cicon}
+              cname={currCircle.cname}
+              cdesc={currCircle.cdesc}
+              cusernumber={currCircle.cusers}
+              cpostnumber={currCircle.cposts}
+              isJoined={isJoined}
+              handleJoinOrLeaveCircle={handleJoinOrLeaveCircle}
+            />
+          </Grid>
           <Grid item>
             <AdivertiseCard />
           </Grid>

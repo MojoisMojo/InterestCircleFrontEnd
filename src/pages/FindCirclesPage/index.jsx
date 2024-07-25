@@ -3,8 +3,8 @@ import CirclePage from '../CirclePage'
 import VerticalCircleCard from '../../components/CircleCard/VerticalCard'
 import TransverseCircleCard from '../../components/CircleCard/TransverseCard'
 import FixHeightCircleCard from '../../components/CircleCard/FixHeightCard'
-import { static_circles } from '../../assets/static';
-import { useContext, useState } from 'react';
+
+import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/UserContext';
 import { ButtonBase, Grid } from '@mui/material';
 import UserInfoCard from '../../components/UserInfoCard';
@@ -13,16 +13,39 @@ import { Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 
+import { static_circles } from '../../assets/static';
+import { static_circles_joined } from '../../assets/static';
+import { getInterestCircles, joinOrleaveCircleRequest } from '../../server/circles';
+
 function FindCirclesPage() {
   const navigate = useNavigate();
-  const circles = static_circles;
+  const [circles, setCircles] = useState([]);
+  const [circlesJoined, setCirclesJoined] = useState({});
   const { currUser, setCurrUser } = useContext(UserContext);
   async function onJoinOrLeaveCircle(cId, isJoined) {
-
+    console.log('Join or leave circle:', cId);
+    let res = await joinOrleaveCircleRequest(cId, currUser.uid, !isJoined);
+    if (res.status !== 'success') {
+      alert(res.msg);
+      return;
+    }
+    alert('操作成功');
+    let newJoined = { ...circlesJoined };
+    newJoined[cId] = res.data.isJoined;
+    setCirclesJoined(newJoined);
   };
   async function onEnterCircle(cId) {
     navigate(`/circle?id=${cId}`);
   };
+
+  getInterestCircles(currUser.uid).then(res => {
+    if (res.status !== 'success') {
+      alert(res.msg);
+      return;
+    }
+    setCircles(res.data.circles);
+    setCirclesJoined(res.data.circlesJoined);
+  });
 
   return (
     <div style={{
@@ -57,22 +80,13 @@ function FindCirclesPage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Grid item width={'100%'}>
-            <UserInfoCard
-              bio={currUser.bio}
-              name={currUser.name}
-              avatar={currUser.avatarUrl}
-              circleCount={currUser.circleCount}
-              likeCount={currUser.likeCount}
-            />
-          </Grid>
           <Grid item>
             <Paper sx={{ paddingTop: 1, borderRadius: '10px' }} elevation={3}>
               <Typography variant='h6' fontWeight='bold' marginBottom={1}>
                 活跃圈子
               </Typography>
               <Divider variant="fullWidth" />
-              TBC
+              TBC 敬请期待
             </Paper>
           </Grid>
           <Grid item>
@@ -99,18 +113,23 @@ function FindCirclesPage() {
             justifyContent='flex-start'
             direction='row'
           >
-            {circles.map(circle => (
-              <Grid
-                item xs={10} sm={6} md={6} lg={4} xl={2.4}
-                key={circle.id}
-              >
-                <FixHeightCircleCard
-                  circle={circle}
-                  cardWidth='100%'
-                  onEnterCircle={onEnterCircle}
-                  onJoinOrLeaveCircle={onJoinOrLeaveCircle} />
-              </Grid>
-            ))}
+            {circles.map(circle => {
+              return (
+
+                <Grid
+                  item xs={10} sm={6} md={6} lg={4} xl={2.4}
+                  key={circle.cid}
+                >
+                  <FixHeightCircleCard
+                    circle={circle}
+                    cardWidth='100%'
+                    onEnterCircle={onEnterCircle}
+                    onJoinOrLeaveCircle={onJoinOrLeaveCircle}
+                    isJoined={circlesJoined[circle.cid]}
+                  />
+                </Grid>
+              )
+            })}
           </Grid>
 
         </Grid>
@@ -121,6 +140,15 @@ function FindCirclesPage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
+          <Grid item width={'100%'}>
+            <UserInfoCard
+              bio={currUser.bio}
+              name={currUser.name}
+              avatar={currUser.avatarUrl}
+              circlesCount={currUser.circlesCount}
+              likesCount={currUser.likesCount}
+            />
+          </Grid>
           <Grid item>
             <AdivertiseCard />
           </Grid>

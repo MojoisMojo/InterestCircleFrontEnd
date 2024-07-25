@@ -10,38 +10,77 @@ import CardHeader from '@mui/material/CardHeader';
 import { blue } from '@mui/material/colors';
 import { Grid } from '@mui/material';
 
-function UserInfoCard({name, bio, avatar, circleCount, likeCount }) {
+function UserInfoCard({ name, bio, avatar, circlesCount, likesCount }) {
   return (
     <Card
-      width='100%'
       elevation={3}
-      sx={{ borderRadius: '8px', }}
+      sx={{ width: '100%', borderRadius: '8px', }}
     >
       <CardHeader
+        sx={{
+          padding: { xs: 2, lg: 3 },
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          '& .MuiCardHeader-content': {
+            maxWidth: 'calc(100% - 60px)',
+          },
+          '& .MuiCardHeader-title': {
+            display: '-webkit-box',
+            WebkitLineClamp: 1,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '100%',
+          },
+          '& .MuiCardHeader-subheader': {
+            display: '-webkit-box',
+            WebkitLineClamp: 1,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '100%',
+          },
+          '& .MuiCardHeader-avatar': {
+            marginRight: '8px !important',
+          }
+        }}
         avatar={
-          <Avatar src={avatar}>
-          </Avatar>
+          <Avatar
+            sx={{
+              width: { xs: 40, md: 45, lg: 60 },
+              height: { xs: 40, md: 45, lg: 60 },
+            }}
+            src={avatar}
+          />
         }
         title={name}
-        titleTypographyProps={{ align: 'center', variant: 'h6', fontWeight: 'bold' }}
+        titleTypographyProps={{
+          align: 'center', variant: 'h6', fontWeight: 'bold'
+        }}
         subheader={bio}
+        subheaderTypographyProps={{
+          align: 'center', variant: 'body2',
+          color: 'text.secondary',
+        }}
       />
-
-      <Grid container spacing={2} sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        paddingBottom: 2,
-      }}>
+      <Grid container
+        sx={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          paddingBottom: 2,
+        }}
+      >
         <Grid item
           xs={6}
           style={{
             flexDirection: 'column',
           }}>
           <Typography variant="h6" color='text.primary' align="center" sx={{ fontWeight: 'bold' }}>
-            {circleCount}
+            {circlesCount}
           </Typography>
           <Typography variant="body2" color="text.secondary" align="center">
             圈子数
@@ -53,7 +92,7 @@ function UserInfoCard({name, bio, avatar, circleCount, likeCount }) {
             flexDirection: 'column',
           }}>
           <Typography variant="h6" color="text.primary" align="center" sx={{ fontWeight: 'bold' }}>
-            {likeCount}
+            {likesCount}
           </Typography>
           <Typography variant="body2" color="text.secondary" align="center">
             获赞数

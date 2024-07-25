@@ -1,13 +1,15 @@
 import { sleep } from "../utils/sleep";
-import { static_empty_user, static_mojo_user } from "../assets/static";
-import { static_circle_card_info_game, static_circle_card_info_daily } from "../assets/static";
+import {
+  static_circles_info,
+  static_empty_user, static_mojo_user
+} from "../assets/static";
 
 async function getUserInfoWithUid(uid) {
   /// TODO: connect to database and get user info with uid
   //let user = dbClient.getUserInfoWithUid(uid);
   //模拟等待请求
   await sleep(1000);
-  let user = {...static_mojo_user}
+  let user = { ...static_mojo_user }
   return {
     status: 'success', msg: '登录成功', data:
     {
@@ -21,10 +23,7 @@ async function getUserInfoWithEmail(email) {
   //let user = dbClient.getUserInfoWithUid(uid);
   //模拟等待请求
   await sleep(1500);
-  let user = { ...static_empty_user };
-  user.uid = "221900175smailnjueducn";
-  user.name = "mojo";
-  user.email = email;
+  let user = { ...static_mojo_user };
   return {
     status: 'success', msg: '登录成功', data:
     {
@@ -41,14 +40,7 @@ async function getAllCirclesRequest(uid) {
     status: 'success',
     msg: '获取圈子成功',
     data: {
-      circles: [
-        {
-          ...static_circle_card_info_game
-        },
-        {
-          ...static_circle_card_info_daily
-        },
-      ]
+      circles: [...static_circles_info]
     }
   };
 }

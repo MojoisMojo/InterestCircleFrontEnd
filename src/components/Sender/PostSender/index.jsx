@@ -13,14 +13,15 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 import SquareContainer from '../../SquareContainer';
-import ImgViewer from '../../ImgViewer';
+import ImgViewer from '../../Dialog/ImgViewer';
 import UserContext from '../../../context/UserContext';
 
 import { releasePostRequest } from '../../../server/post';
 
 export default function PostSender(props) {
 
-  let { circles, _ } = props;
+  let { circles, circle, _ } = props;
+  // 只用到了 cid, cname
 
   const { currUser, setCurrUser } = React.useContext(UserContext);
 
@@ -99,11 +100,18 @@ export default function PostSender(props) {
     let poster = { uid: currUser.uid, uname: currUser.uname, avatarUrl: currUser.avatarUrl };
     let post = { content: postContent, imgs: postImgs };
     let cid = selectedCircle.cid;
-    releasePostRequest({ poster, post, cid }).then(res => { console.log(res.msg); });
-
-    setPostContent('');
-    setSelectedCircle(null);
-    setPostImgs([]);
+    releasePostRequest(
+      { poster, post, cid }
+    ).then(res => {
+      if (res.status !== 'success') {
+        alert(res.msg);
+        return;
+      }
+      alert('发帖成功!');
+      setPostContent('');
+      setSelectedCircle(null);
+      setPostImgs([]);
+    });
   };
 
   return (
@@ -124,8 +132,10 @@ export default function PostSender(props) {
     >
       <Autocomplete
         options={circles}
-        getOptionLabel={(option) => { return option.cname }}
+        noOptionsText='请先加入圈子'
+        getOptionLabel={(option) => { return option ? option.cname : '' }}
         onChange={handleCircleChange}
+        value={selectedCircle}
         renderOption={(props, option) => {
           const { key, ...optionProps } = props;
           return (
@@ -142,7 +152,7 @@ export default function PostSender(props) {
         renderInput={(params) =>
           <TextField
             {...params}
-            label="选择圈子"
+            label="选择发帖圈子"
             size='small'
             InputLabelProps={{
               sx: {

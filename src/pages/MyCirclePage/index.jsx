@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, ButtonBase, Grid, Typography } from '@mui/material';
+import { Avatar, Box, ButtonBase, Grid, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
+import { IconButton } from '@mui/material';
+import CircleIcon from '@mui/icons-material/Circle';
 
 import UserContext from '../../context/UserContext';
 
@@ -46,7 +48,9 @@ export default function MyCirclePage() {
     setCurrPosts(posts);
   };
 
-  useEffect(() => { getAndsetMyCircles() }, []);
+  useEffect(() => {
+    getAndsetMyCircles()
+  }, []);
   useEffect(() => {
     if (currCircleIdx < 0) return;
     getAndsetPosts(myCircles[currCircleIdx].cid);
@@ -86,15 +90,6 @@ export default function MyCirclePage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Grid item width={'100%'}>
-            <UserInfoCard
-              bio={currUser.bio}
-              name={currUser.name}
-              avatar={currUser.avatarUrl}
-              circleCount={currUser.circleCount}
-              likeCount={currUser.likeCount}
-            />
-          </Grid>
           <Grid item>
             <Paper sx={{ paddingTop: 1, borderRadius: '10px' }} elevation={3}>
               <Typography variant='h6' fontWeight='bold' marginBottom={1}> 活跃用户 </Typography>
@@ -113,16 +108,60 @@ export default function MyCirclePage() {
           rowSpacing={{ xs: 1, sm: 2 }}
         >
           <Grid item sx={{ width: "100%" }}>
-            <PostSender circles={myCircles} />
+            <PostSender circles={[myCircles[currCircleIdx]]} />
           </Grid>
-          <Grid item sx={{
-            marginTop: 2,
-            backgroundColor: 'yellow',
-            height: 100,
-            borderRadius: '8px',
-          }}>
-            Nav
+          {/* circles To Selected */}
+          <Grid item
+            height='120px'
+            maxHeight='180px'
+            container
+            display="flex"
+            alignItems="center"
+          >
+            <Paper
+              item
+              elevation={3}
+              sx={{
+                width: '100%',
+                height: '100%',
+                borderRadius: '8px',
+                padding: 0,
+                margin: 'auto',
+                display: "flex",
+                objectFit: 'hidden',
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <Box
+                margin='auto'
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                height='100%'
+              >
+                {myCircles.map((circle, index) => (
+                  <Grid
+                    item
+                    component='button'
+                    key={index}
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    columnSpacing={1}
+                    width={70}
+                  >
+                    <Avatar
+                      src={circle.cicon}
+                      sx={{ width: 50, height: 50, backgroundColor: 'primary.main' }}
+                    />
+                    <Typography variant="caption">{circle.cname}</Typography>
+                  </Grid>
+                ))}
+              </Box>
+            </Paper>
           </Grid>
+          {/* Posts */}
           <PostsLayout posts={currPosts} />
         </Grid>
         {/* right */}
@@ -132,6 +171,15 @@ export default function MyCirclePage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
+          <Grid item width={'100%'}>
+            <UserInfoCard
+              bio={currUser.bio}
+              name={currUser.name}
+              avatar={currUser.avatarUrl}
+              circlesCount={currUser.circlesCount}
+              likesCount={currUser.likesCount}
+            />
+          </Grid>
           <Grid item>
             <AdivertiseCard />
           </Grid>

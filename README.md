@@ -15,6 +15,10 @@ https://juejin.cn/post/7270160291411886132
 https://juejin.cn/post/7322655035699396660
 
 
+## Typoy/... 这个组件
+
+好像对中文自动换行，但是英文就不是了....
+
 ## Vite + React
 
 Currently, two official plugins are available:

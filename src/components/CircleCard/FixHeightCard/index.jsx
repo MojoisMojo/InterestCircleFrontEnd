@@ -6,15 +6,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
-export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, onJoinOrLeaveCircle }) {
-  const [isJoined, setIsJoined] = useState(circle.isJoined);
-
-  const imgHeight = 240;
+export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, onJoinOrLeaveCircle, isJoined }) {
+  const imgHeight = 192;
   const textHeght = 120;
 
-  const handleJoinOrLeaveCircle = (event) => {
-    console.log('Joins circle:', circle.cname);
-    isJoined ? setIsJoined(false) : setIsJoined(true);
+  async function handleJoinOrLeaveCircle(event) {
     onJoinOrLeaveCircle(circle.cid, isJoined);
   };
 
@@ -35,14 +31,12 @@ export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, 
             '& .MuiCardMedia-root': {
               opacity: 0.95,
             },
-            backgroundColor: 'rgba(0, 0, 0, 0.3)', // 修改为您想要的颜色和透明度
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
           },
           transition: 'background-color 0.3s', // 添加显示隐藏的过渡效果
         }}
       >
         <CardMedia
-          height={imgHeight}
-          maxHeight={imgHeight}
           component="img"
           sx={{
             transition: 'opacity 0.3s', // 添加显示隐藏的过渡效果
@@ -86,7 +80,7 @@ export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, 
       </CardActionArea>
       <CardActionArea
         sx={{
-          display: 'flex',
+          display: (isJoined == null) ? 'none' : 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           height: 60,
