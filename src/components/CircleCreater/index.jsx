@@ -212,7 +212,6 @@ function CircleCreater(props) {
               alignItems: 'center',
               display: 'flex',
             }}
-
               onClick={handleIconOpen}
             >
               <img
@@ -226,19 +225,21 @@ function CircleCreater(props) {
               />
             </ButtonBase>
             :
-
             <label htmlFor="raised-button-file"
               style={{
                 marginLeft: '8px',
+                marginRight: '8px',
                 width: '100%', height: '76px',
                 justifyContent: 'center',
                 alignItems: 'center',
                 display: 'flex',
               }}
             >
-              <ButtonBase
+              <Button
                 component="span"
                 style={{
+                  margin: 0,
+                  padding: 0,
                   width: '100%', height: '76px',
                   borderRadius: '10px',
                   justifyContent: 'center',
@@ -248,7 +249,7 @@ function CircleCreater(props) {
                 }}
               >
                 添加兴趣圈图标
-              </ButtonBase>
+              </Button>
             </label>
           )}
         </div>
