@@ -115,7 +115,8 @@ export default function MyCirclePage() {
           {/* circles To Selected */}
           <Grid item
             // height='135px' // 无滚动条时的高度
-            height='150px' // 有滚动条时的高度
+            // height='150px' // 有滚动条时的高度
+            height='fit-content'
             maxHeight='180px'
             container
             display="flex"
@@ -144,7 +145,7 @@ export default function MyCirclePage() {
                 height='100%'
                 columnGap={1}
                 sx={{
-                  overflowX: 'scroll',
+                  overflowX: 'auto',
                   overflowY: 'hidden',
                   // // 隐藏滚动条
                   // '&::-webkit-scrollbar': {
@@ -156,7 +157,8 @@ export default function MyCirclePage() {
                   scrollbarWidth: 'thin !important',
                 }}
                 paddingX={2}
-                paddingBottom={2}
+                paddingTop={2}
+                paddingBottom={3}
               >
                 {myCircles.map((circle, index) => (
                   <Grid

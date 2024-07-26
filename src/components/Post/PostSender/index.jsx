@@ -123,8 +123,8 @@ export default function PostSender(props) {
         '& .MuiButton-root': { m: 1 },
         height: 'fit-content',
         width: '100%',
-        alignItems:'center',
-      justifyContent:'center'
+        alignItems: 'center',
+        justifyContent: 'center'
       }}
       noValidate
       autoComplete="off"
@@ -230,6 +230,7 @@ export default function PostSender(props) {
         >
           {postImgs.map((imgfile, index) => (
             <Grid item
+              key={index}
               xs={6}
               sm={4}
               md={3}
