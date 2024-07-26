@@ -55,7 +55,7 @@ export default function Header() {
       <Disclosure as="nav" className="bg-gray-700">
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-none px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-[1980px] px-4 sm:px-6 lg:px-8">
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <button className="flex items-center" onClick={(e) => { navigate('/home'); return; }}>

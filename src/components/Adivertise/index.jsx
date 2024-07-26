@@ -2,20 +2,19 @@ import { Padding } from '@mui/icons-material';
 import { ButtonBase, Paper, Typography } from '@mui/material';
 import React from 'react';
 
-export default function AdivertiseCard({ advertise }) {
-  if (!advertise) {
-    advertise = {
-      title: '广告位出租',
-      content: (
-        <p className="text-lg text-center text-yellow-200 hover:text-yellow-400">
-          Connect Us
-        </p>
-      ),
-      color: '#283593',
-      textColor: '#E8EAF6',
-      imgUrl: '',
-      href: '/aboutus',
-    }
+export default function AdivertiseCard({ advertise: oldAdvertise }) {
+  let newAdvertise = {
+    title: '广告位出租',
+    content: (
+      <p className="text-lg text-center text-yellow-200 hover:text-yellow-400">
+        Connect Us
+      </p>
+    ),
+    color: '#283593',
+    textColor: '#E8EAF6',
+    imgUrl: '',
+    href: '/aboutus',
+    ...oldAdvertise,
   }
   return (
     <Paper
@@ -23,8 +22,8 @@ export default function AdivertiseCard({ advertise }) {
       sx=
       {{
         width: '100%',
-        backgroundImage: advertise.imgUrl ? `url(${advertise.imgUrl})` : 'none',
-        backgroundColor: advertise.color,
+        backgroundImage: newAdvertise.imgUrl ? `url(${newAdvertise.imgUrl})` : 'none',
+        backgroundColor: newAdvertise.color,
         height: 150, display: 'flex',
         flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
@@ -36,18 +35,18 @@ export default function AdivertiseCard({ advertise }) {
         flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
 
       }}
-        href={advertise.href}
+        href={newAdvertise.href}
       >
         <Typography
           variant='h5' style={{
-            color: advertise.textColor,
+            color: newAdvertise.textColor,
             margin: '10px',
           }}
         >
-          {advertise.title}
+          {newAdvertise.title}
         </Typography>
-        <Typography variant='body2' style={{ color: advertise.textColor }}>
-          {advertise.content}
+        <Typography variant='body2' style={{ color: newAdvertise.textColor }}>
+          {newAdvertise.content}
         </Typography>
       </ButtonBase>
     </Paper>

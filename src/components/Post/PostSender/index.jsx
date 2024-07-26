@@ -25,6 +25,8 @@ export default function PostSender(props) {
 
   const { currUser, setCurrUser } = React.useContext(UserContext);
 
+  const [inputFocus, setInputFocus] = React.useState('');
+
   const [postContent, setPostContent] = React.useState('');
   const [selectedCircle, setSelectedCircle] = React.useState(null);
   const [postImgs, setPostImgs] = React.useState([]);
@@ -49,9 +51,6 @@ export default function PostSender(props) {
   };
 
   const handleImageChange = (event) => {
-    // console.log(event.target.files);
-    // 忽略
-
     // 过滤掉非图片文件
     let files = Array.from(event.target.files).filter((file) => file.type.startsWith('image/'));
     // 限制上传图片数量
@@ -142,7 +141,7 @@ export default function PostSender(props) {
             <Box
               key={key}
               component='li'
-              sx={{ 
+              sx={{
                 fontSize: '0.8rem',
               }}
               {...optionProps}
@@ -187,17 +186,23 @@ export default function PostSender(props) {
         }}
       />
       <TextField
-        label="有什么想和大家分享的？"
+        id='postContent'
+        label={((inputFocus === 'postContent') ? `字符数: ${postContent.length}/200` : "有什么想和大家分享的？")}
         multiline
         minRows={2}
         maxRows={8}
         value={postContent}
         onChange={handlePostChange}
+        onFocus={() => { setInputFocus('postContent') }} // 添加onFocus事件处理函数
+        onBlur={() => { setInputFocus('') }} // 添加onBlur事件处理函数
         variant="outlined"
+        inputProps={{
+          maxLength: 200 // 限制最大输入字符数为 200
+        }}
         sx={{
           width: 'calc(100% - 16px)',
           '& .MuiOutlinedInput-root': {
-            padding: '8px', 
+            padding: '8px',
             '& fieldset': {
               border: 'none', // 移除边框
             },

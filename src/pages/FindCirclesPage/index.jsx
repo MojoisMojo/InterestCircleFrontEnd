@@ -7,6 +7,7 @@ import FixHeightCircleCard from '../../components/CircleCard/FixHeightCard'
 import { useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/UserContext';
 import { ButtonBase, Grid } from '@mui/material';
+import Button from '@mui/material/Button';
 import UserInfoCard from '../../components/UserInfoCard';
 import AdivertiseCard from '../../components/Adivertise';
 import { Typography } from '@mui/material';
@@ -16,12 +17,16 @@ import Divider from '@mui/material/Divider';
 import { static_circles } from '../../assets/static';
 import { static_circles_joined } from '../../assets/static';
 import { getInterestCirclesRequest, joinOrleaveCircleRequest } from '../../server/circles';
+import CircleCreater from '../../components/CircleCreater'
 
 function FindCirclesPage() {
   const navigate = useNavigate();
   const [circles, setCircles] = useState([]);
   const [circlesJoined, setCirclesJoined] = useState({});
   const { currUser, setCurrUser } = useContext(UserContext);
+
+  const [buttonOn, setButtonOn] = useState(false);
+
   async function onJoinOrLeaveCircle(cId, isJoined) {
     console.log('Join or leave circle:', cId);
     let res = await joinOrleaveCircleRequest(cId, currUser.uid, !isJoined);
@@ -32,20 +37,24 @@ function FindCirclesPage() {
     alert('操作成功');
     let newJoined = { ...circlesJoined };
     newJoined[cId] = res.data.isJoined;
+    console.log('oldJoined:', circlesJoined, 'newJoined:', newJoined);
     setCirclesJoined(newJoined);
   };
   async function onEnterCircle(cId) {
     navigate(`/circle?id=${cId}`);
   };
 
-  getInterestCirclesRequest(currUser.uid).then(res => {
-    if (res.status !== 'success') {
-      alert(res.msg);
-      return;
-    }
-    setCircles(res.data.circles);
-    setCirclesJoined(res.data.circlesJoined);
-  });
+  // 初始化
+  useEffect(() => {
+    getInterestCirclesRequest(currUser.uid).then(res => {
+      if (res.status !== 'success') {
+        alert(res.msg);
+        return;
+      }
+      setCircles(res.data.circles);
+      setCirclesJoined(res.data.circlesJoined);
+    });
+  }, []);
 
   return (
     <div style={{
@@ -99,15 +108,24 @@ function FindCirclesPage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Grid item sx={{ width: "100%", backgroundColor: 'yellow' }}>
-            <ButtonBase sx={{ width: '100%' }}>
-              Create A Circle
-            </ButtonBase>
+          <Grid item sx={{ width: "calc(100% - 8px)", margin: 'auto' }}>
+            {(buttonOn) ?
+              <CircleCreater onCreate={() => { setButtonOn(false) }} /> :
+              <Button
+                variant="outlined"
+                sx={{
+                  width: '100%', height: '50px',
+                  padding: 0,
+                }}
+                onClick={() => { setButtonOn(true) }}
+              >
+                找不到感兴趣的？自己创建一个！
+              </Button>
+            }
           </Grid>
           <Grid item container
             spacing={2}
             paddingRight={2}
-            width='100%'
             margin='auto'
             display='flex'
             justifyContent='flex-start'
@@ -117,8 +135,9 @@ function FindCirclesPage() {
               return (
 
                 <Grid
-                  item xs={10} sm={6} md={6} lg={4} xl={2.4}
+                  item xs={12} sm={6} md={4} lg={4} xl={3}
                   key={circle.cid}
+                  width='100%'
                 >
                   <FixHeightCircleCard
                     circle={circle}
@@ -141,13 +160,22 @@ function FindCirclesPage() {
           rowSpacing={{ xs: 1, sm: 2 }}
         >
           <Grid item width={'100%'}>
-            <UserInfoCard
+            {(!currUser.uid) ? <AdivertiseCard advertise={
+              {
+                title: '登陆一下吧',
+                content: '点我登录',
+                color: '#4B5563',
+                textcolor: '#E8EAF6',
+                href: '/login',
+              }
+            } /> : <UserInfoCard
               bio={currUser.bio}
               name={currUser.name}
               avatar={currUser.avatarUrl}
               circlesCount={currUser.circlesCount}
               likesCount={currUser.likesCount}
-            />
+            />}
+
           </Grid>
           <Grid item sx={{ width: '100%' }}>
             <AdivertiseCard />

@@ -22,7 +22,7 @@ export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, 
   };
   return (
     <Card elevation={3}
-      sx={{ width: cardWidth, borderRadius: "10px" }}>
+      sx={{ maxWidth: cardWidth, width: cardWidth, borderRadius: "10px" }}>
       <CardActionArea
         onClick={handleEnterCircle}
         sx={{

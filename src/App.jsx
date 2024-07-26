@@ -88,7 +88,7 @@ export default function App() {
               <Route path="/login" element={currUser.uid ? <Navigate to="/home" replace /> : <LoginPage />} />
               <Route path="/myPosts" element={checkLogin(<MyPostsPage />)} />
               <Route path="findCircles" element={<Navigate to="/home" replace />} />
-              <Route path="/home" element={checkLogin(<FindCirclesPage />)} />
+              <Route path="/home" element={<FindCirclesPage />} />
               <Route path="/myCircles" element={checkLogin(<MyCirclePage />)} />
               <Route path="/circle" element={checkLogin(<CirclePage />)} />
               <Route path="/mySettings" element={checkLogin(<MySettingsPage />)} />

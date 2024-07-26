@@ -15,11 +15,17 @@ https://juejin.cn/post/7270160291411886132
 https://juejin.cn/post/7322655035699396660
 
 
-## Typoy/... 这个组件
+## TBC
+
+### Typoy/... 这个组件
 
 英文换行问题 TBC
 
 好像对中文自动换行，但是英文就不是了....
+
+### Input 的 限制问题
+
+中文 2 字符 英文 1 字符
 
 ## Vite + React
 
