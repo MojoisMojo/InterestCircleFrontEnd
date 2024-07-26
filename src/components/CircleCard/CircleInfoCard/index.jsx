@@ -31,14 +31,16 @@ function CircleInfoCard({ cicon, cdesc, cname, cusernumber, cpostnumber, handleJ
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             maxWidth: '100%',
+            wordBreak: 'break-all',
           },
           '& .MuiCardHeader-subhead': {
             display: '-webkit-box',
-            WebkitLineClamp: 1,
+            WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             maxWidth: '100%',
+            wordBreak: 'break-all',
           },
           '& .MuiCardHeader-avatar': {
             marginRight: '8px !important',

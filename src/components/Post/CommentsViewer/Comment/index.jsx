@@ -30,7 +30,7 @@ function Comment({ comment }) {
           alignItems="center"
           justifyContent="space-between"
         >
-          {/** poster's avatar */}
+          {/** commenter's avatar */}
           <Grid item
             sx={{ width: 50 }}
             justifyContent={{ xs: 'flex-start', sm: 'center' }}
@@ -70,6 +70,7 @@ function Comment({ comment }) {
                 WebkitBoxOrient: 'vertical',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
+                wordBreak: 'break-all',
               }}
             >
               {commenter.name}
@@ -90,6 +91,7 @@ function Comment({ comment }) {
                 WebkitBoxOrient: 'vertical',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
+                wordBreak: 'break-all',
               }}
             >
               {formateDateToString(comment.time)}
@@ -105,6 +107,7 @@ function Comment({ comment }) {
             variant="body2"
             component="div"
             sx={{
+              wordBreak: 'break-all',
               width: '100%',
               fontFamily: 'monospace',
               fontSize: {
@@ -112,7 +115,9 @@ function Comment({ comment }) {
                 sm: '1.1rem', // 小型设备
                 lg: '1.2rem', // 大型设备
               },
+              
             }}
+            noWrap={false}
           >
             {comment.content}
           </Typography>
@@ -129,7 +134,7 @@ function CommentsLayout({ comments }) {
     }}>
       {comments.map(comment => (
         <div
-          style={{ margin: '10px' }}
+          style={{ width: '100%', margin: '10px' }}
           key={comment.comid}
         >
           <Comment comment={comment} />

@@ -17,6 +17,9 @@ import { Typography } from '@mui/material';
 export default function CommentsViewer({ open, pid, onClose, onCommentReleased }) {
   const { currUser, setCurrUser } = useContext(UserContext);
 
+
+  const [mFocus, setMFocus] = useState(false);
+
   const [comments, setComments] = useState([]);
   const [myCommentContent, setMyCommentContent] = useState('');
 
@@ -124,12 +127,20 @@ export default function CommentsViewer({ open, pid, onClose, onCommentReleased }
             autoFocus
             margin="dense"
             id="comment"
-            label="评论"
+            label={mFocus ? `字符数${myCommentContent.length}/50` : "评论"}
             type="text"
             fullWidth
+            multiline
+            minRows={2}
+            maxRows={{ xs: 2, sm: 2, md: 3 }}
             variant="outlined"
             value={myCommentContent}
             onChange={(e) => setMyCommentContent(e.target.value)}
+            inputProps={{
+              maxLength: 50,
+            }}
+            onFocus={() => { setMFocus(true) }}
+            onBlur={() => { setMFocus(false) }}
             sx={{ width: 'calc(100% - 100px)' }}
           />
           <Button onClick={handleSubmit} sx={{

@@ -31,14 +31,16 @@ function UserInfoCard({ name, bio, avatar, circlesCount, likesCount }) {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             maxWidth: '100%',
+            wordBreak: 'break-all',
           },
           '& .MuiCardHeader-subheader': {
             display: '-webkit-box',
-            WebkitLineClamp: 1,
+            WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             maxWidth: '100%',
+            wordBreak: 'break-all',
           },
           '& .MuiCardHeader-avatar': {
             marginRight: '8px !important',

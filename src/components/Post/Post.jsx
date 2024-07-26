@@ -116,180 +116,183 @@ export default function Post({ poster, post }) {
   };
 
   return (
-    <>
-      <Card
-        elevation={3}
-        sx={{
-          p: 3,
-          paddingTop: 2,
-          margin: 'auto',
-          flexGrow: 0.5,
-          backgroundColor: '#fff',
-          textAlign: 'left',
-          borderRadius: '8px',
-        }}
+    <Paper
+      elevation={3}
+      sx={{
+        p: 3,
+        paddingTop: 2,
+        margin: 'auto',
+        flexGrow: 0.5,
+        backgroundColor: '#fff',
+        textAlign: 'left',
+        borderRadius: '8px',
+        width: '100%',
+      }}
+    >
+      <Grid container
+        direction="column"
+        spacing={2}
+        alignItems='center'
       >
-        <Grid container
-          direction="column"
-          spacing={2}
-          alignItems='center'
+        {/* Poster info & post's time */}
+        <Grid item container direction="row"
+          alignItems="center"
+          justifyContent="space-between"
         >
-          {/* Poster info & post's time */}
-          <Grid item container direction="row"
-            alignItems="center"
-            justifyContent="space-between"
+          {/** poster's avatar */}
+          <Grid item
+            sx={{ width: 50 }}
+            justifyContent={{ xs: 'flex-start', sm: 'center' }}
           >
-            {/** poster's avatar */}
-            <Grid item
-              sx={{ width: 50 }}
-              justifyContent={{ xs: 'flex-start', sm: 'center' }}
-            >
-              <ButtonBase sx={{
-                height: 50,
-                width: 50,
-                borderRadius: '50%',
-              }}>
-                <Avatar alt="Avatar" src={poster.avatarUrl}
-                  sx={{
-                    width: 50,
-                    height: 50,
-                  }} />
-              </ButtonBase>
-            </Grid>
-            <Grid item
-              sx={{ width: 'calc(100% - 60px)' }}
-              container
-              direction={{ xs: 'column' }}
-              spacing={2}
-              alignItems='flex-start'
-              justifyContent='center'
-              paddingTop={{ xs: '10px', sm: '12px' }}
-            >
-              <Typography
-                variant="h5"
+            <ButtonBase sx={{
+              height: 50,
+              width: 50,
+              borderRadius: '50%',
+            }}>
+              <Avatar alt="Avatar" src={poster.avatarUrl}
                 sx={{
-                  fontWeight: 'bold',
-                  fontSize: {
-                    xs: '1.1rem', // 小屏幕
-                    sm: '1.15rem', // 小型设备
-                    md: '1.2rem', // 中型设备
-                  },
-                  display: '-webkit-box',
-                  WebkitLineClamp: 1,
-                  WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {poster.name}
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  lineHeight: '1.43',
-                  fontSize: {
-                    xs: '0.8rem', // 小屏幕
-                    sm: '0.85rem', // 小型设备
-                    md: '0.875rem'
-                  },
-                  fontWeight: 400,
-                  color: 'rgba(0, 0, 0, 0.6)',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 1,
-                  WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {formateDateToString(post.time)}
-              </Typography>
-            </Grid>
+                  width: 50,
+                  height: 50,
+                }} />
+            </ButtonBase>
           </Grid>
-          {/* Post's content */}
-          <Grid item container
-            sx={{ width: { xs: '100%', sm: '90%', md: '80%' } }}
-            paddingTop='8px !important'
+          <Grid item
+            sx={{ width: 'calc(100% - 60px)' }}
+            container
+            direction={{ xs: 'column' }}
+            spacing={2}
+            alignItems='flex-start'
+            justifyContent='center'
+            paddingTop={{ xs: '10px', sm: '12px' }}
           >
             <Typography
-              variant="body2"
-              component="div"
+              variant="h5"
               sx={{
-                width: '100%',
-                fontFamily: 'monospace',
+                fontWeight: 'bold',
                 fontSize: {
-                  xs: '0.9rem', // 小屏幕
-                  sm: '1rem', // 小型设备
-                  md: '1.1rem', // 中型设备
-                  lg: '1.15rem', // 大型设备
+                  xs: '1.1rem', // 小屏幕
+                  sm: '1.15rem', // 小型设备
+                  md: '1.2rem', // 中型设备
                 },
+                display: '-webkit-box',
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                wordBreak: 'break-all',
               }}
             >
-              {post.content}
+              {poster.name}
             </Typography>
-            {/* Post's images */}
-            <Grid item container
-              rowSpacing={{ xs: 1, md: 1.5 }}
-              columnSpacing={{ xs: 1, md: 1.5 }}
-              paddingTop='8px !important'
-              sx={{ width: '100%' }}
+            <Typography
+              variant="body2"
+              sx={{
+                lineHeight: '1.43',
+                fontSize: {
+                  xs: '0.8rem', // 小屏幕
+                  sm: '0.85rem', // 小型设备
+                  md: '0.875rem'
+                },
+                fontWeight: 400,
+                color: 'rgba(0, 0, 0, 0.6)',
+                display: '-webkit-box',
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                wordBreak: 'break-all',
+              }}
             >
-              {post.imgs.map((img) => (
-                <Grid item
-                  xs={6}
-                  sm={4}
-                >
-                  <SquareContainer
-                    item
-                    key={post.pid + img.id}
-                  >
-                    <ButtonBase
-                      sx={{
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: { xs: '5px', sm: '10px' },
-                      }}
-                      onClick={() => handleImgOpen(img)}
-                    >
-                      <img
-                        src={img}
-                        alt="img"
-                        style={{ borderRadius: 'inherit', objectFit: 'cover', width: '100%', height: '100%' }}
-                      />
-                    </ButtonBase>
-                  </SquareContainer>
-                </Grid>
-              ))}
-            </Grid>
+              {formateDateToString(post.time)}
+            </Typography>
           </Grid>
-          {/* Acted info of the post */}
-          <Grid item container
-            direction="row"
-            spacing={0.5}
-            sx={{ height: '60px' }}
-            justifyContent='center'
+        </Grid>
+        {/* Post's content */}
+        <Grid item container
+          sx={{ width: { xs: '100%', sm: '90%', md: '80%' } }}
+          paddingTop='8px !important'
+        >
+          <Typography
+            variant="body2"
+            component="div"
+            sx={{
+              width: '100%',
+              fontFamily: 'monospace',
+              fontSize: {
+                xs: '0.9rem', // 小屏幕
+                sm: '1rem', // 小型设备
+                md: '1.1rem', // 中型设备
+                lg: '1.15rem', // 大型设备
+              },
+              wordBreak: 'break-all',
+            }}
           >
-            {[
-              { name: 'Likes', value: likesNum },
-              { name: 'Looks', value: looksNum },
-              { name: 'Coms', value: comsNum },
-            ].map((info, index) => (
-              <Grid container item xs={4} key={info.name} sx={{ height: '100%' }}>
-                <ButtonBase
-                  sx={{
-                    height: '100%', width: '100%',
-                    justifyContent: 'center'
-                  }}
-                  onClick={(e) => { handleAct(info.name) }}
+            {post.content}
+          </Typography>
+          {/* Post's images */}
+          <Grid item container
+            rowSpacing={{ xs: 1, md: 1.5 }}
+            columnSpacing={{ xs: 1, md: 1.5 }}
+            paddingTop='8px !important'
+            sx={{ width: '100%' }}
+          >
+            {post.imgs.map((img) => (
+              <Grid item
+                xs={6}
+                sm={4}
+              >
+                <SquareContainer
+                  item
+                  key={post.pid + img.id}
                 >
-                  <Typography>
-                    {info.name}: {IntShown(info.value)}
-                  </Typography>
-                </ButtonBase>
+                  <ButtonBase
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: { xs: '5px', sm: '10px' },
+                    }}
+                    onClick={() => handleImgOpen(img)}
+                  >
+                    <img
+                      src={img}
+                      alt="img"
+                      style={{ borderRadius: 'inherit', objectFit: 'cover', width: '100%', height: '100%' }}
+                    />
+                  </ButtonBase>
+                </SquareContainer>
               </Grid>
             ))}
           </Grid>
         </Grid>
-      </Card>
+        {/* Acted info of the post */}
+        <Grid item container
+          direction="row"
+          spacing={0.5}
+          sx={{ height: '60px' }}
+          justifyContent='center'
+        >
+          {[
+            { name: 'Likes', value: likesNum },
+            { name: 'Looks', value: looksNum },
+            { name: 'Coms', value: comsNum },
+          ].map((info, index) => (
+            <Grid container item xs={4} key={info.name} sx={{ height: '100%' }}>
+              <ButtonBase
+                sx={{
+                  height: '100%', width: '100%',
+                  justifyContent: 'center'
+                }}
+                onClick={(e) => { handleAct(info.name) }}
+              >
+                <Typography>
+                  {info.name}: {IntShown(info.value)}
+                </Typography>
+              </ButtonBase>
+            </Grid>
+          ))}
+        </Grid>
+      </Grid>
+
       <ImgViewer
         open={imgOpen}
         img={selectedImg}
@@ -302,6 +305,7 @@ export default function Post({ poster, post }) {
         onCommentReleased={onCommentReleased}
       >
       </CommentsViewer>
-    </>
+
+    </Paper>
   );
 }
