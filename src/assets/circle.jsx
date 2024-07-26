@@ -36,7 +36,7 @@ const static_circle_info2 = {
 
 const static_circle_info3 = {
   cid: 'jg34jg34jg34j3',
-  cname: '摄影爱好者',
+  cname: '摄影爱好者哈哈',
   cdesc: '摄影 | 风景 | 人像 | 街拍 | 夜景 | 旅行 | 设备评测 | 北京',
   ccreator_id: '22334455',
   ctime: new Date('2022-01-15').getTime(),

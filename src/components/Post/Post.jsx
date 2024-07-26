@@ -182,6 +182,7 @@ export default function Post({ poster, post }) {
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 wordBreak: 'break-all',
+                color: '#ff6699',
               }}
             >
               {poster.name}
@@ -239,7 +240,7 @@ export default function Post({ poster, post }) {
             paddingTop='8px !important'
             sx={{ width: '100%' }}
           >
-            {post.imgs.map((img,index) => (
+            {post.imgs.map((img, index) => (
               <Grid item
                 key={post.pid + index}
                 xs={6}
@@ -277,9 +278,9 @@ export default function Post({ poster, post }) {
           justifyContent='center'
         >
           {[
-            { name: 'Likes', value: likesNum },
-            { name: 'Looks', value: looksNum },
-            { name: 'Coms', value: comsNum },
+            { name: '观看', value: looksNum },
+            { name: '喜欢', value: likesNum },
+            { name: '评论', value: comsNum },
           ].map((info, index) => (
             <Grid item xs={4} key={info.name} sx={{ height: '100%' }}>
               <Button

@@ -6,9 +6,9 @@ export default function AdivertiseCard({ advertise: oldAdvertise }) {
   let newAdvertise = {
     title: '广告位出租',
     content: (
-      <p className="text-lg text-center text-yellow-200 hover:text-yellow-400">
+      <div className="text-lg text-center text-yellow-200 hover:text-yellow-400">
         Connect Us
-      </p>
+      </div>
     ),
     color: '#283593',
     textColor: '#E8EAF6',
@@ -30,11 +30,13 @@ export default function AdivertiseCard({ advertise: oldAdvertise }) {
         borderRadius: '8px',
       }}
     >
-      <ButtonBase sx={{
-        width: '100%', height: '100%', display: 'flex',
-        flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      <ButtonBase
+        component='div'
+        sx={{
+          width: '100%', height: '100%', display: 'flex',
+          flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
 
-      }}
+        }}
         href={newAdvertise.href}
       >
         <Typography

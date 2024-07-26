@@ -44,6 +44,7 @@ export default function MyCirclePage() {
       alert(res.msg);
       return;
     }
+    console.log(res.msg);
     let posts = res.data.posts;
     setCurrPosts(posts);
   };
@@ -138,7 +139,7 @@ export default function MyCirclePage() {
               <Box
                 margin='auto'
                 display="flex"
-                alignItems="center"
+                alignItems="flex-end"
                 justifyContent="flex-start"
                 height='100%'
                 columnGap={1}
@@ -151,8 +152,11 @@ export default function MyCirclePage() {
                   // },
                   // 滚动条放在上方
                   transform: 'scaleY(-1)',
+                  // 设置滚动条高度
+                  scrollbarWidth: 'thin !important',
                 }}
                 paddingX={2}
+                paddingBottom={2}
               >
                 {myCircles.map((circle, index) => (
                   <Grid
@@ -167,7 +171,7 @@ export default function MyCirclePage() {
                     onClick={
                       () => {
                         console.log('click', index);
-                        setCurrCircleIdx(index)
+                        if (index !== currCircleIdx) { setCurrCircleIdx(index) }
                       }
                     }
                     // 悬停效果
@@ -191,12 +195,17 @@ export default function MyCirclePage() {
                         width: 54, height: 54,
                         backgroundColor: 'transparent',
                         border: '1.5px solid #00000000',
-                        boxShadow: '0 0 0 1.5px #00000000',
+                        boxShadow:
+                          (index === currCircleIdx
+                            ? '0 0 0 1.5px rgb(0, 174, 236)'
+                            : '0 0 0 1.5px #00000000'
+                          ),
+                        transition: 'box-shadow 0.35s ease-in-out',
                       }}
                     />
                     <Typography
                       className='mText'
-                      variant="caption"
+                      variant="body2"
                       sx={{
                         marginTop: 0.5,
                         WebkitLineClamp: 1,
@@ -207,9 +216,15 @@ export default function MyCirclePage() {
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         fontSize: '0.8125rem',
-                        color: "#6d757a",
+                        color: (
+                          (index === currCircleIdx)
+                            ? "rgb(0, 174, 236)"
+                            : "#6d757a"
+                        ),
+                        transition: 'color 0.35s ease-in-out',
                         fontWeight: '400',
                         fontFamily: 'PingFang SC,HarmonyOS_Regular,Helvetica Neue,Microsoft YaHei,sans-serif!important'
+
                       }}
                     >
                       {circle.cname}
