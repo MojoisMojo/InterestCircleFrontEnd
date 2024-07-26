@@ -64,18 +64,16 @@ export default function CommentsViewer({ open, pid, onClose, onCommentReleased }
       if (descriptionElement !== null) {
         descriptionElement.focus();
       }
+      // get comments
+      getPostCommentsRequest(pid).then((res) => {
+        if (res.status !== 'success') {
+          alert(res.msg);
+          return;
+        }
+        setComments(res.data.comments);
+      });
     }
   }, [open]);
-
-  useEffect(() => {
-    getPostCommentsRequest(pid).then((res) => {
-      if (res.status !== 'success') {
-        alert(res.msg);
-        return;
-      }
-      setComments(res.data.comments);
-    });
-  }, []);
 
   return (
     <div>
@@ -127,12 +125,12 @@ export default function CommentsViewer({ open, pid, onClose, onCommentReleased }
             autoFocus
             margin="dense"
             id="comment"
-            label={mFocus ? `字符数${myCommentContent.length}/50` : "评论"}
+            label={mFocus ? `字符数${myCommentContent.length}/50` : "进来唠会嗑呗"}
             type="text"
             fullWidth
             multiline
-            minRows={2}
-            maxRows={{ xs: 2, sm: 2, md: 3 }}
+            rows={1}
+            maxRows={2}
             variant="outlined"
             value={myCommentContent}
             onChange={(e) => setMyCommentContent(e.target.value)}

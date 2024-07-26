@@ -22,7 +22,7 @@ function UserInfoCard({ name, bio, avatar, circlesCount, likesCount }) {
           alignItems: 'center',
           justifyContent: 'flex-start',
           '& .MuiCardHeader-content': {
-            maxWidth: 'calc(100% - 60px)',
+            maxWidth: 'calc(90% - 60px)',
           },
           '& .MuiCardHeader-title': {
             display: '-webkit-box',
@@ -44,13 +44,14 @@ function UserInfoCard({ name, bio, avatar, circlesCount, likesCount }) {
           },
           '& .MuiCardHeader-avatar': {
             marginRight: '8px !important',
+            marginLeft: { xs: '10% !important', sm: '0 !important', md: '16px !important' },
           }
         }}
         avatar={
           <Avatar
             sx={{
-              width: { xs: 40, md: 45, lg: 60 },
-              height: { xs: 40, md: 45, lg: 60 },
+              width: { xs: 45, md: 50, lg: 60 },
+              height: { xs: 45, md: 50, lg: 60 },
             }}
             src={avatar}
           />

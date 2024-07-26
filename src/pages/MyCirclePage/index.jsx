@@ -113,7 +113,8 @@ export default function MyCirclePage() {
           </Grid>
           {/* circles To Selected */}
           <Grid item
-            height='120px'
+            // height='135px' // 无滚动条时的高度
+            height='150px' // 有滚动条时的高度
             maxHeight='180px'
             container
             display="flex"
@@ -138,8 +139,20 @@ export default function MyCirclePage() {
                 margin='auto'
                 display="flex"
                 alignItems="center"
-                justifyContent="center"
+                justifyContent="flex-start"
                 height='100%'
+                columnGap={1}
+                sx={{
+                  overflowX: 'scroll',
+                  overflowY: 'hidden',
+                  // // 隐藏滚动条
+                  // '&::-webkit-scrollbar': {
+                  //   display: 'none',
+                  // },
+                  // 滚动条放在上方
+                  transform: 'scaleY(-1)',
+                }}
+                paddingX={2}
               >
                 {myCircles.map((circle, index) => (
                   <Grid
@@ -149,14 +162,58 @@ export default function MyCirclePage() {
                     display="flex"
                     flexDirection="column"
                     alignItems="center"
-                    columnSpacing={1}
                     width={70}
+                    minWidth={70}
+                    onClick={
+                      () => {
+                        console.log('click', index);
+                        setCurrCircleIdx(index)
+                      }
+                    }
+                    // 悬停效果
+                    // 头像边框 和 文字变蓝
+                    sx={{
+                      transform: 'scaleY(-1)',
+                      '&:hover .mAvatar': {
+                        boxShadow: '0 0 0 1.5px rgb(0, 174, 236)',
+                        transition: 'box-shadow 0.35s',
+                      },
+                      '&:hover .mText': {
+                        color: 'rgb(0, 174, 236)',
+                        transition: 'color 0.35s',
+                      },
+                    }}
                   >
                     <Avatar
                       src={circle.cicon}
-                      sx={{ width: 50, height: 50, backgroundColor: 'primary.main' }}
+                      className='mAvatar'
+                      sx={{
+                        width: 54, height: 54,
+                        backgroundColor: 'transparent',
+                        border: '1.5px solid #00000000',
+                        boxShadow: '0 0 0 1.5px #00000000',
+                      }}
                     />
-                    <Typography variant="caption">{circle.cname}</Typography>
+                    <Typography
+                      className='mText'
+                      variant="caption"
+                      sx={{
+                        marginTop: 0.5,
+                        WebkitLineClamp: 1,
+                        textAlign: 'center',
+                        lineHeight: '1.125rem',
+                        wordBreak: 'break-all',
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        fontSize: '0.8125rem',
+                        color: "#6d757a",
+                        fontWeight: '400',
+                        fontFamily: 'PingFang SC,HarmonyOS_Regular,Helvetica Neue,Microsoft YaHei,sans-serif!important'
+                      }}
+                    >
+                      {circle.cname}
+                    </Typography>
                   </Grid>
                 ))}
               </Box>

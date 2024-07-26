@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import { getCircleActiveUsersRequest } from '../../server/circles';
 
 export default function UsersList({ cid }) {
-  const [users, setUsers] = React.useState([{}, {}, {}]);
+  const [users, setUsers] = React.useState([{ uid: 1 }, { uid: 2 }, { uid: 3 }]);
 
   React.useEffect(() => {
     getCircleActiveUsersRequest(cid).then((res) => {
@@ -19,12 +19,14 @@ export default function UsersList({ cid }) {
       setUsers(res.data.users);
     })
   }, [cid]);
-
   return (
     <List sx={{ width: '100%', p: 0 }}>
       {
         users.slice(0, 6).flatMap((user, index) => [
-          <ListItem alignItems="flex-start">
+          <ListItem
+            alignItems="flex-start"
+            key={user.uid}
+          >
             <ListItemAvatar sx={{ display: { xs: 'none', sm: 'flex' } }} >
               <Avatar alt={user.name} src={user.avatarUrl} />
             </ListItemAvatar>
@@ -38,7 +40,7 @@ export default function UsersList({ cid }) {
             />
           </ListItem>,
           index < users.length - 1 ?
-            <Divider variant="fullWidth" component="li" />
+            <Divider key={`divider-${user.uid}`} variant="fullWidth" component="li" />
             : null,
         ])}
     </List>

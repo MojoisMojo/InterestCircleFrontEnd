@@ -123,11 +123,11 @@ export default function PostSender(props) {
         '& .MuiButton-root': { m: 1 },
         height: 'fit-content',
         width: '100%',
+        alignItems:'center',
+      justifyContent:'center'
       }}
       noValidate
       autoComplete="off"
-      alignItems='center'
-      justifyContent='center'
     >
       <Autocomplete
         options={circles}

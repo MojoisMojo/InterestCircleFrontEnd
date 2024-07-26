@@ -16,19 +16,28 @@ async function getCircleActiveUsersRequest(cid) {
   await sleep(1000);
   let users = [
     {
+      uid: 'uid1',
       name: '张三',
       avatarUrl: '/logo.svg',
       bio: '这是张三',
     },
     {
+      uid: 'uid2',
       name: '李四',
       avatarUrl: '/logo.svg',
       bio: '这是李四',
     },
     {
+      uid: 'uid3',
       name: '王五',
       avatarUrl: '/logo.svg',
       bio: '这是王五',
+    },
+    {
+      uid: 'uid4',
+      name: '赵六',
+      avatarUrl: '/logo.svg',
+      bio: '这是赵六',
     },
   ];
   return {

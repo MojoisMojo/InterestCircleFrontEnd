@@ -109,13 +109,13 @@ function Comment({ comment }) {
             sx={{
               wordBreak: 'break-all',
               width: '100%',
-              fontFamily: 'monospace',
               fontSize: {
                 xs: '1rem', // 小屏幕
                 sm: '1.1rem', // 小型设备
                 lg: '1.2rem', // 大型设备
               },
-              
+              fontFamily: 'PingFang SC,HarmonyOS_Regular,Helvetica Neue,Microsoft YaHei,sans-serif!important',
+              lineHeight: '25px',
             }}
             noWrap={false}
           >

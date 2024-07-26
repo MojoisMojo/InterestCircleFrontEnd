@@ -22,6 +22,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ButtonBase from '@mui/material/ButtonBase';
+import Button from '@mui/material/Button';
 
 
 
@@ -31,6 +32,7 @@ import UserContext from '../../context/UserContext';
 
 import CommentsViewer from './CommentsViewer';
 import { formateDateToString } from '../../utils/mTime';
+import { BusAlertTwoTone } from '@mui/icons-material';
 
 const Img = styled('img')({
   // margin: 'auto',
@@ -119,7 +121,7 @@ export default function Post({ poster, post }) {
     <Paper
       elevation={3}
       sx={{
-        p: 3,
+        p: { xs: 2, sm: 2, md: 3 },
         paddingTop: 2,
         margin: 'auto',
         flexGrow: 0.5,
@@ -217,13 +219,14 @@ export default function Post({ poster, post }) {
             component="div"
             sx={{
               width: '100%',
-              fontFamily: 'monospace',
               fontSize: {
                 xs: '0.9rem', // 小屏幕
                 sm: '1rem', // 小型设备
                 md: '1.1rem', // 中型设备
                 lg: '1.15rem', // 大型设备
               },
+              fontFamily: 'PingFang SC,HarmonyOS_Regular,Helvetica Neue,Microsoft YaHei,sans-serif!important',
+              lineHeight: '25px',
               wordBreak: 'break-all',
             }}
           >
@@ -236,14 +239,14 @@ export default function Post({ poster, post }) {
             paddingTop='8px !important'
             sx={{ width: '100%' }}
           >
-            {post.imgs.map((img) => (
+            {post.imgs.map((img,index) => (
               <Grid item
+                key={post.pid + index}
                 xs={6}
                 sm={4}
               >
                 <SquareContainer
                   item
-                  key={post.pid + img.id}
                 >
                   <ButtonBase
                     sx={{
@@ -268,7 +271,9 @@ export default function Post({ poster, post }) {
         <Grid item container
           direction="row"
           spacing={0.5}
-          sx={{ height: '60px' }}
+          sx={{
+            height: '60px',
+          }}
           justifyContent='center'
         >
           {[
@@ -276,18 +281,27 @@ export default function Post({ poster, post }) {
             { name: 'Looks', value: looksNum },
             { name: 'Coms', value: comsNum },
           ].map((info, index) => (
-            <Grid container item xs={4} key={info.name} sx={{ height: '100%' }}>
-              <ButtonBase
+            <Grid item xs={4} key={info.name} sx={{ height: '100%' }}>
+              <Button
                 sx={{
+                  minWidth: '20px',
+                  padding: 0, margin: 0,
                   height: '100%', width: '100%',
                   justifyContent: 'center'
                 }}
                 onClick={(e) => { handleAct(info.name) }}
               >
-                <Typography>
+                <Typography
+                  fontSize={{
+                    xs: '0.8rem', // 小屏幕
+                    sm: '0.9rem', // 小型设备
+                    md: '1.0rem', // 中型设备
+                    lg: '1.1rem', // 大型设备
+                  }}
+                >
                   {info.name}: {IntShown(info.value)}
                 </Typography>
-              </ButtonBase>
+              </Button>
             </Grid>
           ))}
         </Grid>

@@ -34,9 +34,15 @@ const static_poster_2 = {
   email: 'mojoMao@example.com',
   avatarUrl: '/../src/assets/img/GameCirclePic.png',
 };
+const static_poster_3 = {
+  uid: '123456',
+  name: '毛666',
+  email: 'mojoMao@example.com',
+  avatarUrl: '/../src/assets/img/FamilyCirclePic.png',
+};
 
 const static_post = {
-  pid: '123',
+  pid: 'post1',
   time: new Date('2021-09-01 00:12').getTime(),
   content: 'ffffffffffffffffffffffffffff\
     fffffffffffffffffffffffffffff\
@@ -51,7 +57,7 @@ const static_post = {
 };
 
 const static_post_2 = {
-  pid: '1234455',
+  pid: 'post2',
   time: new Date('2024-1-1 17:34'),
   content: '吃饭',
   imgs: [
@@ -68,7 +74,7 @@ const static_post_2 = {
 };
 
 const static_post_3 = {
-  pid: '1234455',
+  pid: 'post3',
   time: new Date('2024-12-30 12:34'),
   content: '吃饭',
   imgs: [
@@ -107,9 +113,9 @@ const static_circle_card_info_game2 = {
 };
 
 const static_circle_posts = [
-  { poster: static_poster, post: static_post_3 },
-  { poster: static_poster_2, post: static_post },
+  { poster: static_poster, post: static_post },
   { poster: static_poster_2, post: static_post_2 },
+  { poster: static_poster_3, post: static_post_3 },
 ];
 
 const static_circles_card_info = [
@@ -173,6 +179,7 @@ const static_comments = [static_comment, static_comment2, static_comment3];
 export {
   static_poster,
   static_poster_2,
+  static_poster_3,
   static_post,
   static_post_2,
   static_post_3,
