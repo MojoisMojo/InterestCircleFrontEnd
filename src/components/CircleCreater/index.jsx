@@ -92,6 +92,10 @@ function CircleCreater(props) {
       alert('圈子图标不能为空!');
       return;
     }
+    if(!currUser.uid){
+      alert('请先登录!');
+      return;
+    }
     // 创建圈子
     createCircleRequest(currUser.uid, circleName, circleDescription, circleIcon, new Date().getTime())
       .then((res) => {

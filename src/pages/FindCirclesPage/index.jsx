@@ -108,7 +108,12 @@ function FindCirclesPage() {
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
         >
-          <Grid item sx={{ width: "calc(100% - 8px)", margin: 'auto' }}>
+          <Grid item
+            sx={{
+              width: "calc(100% - 8px)", margin: 'auto',
+              // transition: 'max-height 0.5s ease, opacity 0.5s ease',
+            }}
+          >
             {(buttonOn) ?
               <CircleCreater onCreate={() => { setButtonOn(false) }} /> :
               <Button

@@ -1,6 +1,7 @@
 import { Padding } from '@mui/icons-material';
 import { ButtonBase, Paper, Typography } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function AdivertiseCard({ advertise: oldAdvertise }) {
   let newAdvertise = {
@@ -31,11 +32,10 @@ export default function AdivertiseCard({ advertise: oldAdvertise }) {
       }}
     >
       <ButtonBase
-        component='div'
+        component='a'
         sx={{
           width: '100%', height: '100%', display: 'flex',
           flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-
         }}
         href={newAdvertise.href}
       >
