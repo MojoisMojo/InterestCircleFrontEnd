@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import { static_empty_user } from '../../assets/static';
-import { logoutRequest } from '../../server/loginAndregistration';
+import { logoutRequest } from '../../request/loginAndregistration';
 import { BellIcon } from '@heroicons/react/20/solid';
 
 

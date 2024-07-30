@@ -4,14 +4,14 @@ import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { CommentsLayout } from './Comment';
-import { getPostCommentsRequest } from '/src/server/post';
+import { getPostCommentsRequest } from '/src/request/post';
 import UserContext from '/src/context/UserContext.jsx';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { releaseCommentRequest } from '/src/server/post';
+import { releaseCommentRequest } from '/src/request/post';
 import { Typography } from '@mui/material';
 
 export default function CommentsViewer({ open, pid, onClose, onCommentReleased }) {

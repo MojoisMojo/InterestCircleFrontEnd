@@ -19,7 +19,7 @@ async function loginRequest(email, password) {
   };
 }
 
-async function registerRequest(email, password) {
+async function registerRequest(name, email, password) {
   // let userRes = dbclient.registerRequest(email, password);
   let userRes = await getUserInfoWithEmail(email);
   if (userRes.status == 'success') {

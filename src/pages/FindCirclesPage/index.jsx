@@ -16,7 +16,7 @@ import Divider from '@mui/material/Divider';
 
 import { static_circles } from '../../assets/static';
 import { static_circles_joined } from '../../assets/static';
-import { getInterestCirclesRequest, joinOrleaveCircleRequest } from '../../server/circles';
+import { getInterestCirclesRequest, joinOrleaveCircleRequest } from '../../request/circles';
 import CircleCreater from '../../components/CircleCreater'
 
 function FindCirclesPage() {

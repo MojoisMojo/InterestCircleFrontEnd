@@ -24,6 +24,9 @@ async function getUserInfoWithEmail(email) {
   //模拟等待请求
   await sleep(1500);
   let user = { ...static_mojo_user };
+  if (!user.avatarUrl){
+    user.avatarUrl = '/logo.svg'
+  }
   return {
     status: 'success', msg: '登录成功', data:
     {

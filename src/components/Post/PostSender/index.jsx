@@ -16,7 +16,7 @@ import SquareContainer from '../../SquareContainer';
 import ImgViewer from '../../Dialog/ImgViewer';
 import UserContext from '../../../context/UserContext';
 
-import { releasePostRequest } from '../../../server/post';
+import { releasePostRequest } from '../../../request/post';
 
 export default function PostSender(props) {
 

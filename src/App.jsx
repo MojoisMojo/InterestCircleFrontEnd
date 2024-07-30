@@ -29,7 +29,7 @@ import MySettingsPage from './pages/MySettingsPage';
 // utils
 import Cookie from 'js-cookie';
 import { getCookie } from './utils/cookie';
-import { getUserInfoWithUid } from './server/loginAndregistration';
+import { getUserInfoWithUid } from './request/loginAndregistration';
 
 
 const theme = createTheme({

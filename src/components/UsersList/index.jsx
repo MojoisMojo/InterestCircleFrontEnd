@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import { getCircleActiveUsersRequest } from '../../server/circles';
+import { getCircleActiveUsersRequest } from '../../request/circles';
 
 export default function UsersList({ cid }) {
   const [users, setUsers] = React.useState([{ uid: 1 }, { uid: 2 }, { uid: 3 }]);

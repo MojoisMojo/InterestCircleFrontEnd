@@ -14,7 +14,7 @@ import {
   getCirclePostsRequest,
   getCircleInfoRequest,
   joinOrleaveCircleRequest
-} from '/src/server/circles';
+} from '/src/request/circles';
 import { static_empty_circle_info } from '../../assets/static';
 
 export default function CirclePage() {

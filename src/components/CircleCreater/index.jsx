@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import UserContext from '../../context/UserContext';
 import { Grid, Paper } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { createCircleRequest } from '../../server/circles';
+import { createCircleRequest } from '../../request/circles';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -92,7 +92,7 @@ function CircleCreater(props) {
       alert('圈子图标不能为空!');
       return;
     }
-    if(!currUser.uid){
+    if (!currUser.uid) {
       alert('请先登录!');
       return;
     }

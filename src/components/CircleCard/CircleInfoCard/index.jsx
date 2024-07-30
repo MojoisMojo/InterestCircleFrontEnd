@@ -44,7 +44,7 @@ function CircleInfoCard({ cicon, cdesc, cname, cusernumber, cpostnumber, handleJ
           },
           '& .MuiCardHeader-avatar': {
             marginRight: '8px !important',
-            marginLeft: { xs: '10% !important', sm: '0 !important', md: '16px !important'},
+            marginLeft: { xs: '10% !important', sm: '8px !important', md: '8px !important', lg: '0px !important' },
           }
         }}
         avatar={
