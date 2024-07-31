@@ -15,12 +15,8 @@ function TmpApp() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <img src='http://127.0.0.1:7002/public/img/cat0.png' className="logo" alt="Vite logo" />
+        <img src='http://127.0.0.1:7002/public/img/cat1.png' className="logo react" alt="React logo" />
       </div>
       <h1>{title}</h1>
       <div className="card">
