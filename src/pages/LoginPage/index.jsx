@@ -50,7 +50,7 @@ export default function LoginPage() {
       return;
     }
     if (!passwordValidation(password)) {
-      alert('密码长度为6-16位，必须至少包含1个大写1个小写字母和1个数字');
+      alert('密码长度为6-16位，只包含大小写字母和数字，必须至少包含1个大写1个小写字母和1个数字');
       return;
     }
     setPassword('');
@@ -151,7 +151,7 @@ export default function LoginPage() {
           <div>
             <div className="flex items-center justify-end">
               <div className="text-sm">
-                <button onClick={() => { setIsSign(!isSign); console.log(isSign); }} className="font-semibold text-indigo-600 hover:text-indigo-500">
+                <button onClick={() => { setIsSign(!isSign); }} className="font-semibold text-indigo-600 hover:text-indigo-500">
                   {isSign ? "没有账号？注册一个！" : "已有账号？登录！"}
                 </button>
               </div>

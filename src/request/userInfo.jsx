@@ -12,6 +12,7 @@ const circleApi = `${clientBase}/circles`;
 async function getUserInfoWithUid(uid) {
   try {
     const res = await axios.get(`${userApi}/uid/${uid}`);
+    console.log(res);
     if (!res) {
       return { status: 'error', msg: '网络错误', data: {} };
     }
@@ -29,7 +30,7 @@ async function getUserInfoWithUid(uid) {
       {
         user: {
           ...userRes.data.user,
-          avatarUrl: userRes.data.user.avatarUrl || '/logo.svg'
+          avatarUrl: userRes.data.user? `${clientBase}${userRes.data.user.avatarUrl}` :'/logo.svg'
         }
       }
     };
@@ -60,7 +61,7 @@ async function getUserInfoWithEmail(email) {
       {
         user: {
           ...userRes.data.user,
-          avatarUrl: userRes.data.user.avatarUrl || '/logo.svg'
+          avatarUrl: userRes.data.user? `${clientBase}${userRes.data.user.avatarUrl}` :'/logo.svg'
         }
       }
     };
