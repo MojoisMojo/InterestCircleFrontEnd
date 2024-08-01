@@ -1,5 +1,6 @@
 import Cookie from 'js-cookie';
 function encode(value) {
+  return value;
   if (!value) {
     return null;
   }
@@ -11,6 +12,7 @@ function encode(value) {
 }
 
 function decode(value) {
+  return value;
   if (!value) {
     return null;
   }

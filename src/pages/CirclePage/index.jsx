@@ -133,7 +133,7 @@ export default function CirclePage() {
               cicon={currCircle.cicon}
               cname={currCircle.cname}
               cdesc={currCircle.cdesc}
-              cusernumber={currCircle.cusers}
+              cusernumber={currCircle.cmembers}
               cpostnumber={currCircle.cposts}
               isJoined={isJoined}
               handleJoinOrLeaveCircle={handleJoinOrLeaveCircle}
@@ -153,7 +153,7 @@ export default function CirclePage() {
               cicon={currCircle.cicon}
               cname={currCircle.cname}
               cdesc={currCircle.cdesc}
-              cusernumber={currCircle.cusers}
+              cusernumber={currCircle.cmembers}
               cpostnumber={currCircle.cposts}
               isJoined={isJoined}
               handleJoinOrLeaveCircle={handleJoinOrLeaveCircle}

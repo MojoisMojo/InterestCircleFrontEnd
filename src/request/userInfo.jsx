@@ -3,35 +3,71 @@ import {
   static_circles_info,
   static_empty_user, static_mojo_user
 } from "../assets/static";
+import axios from 'axios';
+import { clientBase } from "../assets/my.config";
+
+const userApi = `${clientBase}/users`;
+const circleApi = `${clientBase}/circles`;
 
 async function getUserInfoWithUid(uid) {
-  /// TODO: connect to database and get user info with uid
-  //let user = dbClient.getUserInfoWithUid(uid);
-  //模拟等待请求
-  await sleep(1000);
-  let user = { ...static_mojo_user }
-  return {
-    status: 'success', msg: '登录成功', data:
-    {
-      user: user
+  try {
+    const res = await axios.get(`${userApi}/uid/${uid}`);
+    if (!res) {
+      return { status: 'error', msg: '网络错误', data: {} };
     }
+    if (res.status >= 300) {
+      return { status: 'error', msg: `${res.status} error`, data: {} };
+    }
+    let userRes = res.data;
+    if (userRes.status !== 'success') {
+      return { status: 'failed', msg: userRes.msg, data: {} };
+    }
+    return {
+      status: userRes.status,
+      msg: userRes.msg,
+      data:
+      {
+        user: {
+          ...userRes.data.user,
+          avatarUrl: userRes.data.user.avatarUrl || '/logo.svg'
+        }
+      }
+    };
+
+  } catch (e) {
+    console.error('There was a problem with getUserInfo', e);
+    return { status: 'error', msg: '网络错误', data: {} };
   }
 }
 
 async function getUserInfoWithEmail(email) {
-  /// TODO: connect to database and get user info with uid
-  //let user = dbClient.getUserInfoWithUid(uid);
-  //模拟等待请求
-  await sleep(1500);
-  let user = { ...static_mojo_user };
-  if (!user.avatarUrl){
-    user.avatarUrl = '/logo.svg'
-  }
-  return {
-    status: 'success', msg: '登录成功', data:
-    {
-      user: user
+  try {
+    const res = await axios.get(`${userApi}/email/${email}`);
+    if (!res) {
+      return { status: 'error', msg: '网络错误', data: {} };
     }
+    if (res.status >= 300) {
+      return { status: 'error', msg: `${res.status} error`, data: {} };
+    }
+    let userRes = res.data;
+    if (userRes.status !== 'success') {
+      return { status: 'failed', msg: userRes.msg, data: {} };
+    }
+    return {
+      status: userRes.status,
+      msg: userRes.msg,
+      data:
+      {
+        user: {
+          ...userRes.data.user,
+          avatarUrl: userRes.data.user.avatarUrl || '/logo.svg'
+        }
+      }
+    };
+
+  } catch (e) {
+    console.error('There was a problem with getUserInfo', e);
+    return { status: 'error', msg: '网络错误', data: {} };
   }
 }
 
