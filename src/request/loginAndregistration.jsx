@@ -7,9 +7,8 @@ import { mEncode, mDecode } from "../utils/password";
 import { getUserInfoWithEmail, getUserInfoWithUid } from "./userInfo";
 
 import axios from 'axios';
-import { clientBase } from "../assets/my.config";
+import { clientBase, userApi } from "../assets/my.config";
 
-const userApi = `${clientBase}/users`;
 
 async function loginRequest(email, password) {
   if (!email || !password) {

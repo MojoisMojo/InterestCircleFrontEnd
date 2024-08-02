@@ -9,7 +9,17 @@ async function releasePostRequest(poster, post, cid) {
   await sleep(1000);
   return { status: 'success', msg: '发布成功', data: {} };
 }
-
+async function getCirclePostsRequest(cid) {
+  await sleep(1000);
+  let posts = [];
+  return {
+    status: 'success',
+    msg: '获取圈子动态成功',
+    data: {
+      posts: posts
+    }
+  };
+}
 async function getPostCommentsRequest(pid) {
   await sleep(1000);
   return {
@@ -31,9 +41,11 @@ async function getPostAllCommentsRequest(pid) {
 async function releaseCommentRequest(comment) {
   await sleep(1000);
   let comid = Math.floor(Math.random() * 100000).toString();
-  return { status: 'success', msg: '评论成功', data: {
-    comid: comid
-  } };
+  return {
+    status: 'success', msg: '评论成功', data: {
+      comid: comid
+    }
+  };
 }
 
 async function getUserPostsRequest(uid) {
@@ -51,6 +63,7 @@ async function changePostActsRequest(pid, uid, act_type) {
 }
 
 export {
+  getCirclePostsRequest,
   releasePostRequest,
   getPostCommentsRequest,
   getUserPostsRequest,

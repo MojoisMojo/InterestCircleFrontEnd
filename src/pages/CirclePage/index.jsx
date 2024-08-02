@@ -11,10 +11,10 @@ import UsersList from '../../components/UsersList';
 import CircleInfoCard from '../../components/CircleCard/CircleInfoCard';
 
 import {
-  getCirclePostsRequest,
   getCircleInfoRequest,
   joinOrleaveCircleRequest
 } from '/src/request/circles';
+import { getCirclePostsRequest } from '/src/request/post';
 import { static_empty_circle_info } from '../../assets/static';
 
 export default function CirclePage() {

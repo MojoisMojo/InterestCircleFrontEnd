@@ -11,8 +11,8 @@ import PostSender from '../../components/Post/PostSender';
 import Post from '../../components/Post/Post';
 import PostsLayout from '../../components/Post/PostsLayout';
 
-import { getAllCirclesRequest } from '../../request/userInfo';
-import { getCirclePostsRequest } from '../../request/circles';
+import { getAllCirclesRequest } from '../../request/circles';
+import { getCirclePostsRequest } from '../../request/post';
 
 import { static_circle_posts, static_circles } from '../../assets/static';
 import { sleep } from '../../utils/sleep';

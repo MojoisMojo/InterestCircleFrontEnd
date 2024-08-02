@@ -4,10 +4,7 @@ import {
   static_empty_user, static_mojo_user
 } from "../assets/static";
 import axios from 'axios';
-import { clientBase } from "../assets/my.config";
-
-const userApi = `${clientBase}/users`;
-const circleApi = `${clientBase}/circles`;
+import { clientBase, userApi } from "../assets/my.config";
 
 async function getUserInfoWithUid(uid) {
   try {
@@ -30,7 +27,7 @@ async function getUserInfoWithUid(uid) {
       {
         user: {
           ...userRes.data.user,
-          avatarUrl: userRes.data.user? `${clientBase}${userRes.data.user.avatarUrl}` :'/logo.svg'
+          avatarUrl: userRes.data.user ? `${clientBase}/${userRes.data.user.avatarUrl}` : '/logo.svg'
         }
       }
     };
@@ -61,7 +58,7 @@ async function getUserInfoWithEmail(email) {
       {
         user: {
           ...userRes.data.user,
-          avatarUrl: userRes.data.user? `${clientBase}${userRes.data.user.avatarUrl}` :'/logo.svg'
+          avatarUrl: userRes.data.user ? `${clientBase}/${userRes.data.user.avatarUrl}` : '/logo.svg'
         }
       }
     };
@@ -72,17 +69,6 @@ async function getUserInfoWithEmail(email) {
   }
 }
 
-async function getAllCirclesRequest(uid) {
-  // const response = await fetch(`https://myapi.com/circles`);
-  // return response.data;
-  await sleep(1000);
-  return {
-    status: 'success',
-    msg: '获取圈子成功',
-    data: {
-      circles: [...static_circles_info]
-    }
-  };
-}
 
-export { getUserInfoWithUid, getUserInfoWithEmail, getAllCirclesRequest };
+
+export { getUserInfoWithUid, getUserInfoWithEmail };

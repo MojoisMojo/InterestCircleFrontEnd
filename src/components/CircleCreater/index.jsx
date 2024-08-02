@@ -23,6 +23,7 @@ function CircleCreater(props) {
   const [circleName, setCircleName] = React.useState('');
   const [circleDescription, setCircleDescription] = React.useState('');
   const [circleIcon, setCircleIcon] = React.useState('');
+  const [circleIconFile, setCircleIconFile] = React.useState(null);
   const [iconOpen, setIconOpen] = React.useState(false);
   const [inputFocus, setInputFocus] = React.useState('');
 
@@ -64,6 +65,7 @@ function CircleCreater(props) {
       try {
         const image = await readFileAsDataURL(file);
         setCircleIcon(image);
+        setCircleIconFile(file);
       } catch (error) {
         console.error("Error reading file:", error);
       }
@@ -88,7 +90,7 @@ function CircleCreater(props) {
       alert('圈子描述不能为空!');
       return;
     }
-    if (!circleIcon) {
+    if (!circleIcon || !circleIconFile) {
       alert('圈子图标不能为空!');
       return;
     }
@@ -97,7 +99,12 @@ function CircleCreater(props) {
       return;
     }
     // 创建圈子
-    createCircleRequest(currUser.uid, circleName, circleDescription, circleIcon, new Date().getTime())
+    createCircleRequest(
+      currUser.uid,
+      circleName,
+      circleDescription,
+      circleIconFile
+    )
       .then((res) => {
         if (res.status !== 'success') {
           alert(res.msg);
@@ -108,6 +115,7 @@ function CircleCreater(props) {
         setCircleName('');
         setCircleDescription('');
         setCircleIcon('');
+        setCircleIconFile(null);
         if (onCreate) { onCreate(); }
       });
   };
@@ -277,7 +285,11 @@ function CircleCreater(props) {
               <PhotoCamera />
             </IconButton>
           </label>
-          <IconButton onClick={(e) => { e.stopPropagation(); setCircleIcon('') }}>
+          <IconButton onClick={(e) => {
+            e.stopPropagation();
+            setCircleIcon('');
+            setCircleIconFile(null);
+          }}>
             <RefreshIcon />
           </IconButton>
           <Button
