@@ -1,26 +1,43 @@
 import { sleep } from "../utils/sleep";
-import { static_circle_card_info_daily, static_circle_info, static_circle_posts, static_circles, static_circles_joined } from "../assets/static";
+import {
+  static_circle_card_info_daily,
+  static_circle_info,
+  static_circle_posts,
+  static_circles,
+  static_circles_info,
+  static_circles_joined
+} from "../assets/static";
 
 import { clientBase, userApi, circleApi } from '../assets/my.config';
 import axios from "axios";
 // 获取活跃用户
 async function getCircleActiveUsersRequest(cid) {
-  let res = await axios.get(`${userApi}/cid/${cid}`);
-  if (!res) {
+  if (!cid) {
+    return { status: 'failed', msg: '缺少圈子信息', data: {} };
+  }
+  let response = await axios.get(`${userApi}/cid/${cid}`);
+  console.log(response);
+  if (!response) {
     return { status: 'error', msg: '网络错误', data: {} };
   }
-  if (res.status >= 300) {
-    return { status: 'error', msg: `${res.status} error`, data: {} };
+  if (response.status >= 300) {
+    return { status: 'error', msg: `${response.status} error`, data: {} };
   }
-  let userRes = res.data;
-  if (userRes.status !== 'success') {
-    return { status: 'failed', msg: userRes.msg, data: {} };
+  let res = response.data;
+  if (res.status !== 'success') {
+    return { status: 'failed', msg: res.msg, data: {} };
   }
   return {
     status: 'success',
-    msg: userRes.msg,
+    msg: res.msg,
     data: {
-      users: userRes.users
+      users:
+        res.data.users.map(user => {
+          return {
+            ...user,
+            avatarUrl: `${clientBase}/${user.avatarUrl}`
+          }
+        })
     }
   };
 }
@@ -38,11 +55,17 @@ async function getCircleInfoRequest(cid, uid) {
   if (circleRes.status !== 'success') {
     return { status: 'failed', msg: circleRes.msg, data: {} };
   }
-  let circle = circleRes.data;
+  let circle = circleRes.data.circle;
   return {
     status: 'success',
     msg: '获取圈子信息成功',
-    data: circle
+    data: {
+      circle: {
+        ...circle,
+        cicon: `${clientBase}/${circle.cicon}`
+      },
+      isJoined: circleRes.data.isJoined
+    }
   };
 }
 
@@ -58,26 +81,68 @@ async function joinOrleaveCircleRequest(cid, uid, isJoined) {
 
 // 获取感兴趣的圈子
 async function getInterestCirclesRequest(uid) {
-  await sleep(1000);
+  if (!uid) {
+    uid = '';
+  }
+  const response = await axios.get(`${circleApi}/recommendation?uid=${uid}`);
+  console.log(response);
+  if (!response) {
+    return { status: 'error', msg: '网络错误', data: {} };
+  }
+  if (response.status >= 300) {
+    return { status: 'error', msg: `${response.status} error`, data: {} };
+  }
+  let circleRes = response.data;
+  if (circleRes.status !== 'success') {
+    return { status: 'failed', msg: circleRes.msg, data: {} };
+  }
+  const circlesList = circleRes.data.circlesList;
+  let circlesJoined = {};
+  for (let circleInfo of circlesList) {
+    let circle = circleInfo.circle;
+    circlesJoined[circle.cid] = circleInfo.isJoined;
+  }
   return {
     status: 'success',
     msg: '获取兴趣圈子成功',
     data: {
-      circles: static_circles,
-      circlesJoined: static_circles_joined,
+      circles: circlesList.map(circle => {
+        return {
+          ...circle.circle,
+          cicon: `${clientBase}/${circle.circle.cicon}`
+        }
+      }),
+      circlesJoined: circlesJoined,
     }
   }
 }
 // 获得自己的圈子
-async function getAllCirclesRequest(uid) {
-  // const response = await fetch(`https://myapi.com/circles`);
-  // return response.data;
-  await sleep(1000);
+async function getUserAllCirclesRequest(uid) {
+  if (!uid) {
+    return { status: 'failed', msg: '缺少用户信息', data: {} };
+  }
+  const response = await axios.get(`${circleApi}/mine?uid=${uid}`);
+  if (!response) {
+    return { status: 'error', msg: '网络错误', data: {} };
+  }
+  if (response.status >= 300) {
+    return { status: 'error', msg: `${response.status} error`, data: {} };
+  }
+  let circleRes = response.data;
+  if (circleRes.status !== 'success') {
+    return { status: 'failed', msg: circleRes.msg, data: {} };
+  }
+  const circlesList = circleRes.data.circlesList;
   return {
     status: 'success',
     msg: '获取圈子成功',
     data: {
-      circles: [...static_circles_info]
+      circles: circlesList.map(circle => {
+        return {
+          ...circle.circleInfo,
+          cicon: `${clientBase}/${circle.circleInfo.cicon}`
+        }
+      }),
     }
   };
 }
@@ -115,6 +180,7 @@ async function createCircleRequest(uid, cname, cdesc, cfile) {
     msg: '创建圈子成功',
   };
 }
+
 // // 上传图片测试
 // async function testUploadCircleIconRequest(file) {
 //   const formData = new FormData();
@@ -140,7 +206,7 @@ async function createCircleRequest(uid, cname, cdesc, cfile) {
 
 export {
   getCircleActiveUsersRequest,
-  getAllCirclesRequest,
+  getUserAllCirclesRequest as getUserAllCirclesRequest,
   getCircleInfoRequest,
   joinOrleaveCircleRequest,
   getInterestCirclesRequest,

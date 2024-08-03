@@ -44,16 +44,19 @@ function FindCirclesPage() {
     navigate(`/circle?id=${cId}`);
   };
 
+  async function getInterestCircles() {
+    let res = await getInterestCirclesRequest(currUser.uid);
+    if (res.status !== 'success') {
+      alert(res.msg);
+      return;
+    }
+    console.log(res);
+    setCircles(res.data.circles);
+    setCirclesJoined(res.data.circlesJoined);
+  }
   // 初始化
   useEffect(() => {
-    getInterestCirclesRequest(currUser.uid).then(res => {
-      if (res.status !== 'success') {
-        alert(res.msg);
-        return;
-      }
-      setCircles(res.data.circles);
-      setCirclesJoined(res.data.circlesJoined);
-    });
+    getInterestCircles();
   }, []);
 
   return (
@@ -115,7 +118,10 @@ function FindCirclesPage() {
             }}
           >
             {(buttonOn) ?
-              <CircleCreater onCreate={() => { setButtonOn(false) }} /> :
+              <CircleCreater onCreate={() => {
+                setButtonOn(false)
+                getInterestCircles();
+              }} /> :
               <Button
                 variant="outlined"
                 sx={{

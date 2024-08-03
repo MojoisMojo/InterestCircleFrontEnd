@@ -10,6 +10,8 @@ export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, 
   const imgHeight = 192;
   const textHeght = 120;
 
+  console.log('circle:', circle);
+
   async function handleJoinOrLeaveCircle(event) {
     onJoinOrLeaveCircle(circle.cid, isJoined);
   };
@@ -45,8 +47,8 @@ export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, 
             maxHeight: imgHeight,
             objectFit: 'cover',
           }}
-          image={circle.image}
-          alt="circle image"
+          image={circle.cicon}
+          alt="circle cicon"
         />
         <CardContent
           sx={{ height: textHeght, maxHeight: textHeght }}>
@@ -74,7 +76,7 @@ export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, 
               textOverflow: 'ellipsis',
             }}
           >
-            {circle.description}
+            {circle.cdesc}
           </Typography>
         </CardContent>
       </CardActionArea>

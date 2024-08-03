@@ -11,6 +11,9 @@ export default function UsersList({ cid }) {
   const [users, setUsers] = React.useState([{ uid: 1 }, { uid: 2 }, { uid: 3 }]);
 
   React.useEffect(() => {
+    if (!cid) {
+      return;
+    }
     getCircleActiveUsersRequest(cid).then((res) => {
       if (res.status !== 'success') {
         alert(res.msg);

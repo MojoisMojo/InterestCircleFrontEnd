@@ -36,7 +36,7 @@ async function loginRequest(email, password) {
     {
       user: {
         ...userRes.data.user,
-        avatarUrl: userRes.data.user ? `${clientBase}${userRes.data.user.avatarUrl}` : '/logo.svg'
+        avatarUrl: userRes.data.user ? `${clientBase}/${userRes.data.user.avatarUrl}` : '/logo.svg'
       }
     }
   };
@@ -66,7 +66,7 @@ async function registerRequest(name, email, password) {
     {
       user: {
         ...userRes.data.user,
-        avatarUrl: userRes.data.user ? `${clientBase}${userRes.data.user.avatarUrl}` : '/logo.svg'
+        avatarUrl: userRes.data.user ? `${clientBase}/${userRes.data.user.avatarUrl}` : '/logo.svg'
       }
     }
   };

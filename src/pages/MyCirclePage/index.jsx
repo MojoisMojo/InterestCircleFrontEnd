@@ -11,7 +11,7 @@ import PostSender from '../../components/Post/PostSender';
 import Post from '../../components/Post/Post';
 import PostsLayout from '../../components/Post/PostsLayout';
 
-import { getAllCirclesRequest } from '../../request/circles';
+import { getUserAllCirclesRequest } from '../../request/circles';
 import { getCirclePostsRequest } from '../../request/post';
 
 import { static_circle_posts, static_circles } from '../../assets/static';
@@ -28,7 +28,7 @@ export default function MyCirclePage() {
   const [currPosts, setCurrPosts] = useState([]);
   const [currCid, setCurrCid] = useState('');
   async function getAndsetMyCircles() {
-    let res = await getAllCirclesRequest(currUser.uid);
+    let res = await getUserAllCirclesRequest(currUser.uid);
     if (res.status !== 'success') {
       alert(res.msg);
       return;

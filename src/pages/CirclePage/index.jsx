@@ -40,6 +40,7 @@ export default function CirclePage() {
   }
   async function getAndsetCircle(cid, uid) {
     let res = await getCircleInfoRequest(cid, uid);
+    console.log('circlePage, getAndsetCircle:', res);
     if (res.status !== 'success') {
       alert(res.msg);
       navigate('/NotFound');

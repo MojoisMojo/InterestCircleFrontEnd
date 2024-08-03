@@ -9,8 +9,10 @@ import CardHeader from '@mui/material/CardHeader';
 import CardActionArea from '@mui/material/CardActionArea';
 import { Grid } from '@mui/material';
 
-function CircleInfoCard({ cicon, cdesc, cname, cusernumber, cpostnumber, handleJoinOrLeaveCircle, isJoined }) {
-
+function CircleInfoCard({
+  cicon, cdesc, cname, cusernumber, cpostnumber,
+  handleJoinOrLeaveCircle, isJoined
+}) {
   return (
     <Card
       elevation={3}
