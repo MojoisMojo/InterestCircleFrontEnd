@@ -20,7 +20,7 @@ import { releasePostRequest } from '../../../request/post';
 
 export default function PostSender(props) {
 
-  let { circles, circle, _ } = props;
+  let { circles, circle, onPostSentSuccess, ..._ } = props;
   // 只用到了 cid, cname
 
   const { currUser, setCurrUser } = React.useContext(UserContext);
@@ -98,8 +98,8 @@ export default function PostSender(props) {
       alert('请先登录!');
       return;
     }
-    const poster = { uid: currUser.uid, name: currUser.uname, avatarUrl: currUser.avatarUrl };
-    const post = { content: postContent};
+    const poster = { uid: currUser.uid, name: currUser.name, avatarUrl: currUser.avatarUrl };
+    const post = { content: postContent };
     const cid = selectedCircle.cid;
     releasePostRequest(
       poster,
@@ -112,6 +112,11 @@ export default function PostSender(props) {
         return;
       }
       alert('发帖成功!');
+      if (onPostSentSuccess) {
+        onPostSentSuccess(
+          res.data.post
+        );
+      }
       setPostContent('');
       setSelectedCircle(null);
       setPostImgs([]);

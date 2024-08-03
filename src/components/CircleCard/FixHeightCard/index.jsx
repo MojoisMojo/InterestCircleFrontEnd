@@ -10,8 +10,6 @@ export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, 
   const imgHeight = 192;
   const textHeght = 120;
 
-  console.log('circle:', circle);
-
   async function handleJoinOrLeaveCircle(event) {
     onJoinOrLeaveCircle(circle.cid, isJoined);
   };

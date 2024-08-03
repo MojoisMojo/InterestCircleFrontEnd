@@ -1,5 +1,5 @@
 import Post from "./Post";
-export default function PostsLayout({ posts }) {
+export default function PostsLayout({ posts, isMember }) {
   return (
     <div
       style={{
@@ -15,7 +15,7 @@ export default function PostsLayout({ posts }) {
             marginTop: '15px', marginBottom: '10px'
           }}
           key={post.post.pid}>
-          <Post poster={post.poster} post={post.post} />
+          <Post poster={post.poster} post={post.post} isMember={isMember} />
         </div>
       ))}
     </div>

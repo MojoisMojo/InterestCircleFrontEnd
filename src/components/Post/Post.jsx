@@ -33,6 +33,7 @@ import UserContext from '../../context/UserContext';
 import CommentsViewer from './CommentsViewer';
 import { formateDateToString } from '../../utils/mTime';
 import { BusAlertTwoTone } from '@mui/icons-material';
+import { likePostActRequest } from '../../request/post';
 
 const Img = styled('img')({
   // margin: 'auto',
@@ -61,7 +62,7 @@ const IntShown = (i) => {
   }
   return '10bn+';
 }
-export default function Post({ poster, post }) {
+export default function Post({ poster, post, isMember }) {
   const { currUser, setCurrUser } = React.useContext(UserContext);
 
   const [imgOpen, setImgOpen] = React.useState(false);
@@ -96,15 +97,20 @@ export default function Post({ poster, post }) {
       alert('请先登录');
       return;
     }
+    if (!isMember) {
+      alert('请先加入圈子');
+      return
+    }
     switch (act_type) {
       case 'Coms':
         handleComOpen();
         break;
       case 'Looks':
-        setlooksNum(looksNum + 1);
+        //   setlooksNum(looksNum + 1);
         break;
       case 'Likes':
         setlikesNum(likesNum + 1);
+        likePostActRequest(post.pid, currUser.uid, true);
         break;
       default:
         console.log('Unknown act_type');
@@ -278,11 +284,11 @@ export default function Post({ poster, post }) {
           justifyContent='center'
         >
           {[
-            { name: '观看', value: looksNum },
-            { name: '喜欢', value: likesNum },
-            { name: '评论', value: comsNum },
+            { name: '观看', value: looksNum, type: 'Looks' },
+            { name: '喜欢', value: likesNum, type: 'Likes' },
+            { name: '评论', value: comsNum, type: 'Coms' },
           ].map((info, index) => (
-            <Grid item xs={4} key={info.name} sx={{ height: '100%' }}>
+            <Grid item xs={4} key={info.type} sx={{ height: '100%' }}>
               <Button
                 sx={{
                   minWidth: '20px',
@@ -290,7 +296,7 @@ export default function Post({ poster, post }) {
                   height: '100%', width: '100%',
                   justifyContent: 'center'
                 }}
-                onClick={(e) => { handleAct(info.name) }}
+                onClick={(e) => { handleAct(info.type) }}
               >
                 <Typography
                   fontSize={{

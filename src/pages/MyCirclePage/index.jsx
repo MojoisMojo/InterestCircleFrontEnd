@@ -27,14 +27,14 @@ export default function MyCirclePage() {
   const [currCircleIdx, setCurrCircleIdx] = useState(-1);
   const [currPosts, setCurrPosts] = useState([]);
   const [currCid, setCurrCid] = useState('');
-  async function getAndsetMyCircles() {
-    let res = await getUserAllCirclesRequest(currUser.uid);
+  async function getAndsetMyCircles(uid) {
+    let res = await getUserAllCirclesRequest(uid);
     if (res.status !== 'success') {
       alert(res.msg);
       return;
     }
     let circles = res.data.circles;
-    // console.log(circles);
+    console.log(circles);
     setMyCircles(circles);
     setCurrCircleIdx(0);
   };
@@ -50,8 +50,11 @@ export default function MyCirclePage() {
   };
 
   useEffect(() => {
-    getAndsetMyCircles()
-  }, []);
+    if (!currUser.uid) {
+      return;
+    }
+    getAndsetMyCircles(currUser.uid)
+  }, [currUser.uid]);
   useEffect(() => {
     if (currCircleIdx < 0) return;
     getAndsetPosts(myCircles[currCircleIdx].cid);
@@ -110,7 +113,16 @@ export default function MyCirclePage() {
           rowSpacing={{ xs: 1, sm: 2 }}
         >
           <Grid item sx={{ width: "100%" }}>
-            <PostSender circles={[myCircles[currCircleIdx]]} />
+            <PostSender
+              circles={[myCircles[currCircleIdx]]}
+              onPostSentSuccess={
+                (post) => {
+                  // console.log(post);
+                  setCurrPosts([post, ...currPosts]);
+                  setCurrUser({ ...currUser, postsCount: currUser.postsCount + 1 });
+                }
+              }
+            />
           </Grid>
           {/* circles To Selected */}
           <Grid item
@@ -237,7 +249,10 @@ export default function MyCirclePage() {
             </Paper>
           </Grid>
           {/* Posts */}
-          <PostsLayout posts={currPosts} />
+          <PostsLayout
+            posts={currPosts}
+            isMember={true}
+          />
         </Grid>
         {/* right */}
         <Grid item xs={0} sm={0} md={3} lg={2.5}

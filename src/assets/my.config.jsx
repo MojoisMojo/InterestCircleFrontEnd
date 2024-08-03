@@ -6,7 +6,8 @@ const userApi = `${clientBase}/users`;
 const circleApi = `${clientBase}/circles`;
 const circleMemberApi = `${clientBase}/circlemembers`;
 const postsApi = `${clientBase}/posts`;
+const commentsApi = `${clientBase}/comments`;
 export {
     clientBase, circleApi, userApi, circleMemberApi,
-    postsApi
+    postsApi, commentsApi
 };

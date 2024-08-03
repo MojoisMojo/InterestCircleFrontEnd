@@ -31,27 +31,25 @@ export default function CommentsViewer({ open, pid, onClose, onCommentReleased }
       alert('评论不能为空！');
       return;
     }
-    let comment = {
-      comid: '',
-      commenter: {
-        cid: currUser.cid,
-        name: currUser.name,
-        avatarUrl: currUser.avatarUrl
-      },
-      time: new Date().getTime(),
-      content: myCommentContent,
-      pid: pid,
+    let commenter = {
+      uid: currUser.uid,
+      name: currUser.name,
+      avatarUrl: currUser.avatarUrl
     };
 
     // 发送评论请求
-    releaseCommentRequest(comment).then((res) => {
+    releaseCommentRequest({
+      content: myCommentContent,
+      pid: pid,
+      commenter: commenter
+    }).then((res) => {
       if (res.status !== 'success') {
         alert(res.msg);
         return;
       }
       // 请求成功
+      let comment = res.data.comment;
       if (onCommentReleased) { onCommentReleased(); }
-      comment.comid = res.data.comid;
       setComments([comment, ...comments]);
       setMyCommentContent('');
       alert('评论成功！');

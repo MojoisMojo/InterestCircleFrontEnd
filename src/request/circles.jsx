@@ -196,6 +196,7 @@ async function getUserAllCirclesRequest(uid) {
     return { status: 'failed', msg: '缺少用户信息', data: {} };
   }
   const response = await axios.get(`${circleApi}/mine?uid=${uid}`);
+  console.log("getUserAllCirclesRequest: ", response);
   if (!response) {
     return { status: 'error', msg: '网络错误', data: {} };
   }
@@ -207,14 +208,15 @@ async function getUserAllCirclesRequest(uid) {
     return { status: 'failed', msg: circleRes.msg, data: {} };
   }
   const circlesList = circleRes.data.circlesList;
+  console.log(circlesList);
   return {
     status: 'success',
     msg: '获取圈子成功',
     data: {
       circles: circlesList.map(circle => {
         return {
-          ...circle.circleInfo,
-          cicon: `${clientBase}/${circle.circleInfo.cicon}`
+          ...circle.circle,
+          cicon: `${clientBase}/${circle.circle.cicon}`
         }
       }),
     }

@@ -123,6 +123,7 @@ function FindCirclesPage() {
               <CircleCreater onCreate={() => {
                 setButtonOn(false)
                 getInterestCircles(currUser.uid);
+                setCurrUser({ ...currUser, circlesCount: currUser.circlesCount + 1 })
               }} /> :
               <Button
                 variant="outlined"

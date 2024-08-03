@@ -37,6 +37,10 @@ export default function CirclePage() {
       }
       alert('操作成功');
       setIsJoined(res.data.isJoined);
+      setCurrCircle({
+        ...currCircle,
+        cmembers: currCircle.cmembers + (res.data.isJoined ? 1 : -1)
+      })
     });
 
   }
@@ -159,7 +163,19 @@ export default function CirclePage() {
           rowSpacing={{ xs: 1, sm: 2 }}
         >
           <Grid item sx={{ width: "100%" }}>
-            <PostSender circles={isJoined ? [currCircle] : []} />
+            <PostSender
+              circles={isJoined ? [currCircle] : []}
+              onPostSentSuccess={
+                (post) => {
+                  // console.log(post);
+                  setCurrPosts([post, ...currPosts]);
+                  setCurrCircle({
+                    ...currCircle,
+                    cposts: currCircle.cposts + 1
+                  })
+                }
+              }
+            />
           </Grid>
           <Grid item sx={{ width: "100%" }} display={{ xs: 'flex', md: 'none' }}>
             <CircleInfoCard
@@ -172,7 +188,10 @@ export default function CirclePage() {
               handleJoinOrLeaveCircle={handleJoinOrLeaveCircle}
             />
           </Grid>
-          <PostsLayout posts={currPosts} />
+          <PostsLayout
+            posts={currPosts}
+            isMember={isJoined}
+          />
         </Grid>
         {/* right */}
         <Grid item xs={0} sm={0} md={3} lg={2.5}
