@@ -30,6 +30,7 @@ export default function PostSender(props) {
   const [postContent, setPostContent] = React.useState('');
   const [selectedCircle, setSelectedCircle] = React.useState(null);
   const [postImgs, setPostImgs] = React.useState([]);
+  const [postImgsFile, setPostImgsFile] = React.useState([]);
 
   const [imgOpen, setImgOpen] = React.useState(false);
   const [selectedImg, setSelectedImg] = React.useState('');
@@ -65,6 +66,7 @@ export default function PostSender(props) {
         return;
       }
     }
+    setPostImgsFile(postImgsFile.concat(files));
     // 上传图片
     Promise.all(files.map(file => {
       return new Promise((resolve, reject) => {
@@ -96,11 +98,14 @@ export default function PostSender(props) {
       alert('请先登录!');
       return;
     }
-    let poster = { uid: currUser.uid, uname: currUser.uname, avatarUrl: currUser.avatarUrl };
-    let post = { content: postContent, imgs: postImgs };
-    let cid = selectedCircle.cid;
+    const poster = { uid: currUser.uid, name: currUser.uname, avatarUrl: currUser.avatarUrl };
+    const post = { content: postContent};
+    const cid = selectedCircle.cid;
     releasePostRequest(
-      { poster, post, cid }
+      poster,
+      post,
+      cid,
+      postImgsFile
     ).then(res => {
       if (res.status !== 'success') {
         alert(res.msg);
@@ -110,6 +115,7 @@ export default function PostSender(props) {
       setPostContent('');
       setSelectedCircle(null);
       setPostImgs([]);
+      setPostImgsFile([]);
     });
   };
 
@@ -280,7 +286,11 @@ export default function PostSender(props) {
             <PhotoCamera />
           </IconButton>
         </label>
-        <IconButton onClick={(e) => { e.stopPropagation(); setPostImgs([]) }}>
+        <IconButton onClick={(e) => {
+          e.stopPropagation();
+          setPostImgs([]);
+          setPostImgsFile([]);
+        }}>
           <RefreshIcon />
         </IconButton>
         <Button

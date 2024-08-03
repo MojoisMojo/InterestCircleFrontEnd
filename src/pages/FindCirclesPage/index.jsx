@@ -122,7 +122,7 @@ function FindCirclesPage() {
             {(buttonOn) ?
               <CircleCreater onCreate={() => {
                 setButtonOn(false)
-                getInterestCirclesAndJoinedInfo();
+                getInterestCircles(currUser.uid);
               }} /> :
               <Button
                 variant="outlined"

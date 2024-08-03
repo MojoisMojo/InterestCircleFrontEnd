@@ -10,6 +10,40 @@ import {
 
 import { clientBase, userApi, circleApi, circleMemberApi } from '../assets/my.config';
 import axios from "axios";
+
+// 创建圈子
+async function createCircleRequest(uid, cname, cdesc, cfile) {
+  console.log("file: ", cfile);
+  const formData = new FormData();
+  formData.append('image', cfile);
+  formData.append('ccreator_id', uid);
+  formData.append('cname', cname);
+  formData.append('cdesc', cdesc);
+  formData.append('cicon', cfile.name);
+  let res = await axios.post(`${circleApi}`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+  )
+  console.log(res);
+  if (!res) {
+    return { status: 'error', msg: '网络错误', data: {} };
+  }
+  if (res.status >= 300) {
+    return { status: 'error', msg: `${res.status} error`, data: {} };
+  }
+  let circleRes = res.data;
+  if (circleRes.status !== 'success') {
+    return { status: 'failed', msg: circleRes.msg, data: {} };
+  }
+  return {
+    status: 'success',
+    msg: '创建圈子成功',
+  };
+}
 // 获取活跃用户
 async function getCircleActiveUsersRequest(cid) {
   if (!cid) {
@@ -186,40 +220,7 @@ async function getUserAllCirclesRequest(uid) {
     }
   };
 }
-// 创建圈子
-async function createCircleRequest(uid, cname, cdesc, cfile) {
-  console.log('createCircleRequest:', uid, cname, cdesc, cfile);
 
-  const formData = new FormData();
-  formData.append('image', cfile);
-  formData.append('ccreator_id', uid);
-  formData.append('cname', cname);
-  formData.append('cdesc', cdesc);
-  formData.append('cicon', cfile.name);
-  let res = await axios.post(`${circleApi}`,
-    formData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }
-  )
-  console.log(res);
-  if (!res) {
-    return { status: 'error', msg: '网络错误', data: {} };
-  }
-  if (res.status >= 300) {
-    return { status: 'error', msg: `${res.status} error`, data: {} };
-  }
-  let circleRes = res.data;
-  if (circleRes.status !== 'success') {
-    return { status: 'failed', msg: circleRes.msg, data: {} };
-  }
-  return {
-    status: 'success',
-    msg: '创建圈子成功',
-  };
-}
 
 // // 上传图片测试
 // async function testUploadCircleIconRequest(file) {

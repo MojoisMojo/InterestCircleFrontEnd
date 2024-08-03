@@ -4,9 +4,43 @@ import {
   static_comments,
   static_post, static_post_2, static_post_3,
 } from '../assets/static';
-// 在
-async function releasePostRequest(poster, post, cid) {
-  await sleep(1000);
+
+import axios from 'axios';
+import { postsApi } from '../assets/my.config';
+// 发帖
+async function releasePostRequest(
+  poster,
+  post,
+  cid,
+  postsfiles
+) {
+  console.log("postsfiles:", postsfiles);
+  const formData = new FormData();
+  formData.append('images', postsfiles);
+  formData.append('uid', poster.uid);
+  formData.append('cid', cid);
+  formData.append('content', post.content);
+
+  let response = await axios.post(
+    `${postsApi}`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+  );
+  console.log("release Post: ", response);
+  if (!response) {
+    return { status: 'error', msg: '网络错误', data: {} };
+  }
+  if (response.status >= 300) {
+    return { status: 'error', msg: `${response.status} error`, data: {} };
+  }
+  let res = response.data;
+  if (res.status !== 'success') {
+    return { status: 'failed', msg: res.msg, data: {} };
+  }
   return { status: 'success', msg: '发布成功', data: {} };
 }
 async function getCirclePostsRequest(cid) {
