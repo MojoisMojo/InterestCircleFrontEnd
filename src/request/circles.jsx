@@ -8,7 +8,7 @@ import {
   static_circles_joined
 } from "../assets/static";
 
-import { clientBase, userApi, circleApi } from '../assets/my.config';
+import { clientBase, userApi, circleApi, circleMemberApi } from '../assets/my.config';
 import axios from "axios";
 // 获取活跃用户
 async function getCircleActiveUsersRequest(cid) {
@@ -69,13 +69,53 @@ async function getCircleInfoRequest(cid, uid) {
   };
 }
 
-// TODO: 离开或进入圈子
+// 离开或进入圈子
 async function joinOrleaveCircleRequest(cid, uid, isJoined) {
-  await sleep(1000);
+  // isJoined: true表示需要加入圈子，false表示需要退出圈子
+  let response = isJoined
+    ? await axios.post(`${circleMemberApi}/join`, { cid, uid })
+    : await axios.post(`${circleMemberApi}/leave`, { cid, uid });
+  console.log(response);
+  if (!response) {
+    return { status: 'error', msg: '网络错误', data: {} };
+  }
+  if (response.status >= 300) {
+    return { status: 'error', msg: `${response.status} error`, data: {} };
+  }
+  let res = response.data;
+  if (res.status !== 'success') {
+    return { status: 'failed', msg: res.msg, data: {} };
+  }
   return {
     status: 'success',
     msg: '加入/退出圈子成功',
-    data: { isJoined: !!isJoined },
+    data: {
+      ...res.data,
+      isJoined: !!isJoined
+    },
+  };
+}
+
+// 查看是否是成员
+async function isMemberRequest(cid, uid) {
+  let response = await axios.get(`${circleMemberApi}`, { params: { cid, uid } });
+  console.log("isMemberRequest:", response);
+  if (!response) {
+    return { status: 'error', msg: '网络错误', data: {} };
+  }
+  if (response.status >= 300) {
+    return { status: 'error', msg: `${response.status} error`, data: {} };
+  }
+  let res = response.data;
+  if (res.status !== 'success') {
+    return { status: 'failed', msg: res.msg, data: {} };
+  }
+  return {
+    status: 'success',
+    msg: '获取圈子成员成功',
+    data: {
+      isJoined: res.data.isMember
+    }
   };
 }
 
@@ -211,4 +251,5 @@ export {
   joinOrleaveCircleRequest,
   getInterestCirclesRequest,
   createCircleRequest,
+  isMemberRequest,
 };

@@ -16,6 +16,7 @@ import {
 } from '/src/request/circles';
 import { getCirclePostsRequest } from '/src/request/post';
 import { static_empty_circle_info } from '../../assets/static';
+import { isMemberRequest } from '../../request/circles';
 
 export default function CirclePage() {
   const { currUser, setCurrUser } = useContext(UserContext);
@@ -51,6 +52,16 @@ export default function CirclePage() {
     setCurrCircle(circle);
     setIsJoined(isJoined);
   };
+
+  async function getAndSetIsJoined(cid, uid) {
+    let res = await isMemberRequest(cid, uid);
+    if (res.status !== 'success') {
+      alert(res.msg);
+      return;
+    }
+    setIsJoined(res.data.isJoined);
+  }
+
   async function getAndsetPosts(cid) {
     let res = await getCirclePostsRequest(cid);
     if (res.status !== 'success') {
@@ -73,6 +84,20 @@ export default function CirclePage() {
       navigate('/NotFound');
     }
   }, []);
+  useEffect(() => {
+    if(!currCircle.cid){
+      return;
+    }
+    // 使用URLSearchParams解析当前URL中的查询参数
+    const queryParams = new URLSearchParams(window.location.search);
+    const circleId = queryParams.get('id'); // 假设URL是这样的: /circle/?id=123
+    if (circleId) {
+      getAndSetIsJoined(circleId, currUser.uid);
+    }
+    else {
+      navigate('/NotFound');
+    }
+  }, [currUser.uid]);
 
   return (
     <div style={{

@@ -57,7 +57,7 @@ function FindCirclesPage() {
   // 初始化
   useEffect(() => {
     getInterestCircles();
-  }, []);
+  }, [currUser.uid]);
 
   return (
     <div style={{
@@ -106,7 +106,7 @@ function FindCirclesPage() {
           </Grid>
         </Grid>
         {/* middle */}
-        <Grid item xs={12} sm={11} md={8.5} lg={7.5}
+        <Grid item xs={12} sm={11} md={9} lg={7.5}
           container
           direction='column'
           rowSpacing={{ xs: 1, sm: 2 }}
@@ -146,7 +146,7 @@ function FindCirclesPage() {
               return (
 
                 <Grid
-                  item xs={12} sm={6} md={4} lg={4} xl={3}
+                  item xs={12} sm={6} md={6} lg={4} xl={3}
                   key={circle.cid}
                   width='100%'
                 >
