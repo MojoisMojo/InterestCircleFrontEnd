@@ -44,19 +44,21 @@ function FindCirclesPage() {
     navigate(`/circle?id=${cId}`);
   };
 
-  async function getInterestCircles() {
-    let res = await getInterestCirclesRequest(currUser.uid);
+  async function getInterestCircles(uid) {
+    let res = await getInterestCirclesRequest(uid);
     if (res.status !== 'success') {
       alert(res.msg);
       return;
     }
     console.log(res);
     setCircles(res.data.circles);
-    setCirclesJoined(res.data.circlesJoined);
+    if (uid)
+      setCirclesJoined(res.data.circlesJoined);
   }
+
   // 初始化
   useEffect(() => {
-    getInterestCircles();
+    getInterestCircles(currUser.uid);
   }, [currUser.uid]);
 
   return (
@@ -120,7 +122,7 @@ function FindCirclesPage() {
             {(buttonOn) ?
               <CircleCreater onCreate={() => {
                 setButtonOn(false)
-                getInterestCircles();
+                getInterestCirclesAndJoinedInfo();
               }} /> :
               <Button
                 variant="outlined"
@@ -128,7 +130,14 @@ function FindCirclesPage() {
                   width: '100%', height: '50px',
                   padding: 0,
                 }}
-                onClick={() => { setButtonOn(true) }}
+                onClick={() => {
+                  if (!currUser.uid) {
+                    alert('请先登录！')
+                    navigate('/login')
+                    return;
+                  }
+                  setButtonOn(true)
+                }}
               >
                 找不到感兴趣的？自己创建一个！
               </Button>
