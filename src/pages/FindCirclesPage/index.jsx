@@ -193,7 +193,7 @@ function FindCirclesPage() {
               name={currUser.name}
               avatar={currUser.avatarUrl}
               circlesCount={currUser.circlesCount}
-              likesCount={currUser.likesCount}
+              postsCount={currUser.postsCount}
             />}
 
           </Grid>

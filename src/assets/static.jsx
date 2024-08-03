@@ -8,7 +8,7 @@ const static_empty_user = {
   email: '',
   bio: '',
   avatarUrl: '/logo.svg',
-  likesCount: 0,
+  postsCount: 0,
   circlesCount: 0,
 };
 
@@ -18,7 +18,7 @@ const static_mojo_user = {
   email: 'mojo@163.com',
   bio: 'gudengmingyueyingluoye',
   avatarUrl: '/logo.svg',
-  likesCount: 1345,
+  postsCount: 1345,
   circlesCount: 14,
 };
 

@@ -1,4 +1,4 @@
-// 展示用户信息的卡片组件，包括头像、用户名、圈子数、获赞数
+// 展示用户信息的卡片组件，包括头像、用户名、圈子数、发帖数
 // 通过 props 传入用户信息，包括 id、name、avatar、circleCount、likeCount
 
 import React from 'react';
@@ -10,7 +10,7 @@ import CardHeader from '@mui/material/CardHeader';
 import { blue } from '@mui/material/colors';
 import { Grid } from '@mui/material';
 
-function UserInfoCard({ name, bio, avatar, circlesCount, likesCount }) {
+function UserInfoCard({ name, bio, avatar, circlesCount, postsCount }) {
   return (
     <Card
       elevation={3}
@@ -95,10 +95,10 @@ function UserInfoCard({ name, bio, avatar, circlesCount, likesCount }) {
             flexDirection: 'column',
           }}>
           <Typography variant="h6" color="text.primary" align="center" sx={{ fontWeight: 'bold' }}>
-            {likesCount}
+            {postsCount}
           </Typography>
           <Typography variant="body2" color="text.secondary" align="center">
-            获赞数
+            发帖数
           </Typography>
         </Grid>
       </Grid>
