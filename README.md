@@ -2,20 +2,27 @@
 
 - [仓库链接](https://github.com/MojoisMojo/InterestCircleFrontEnd)
 
-## 构建
+## 环境
+
+Windows 11, Intel i7, 内存 16GB；
 
 ### npm & node 版本
 
 npm ：10.7.0
 node：v20.15.0
 
-### 安装依赖
+## 打包流程
 
-确保版本正确后在前端项目根目录下执行
+1. 执行`npm install`安装依赖
+2. 执行`npm run build`将源文件打包到 dist 文件夹
+3. 将 dist, package.json 打包即可。
 
-`npm install`
+## 部署和启用流程
 
-## 技术栈 
+1. 在项目根目录执行`npm install`安装依赖
+2. 执行`npm run serve`启动服务。
+
+## 技术栈
 
 ### Vite + React
 
@@ -28,7 +35,7 @@ Currently, two official plugins are available:
 
 主要使用了 [MUI5](https://mui.com/material-ui/all-components/)
 
-Header组件使用了 [TailWind](https://tailwindcss.com/)
+Header 组件使用了 [TailWind](https://tailwindcss.com/)
 
 ## 代码细节
 

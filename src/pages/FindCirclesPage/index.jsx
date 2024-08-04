@@ -39,6 +39,7 @@ function FindCirclesPage() {
     newJoined[cId] = res.data.isJoined;
     console.log('oldJoined:', circlesJoined, 'newJoined:', newJoined);
     setCirclesJoined(newJoined);
+    setCurrUser({ ...currUser, circlesCount: currUser.circlesCount + (res.data.isJoined ? 1 : -1) });
   };
   async function onEnterCircle(cId) {
     navigate(`/circle?id=${cId}`);

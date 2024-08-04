@@ -36,7 +36,9 @@ export default function MyCirclePage() {
     let circles = res.data.circles;
     console.log(circles);
     setMyCircles(circles);
-    setCurrCircleIdx(0);
+    if(circles.length > 0) {
+      setCurrCircleIdx(0);
+    }
   };
   async function getAndsetPosts(cid) {
     let res = await getCirclePostsRequest(cid);
@@ -56,7 +58,7 @@ export default function MyCirclePage() {
     getAndsetMyCircles(currUser.uid)
   }, [currUser.uid]);
   useEffect(() => {
-    if (currCircleIdx < 0) return;
+    if (currCircleIdx >= myCircles.length || currCircleIdx < 0) { return; }
     getAndsetPosts(myCircles[currCircleIdx].cid);
     setCurrCid(myCircles[currCircleIdx].cid)
   }, [currCircleIdx]);
@@ -114,7 +116,9 @@ export default function MyCirclePage() {
         >
           <Grid item sx={{ width: "100%" }}>
             <PostSender
-              circles={[myCircles[currCircleIdx]]}
+              circles={
+                currCircleIdx < 0 || currCircleIdx >= myCircles.length
+                  ? [] : [myCircles[currCircleIdx]]}
               onPostSentSuccess={
                 (post) => {
                   // console.log(post);

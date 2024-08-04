@@ -11,6 +11,7 @@ export default function FixHeightCircleCard({ circle, cardWidth, onEnterCircle, 
   const textHeght = 120;
 
   async function handleJoinOrLeaveCircle(event) {
+    if (!onJoinOrLeaveCircle || !circle || isJoined == null) return;
     onJoinOrLeaveCircle(circle.cid, isJoined);
   };
 
