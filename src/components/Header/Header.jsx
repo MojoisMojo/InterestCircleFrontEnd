@@ -1,7 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useContext } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import { static_empty_user } from '../../assets/static';
 import { logoutRequest } from '../../request/loginAndregistration';

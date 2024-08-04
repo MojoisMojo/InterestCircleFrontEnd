@@ -46,7 +46,7 @@ export default function MySettingsPage() {
     }
     // 处理表单提交逻辑
     if (!avatarFile && newName === currUser.name && bio === currUser.bio) {
-      alert('更新成功');
+      alert('无需更新');
       return;
     }
     changeUserInfo(
@@ -62,11 +62,9 @@ export default function MySettingsPage() {
         return;
       }
       setCurrUser({
-        ...currUser,
-        name: newName,
-        avatarUrl: res.data.user.avatarUrl,
-        bio: bio
+        ...res.data.user
       });
+      console.log(res.data.user);
       alert('更新成功');
     })
   };
@@ -85,7 +83,7 @@ export default function MySettingsPage() {
         <Typography item variant="h4" component="h1" gutterBottom sx={{ width: '100%' }}>
           个人信息
         </Typography>
-        <Box item component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
+        <Box item component="form" onSubmit={()=>{}} noValidate sx={{ mt: 1, width: '100%' }}>
           <TextField
             margin="normal"
             required
@@ -103,6 +101,7 @@ export default function MySettingsPage() {
           <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
             <Avatar
               component={'button'}
+              type='button'
               src={avatarUrl} sx={{ width: 56, height: 56, mr: 2 }}
               onClick={() => setImgOpen(true)}
             />
@@ -131,6 +130,9 @@ export default function MySettingsPage() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={
+              handleSubmit
+            }
           >
             保存更改
           </Button>

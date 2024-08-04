@@ -69,7 +69,7 @@ async function changeUserInfo({ uid, name = null, avatarfile = null, bio = null 
   if (!uid) {
     return { status: 'error', msg: '您未登录', data: {} };
   }
-  if (!name && !avatarfile && !bio) {
+  if (name == null && avatarfile == null && bio == null) {
     return { status: 'failed', msg: '没有需要更新的信息', data: {} };
   }
   const formData = new FormData();
