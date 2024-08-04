@@ -69,6 +69,53 @@ async function getUserInfoWithEmail(email) {
   }
 }
 
+async function changeUserInfo({ uid, name = null, avatarfile = null, bio = null }) {
+  console.log({ uid, name, avatarfile, bio });
+  if (!uid) {
+    return { status: 'error', msg: '您未登录', data: {} };
+  }
+  if (!name && !avatarfile && !bio) {
+    return { status: 'failed', msg: '没有需要更新的信息', data: {} };
+  }
+  const formData = new FormData();
+  if (avatarfile != null) {
+    formData.append('image', avatarfile);
+  }
+  formData.append('uid', uid);
+  if (name != null) {
+    formData.append('name', name);
+  }
+  if (bio != null) {
+    formData.append('bio', bio);
+  }
+  let response = await axios.put(`${userApi}/uid`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  console.log(response);
+  if (!response) {
+    return { status: 'error', msg: '网络错误', data: {} };
+  }
+  if (response.status >= 300) {
+    return { status: 'error', msg: `${response.status} error`, data: {} };
+  }
+  let res = response.data;
+  if (res.status !== 'success') {
+    return { status: 'failed', msg: res.msg, data: {} };
+  }
+  return {
+    status: res.status,
+    msg: res.msg,
+    data: {
+      user: {
+        ...res.data.user,
+        avatarUrl: res.data.user ? `${clientBase}/${res.data.user.avatarUrl}` : '/logo.svg'
+      }
+    }
+  };
+}
 
-
-export { getUserInfoWithUid, getUserInfoWithEmail };
+export { getUserInfoWithUid, getUserInfoWithEmail, changeUserInfo };

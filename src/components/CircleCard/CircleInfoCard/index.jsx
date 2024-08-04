@@ -35,7 +35,7 @@ function CircleInfoCard({
             maxWidth: '100%',
             wordBreak: 'break-all',
           },
-          '& .MuiCardHeader-subhead': {
+          '& .MuiCardHeader-subheader': {
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
@@ -46,7 +46,15 @@ function CircleInfoCard({
           },
           '& .MuiCardHeader-avatar': {
             marginRight: '8px !important',
-            marginLeft: { xs: '10% !important', sm: '8px !important', md: '8px !important', lg: '0px !important' },
+            marginLeft: {
+              xs: '10% !important',
+              sm: '0 !important',
+              md: '16px !important'
+              // xs: '10% !important',
+              // sm: '8px !important',
+              // md: '8px !important',
+              // lg: '0px !important'
+            },
           }
         }}
         avatar={
@@ -85,10 +93,17 @@ function CircleInfoCard({
           style={{
             flexDirection: 'column',
           }}>
-          <Typography variant="h6" color='text.primary' align="center" sx={{ fontWeight: 'bold' }}>
+          <Typography
+            variant="h6" color='text.primary'
+            align="center" sx={{ fontWeight: 'bold' }}
+          >
             {cusernumber}
           </Typography>
-          <Typography variant="body2" color="text.secondary" align="center">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            align="center"
+          >
             圈内人数
           </Typography>
         </Grid>

@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { getCircleActiveUsersRequest } from '../../request/circles';
+import Typography from '@mui/material/Typography';
 
 export default function UsersList({ cid }) {
   const [users, setUsers] = React.useState([{ uid: 1 }, { uid: 2 }, { uid: 3 }]);
@@ -37,7 +38,20 @@ export default function UsersList({ cid }) {
               primary={user.name}
               secondary={
                 <React.Fragment>
-                  {user.bio}
+                  <Typography
+                    variant="body2"
+                    noWrap
+                    sx={{
+                      display: '-webkit-box',
+                      WebkitBoxOrient: 'vertical',
+                      WebkitLineClamp: 2,
+                      overflow: 'hidden',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word',
+                    }}
+                  >
+                    {user.bio}
+                  </Typography>
                 </React.Fragment>
               }
             />

@@ -7,17 +7,17 @@ import { static_empty_user } from '../../assets/static';
 import { logoutRequest } from '../../request/loginAndregistration';
 import { BellIcon } from '@heroicons/react/20/solid';
 
-
+// TODO: 优化这个组件，使其更加符合 Material UI 的设计规范
 // 最好改成这样 https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu
 // https://mui.com/material-ui/react-menu/
 const barNavigation = [
   { name: '发现圈子', href: '/home' },
-  { name: '联系我们', href: '/aboutus' },
+  { name: '我的圈子', href: '/myCircles' },
+  { name: '个人设置', href: '/mySettings' },
 ]
 const userNavigation = [
   { name: '我的贴子', href: '/myPosts' },
-  { name: '我的圈子', href: '/myCircles' },
-  { name: '个人设置', href: '/mySettings' },
+  { name: '联系我们', href: '/aboutus' },
 ]
 
 const loginNavigation = { name: '登录', href: '/login' }
@@ -208,16 +208,35 @@ export default function Header() {
                 ))}
               </div>
               <div className="border-t border-gray-700 pb-3 pt-4"> {/** part 2 */}
-                <div className={classNames(!!currUser.uid ? 'flex px-5' : 'hidden', "items-center")}>
+                {/* <div className={classNames(!!currUser.uid ? 'flex px-5' : 'hidden', "items-center")}>
                   <div className="flex-shrink-0">
                     <img className="h-10 w-10 rounded-full" src={currUser.avatarUrl} alt="" />
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">{currUser.name}</div>
                     <div style={{ marginTop: '0.5rem' }}></div>
-                    <div className="text-sm font-medium leading-none text-gray-400">{currUser.email}</div>
+                    <div className="text-sm font-medium leading-none text-gray-400 max-w-[180px] truncate">{currUser.email}</div>
                   </div>
                   <BellButton className="ml-auto flex-shrink-0" />
+                </div> */}
+                <div className={classNames(!!currUser.uid ? 'flex px-5' : 'hidden', "items-center")}>
+                  <div className="flex-shrink-0">
+                    <img className="h-10 w-10 rounded-full" src={currUser.avatarUrl} alt="" />
+                  </div>
+                  <div className="ml-3 flex-grow"
+                    style={{
+                      maxWidth: 'calc(90vw - 100px)',
+                    }}
+                  >
+                    <div className="text-base font-medium leading-none text-white w-auto truncate"
+                    >{currUser.name}</div>
+                    <div className="text-sm font-medium leading-none text-gray-400 w-auto truncate"
+                      style={{
+                        marginTop: '0.5rem',
+                      }}
+                    >{currUser.email}</div>
+                  </div>
+                  <BellButton className="ml-auto flex-shrink-0 w-10" />
                 </div>
                 <div className="space-y-1 px-2">
                   <div className={!!currUser.uid ? 'mt-3 block' : 'hidden'}>

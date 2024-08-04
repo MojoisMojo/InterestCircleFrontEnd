@@ -44,7 +44,11 @@ function UserInfoCard({ name, bio, avatar, circlesCount, postsCount }) {
           },
           '& .MuiCardHeader-avatar': {
             marginRight: '8px !important',
-            marginLeft: { xs: '10% !important', sm: '0 !important', md: '16px !important' },
+            marginLeft: {
+              xs: '10% !important',
+              sm: '0 !important',
+              md: '16px !important'
+            },
           }
         }}
         avatar={
@@ -82,10 +86,17 @@ function UserInfoCard({ name, bio, avatar, circlesCount, postsCount }) {
           style={{
             flexDirection: 'column',
           }}>
-          <Typography variant="h6" color='text.primary' align="center" sx={{ fontWeight: 'bold' }}>
+          <Typography
+            variant="h6" color='text.primary'
+            align="center" sx={{ fontWeight: 'bold' }}
+          >
             {circlesCount}
           </Typography>
-          <Typography variant="body2" color="text.secondary" align="center">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            align="center"
+          >
             圈子数
           </Typography>
         </Grid>
