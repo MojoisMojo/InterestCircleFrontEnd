@@ -13,11 +13,11 @@ import { BellIcon } from '@heroicons/react/20/solid';
 const barNavigation = [
   { name: '发现圈子', href: '/home' },
   { name: '我的圈子', href: '/myCircles' },
-  { name: '个人设置', href: '/mySettings' },
+  { name: '联系我们', href: '/aboutus' },
 ]
 const userNavigation = [
   { name: '我的贴子', href: '/myPosts' },
-  { name: '联系我们', href: '/aboutus' },
+  { name: '个人设置', href: '/mySettings' },
 ]
 
 const loginNavigation = { name: '登录', href: '/login' }
