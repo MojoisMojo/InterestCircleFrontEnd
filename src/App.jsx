@@ -44,8 +44,6 @@ const theme = createTheme({
   },
 });
 
-import TmpApp from './tmp';
-
 export default function App() {
   const [currUser, setCurrUser] = useState(static_empty_user)
 
@@ -58,15 +56,15 @@ export default function App() {
   }
 
   async function checkCookieAndSetUser() {
-    let uid = await getCookie();
-    if (!!uid) {
-      let userRes = await getUserInfoWithUid(uid);
+    const uid = await getCookie();
+    if (Boolean(uid)) {
+      const userRes = await getUserInfoWithUid(uid);
       if (userRes.status !== 'success') {
         Cookie.remove('uid');
         alert(userRes.msg);
         return;
       }
-      let user = userRes.data.user;
+      const user = userRes.data.user;
       user.uid = uid;
       setCurrUser(user);
       // console.log(user);
@@ -93,7 +91,6 @@ export default function App() {
               <Route path="/circle" element={checkLogin(<CirclePage />)} />
               <Route path="/mySettings" element={checkLogin(<MySettingsPage />)} />
               <Route path='/aboutus' element={<AboutusPage />} />
-              <Route path='/tmp' element={<TmpApp />} />
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
           </Router >

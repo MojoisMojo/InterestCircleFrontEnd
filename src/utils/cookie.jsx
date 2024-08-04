@@ -4,8 +4,8 @@ function encode(value) {
     return null;
   }
   return value.split('').map(char => {
-    let binary = char.charCodeAt(0).toString(2).padStart(8, '0');
-    let invertedBinary = [...binary].map(b => b === '0' ? '1' : '0').join('');
+    const binary = char.charCodeAt(0).toString(2).padStart(8, '0');
+    const invertedBinary = [...binary].map(b => b === '0' ? '1' : '0').join('');
     return String.fromCharCode(parseInt(invertedBinary, 2));
   }).join('');
 }
@@ -18,7 +18,7 @@ function decode(value) {
 };
 
 function getCookie() {
-  let uid = Cookie.get('uid');
+  const uid = Cookie.get('uid');
   return decode(uid);
 }
 

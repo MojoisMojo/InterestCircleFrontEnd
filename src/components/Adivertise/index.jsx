@@ -1,10 +1,6 @@
-import { Padding } from '@mui/icons-material';
 import { ButtonBase, Paper, Typography } from '@mui/material';
-import React from 'react';
-import { Link } from 'react-router-dom';
-
 export default function AdivertiseCard({ advertise: oldAdvertise }) {
-  let newAdvertise = {
+  const newAdvertise = {
     title: '广告位出租',
     content: (
       <div className="text-lg text-center text-yellow-200 hover:text-yellow-400">

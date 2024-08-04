@@ -1,13 +1,3 @@
-import { sleep } from "../utils/sleep";
-import {
-  static_circle_card_info_daily,
-  static_circle_info,
-  static_circle_posts,
-  static_circles,
-  static_circles_info,
-  static_circles_joined
-} from "../assets/static";
-
 import { clientBase, userApi, circleApi, circleMemberApi } from '../assets/my.config';
 import axios from "axios";
 
@@ -20,7 +10,7 @@ async function createCircleRequest(uid, cname, cdesc, cfile) {
   formData.append('cname', cname);
   formData.append('cdesc', cdesc);
   formData.append('cicon', cfile.name);
-  let res = await axios.post(`${circleApi}`,
+  const res = await axios.post(`${circleApi}`,
     formData,
     {
       headers: {
@@ -35,7 +25,7 @@ async function createCircleRequest(uid, cname, cdesc, cfile) {
   if (res.status >= 300) {
     return { status: 'error', msg: `${res.status} error`, data: {} };
   }
-  let circleRes = res.data;
+  const circleRes = res.data;
   if (circleRes.status !== 'success') {
     return { status: 'failed', msg: circleRes.msg, data: {} };
   }
@@ -49,7 +39,7 @@ async function getCircleActiveUsersRequest(cid) {
   if (!cid) {
     return { status: 'failed', msg: '缺少圈子信息', data: {} };
   }
-  let response = await axios.get(`${userApi}/cid/${cid}`);
+  const response = await axios.get(`${userApi}/cid/${cid}`);
   console.log(response);
   if (!response) {
     return { status: 'error', msg: '网络错误', data: {} };
@@ -57,7 +47,7 @@ async function getCircleActiveUsersRequest(cid) {
   if (response.status >= 300) {
     return { status: 'error', msg: `${response.status} error`, data: {} };
   }
-  let res = response.data;
+  const res = response.data;
   if (res.status !== 'success') {
     return { status: 'failed', msg: res.msg, data: {} };
   }
@@ -77,7 +67,7 @@ async function getCircleActiveUsersRequest(cid) {
 }
 // 获取cid的圈子的信息
 async function getCircleInfoRequest(cid, uid) {
-  let res = await axios.get(`${circleApi}?cid=${cid}&uid=${uid}`);
+  const res = await axios.get(`${circleApi}?cid=${cid}&uid=${uid}`);
   console.log(res);
   if (!res) {
     return { status: 'error', msg: '网络错误', data: {} };
@@ -85,11 +75,11 @@ async function getCircleInfoRequest(cid, uid) {
   if (res.status >= 300) {
     return { status: 'error', msg: `${res.status} error`, data: {} };
   }
-  let circleRes = res.data;
+  const circleRes = res.data;
   if (circleRes.status !== 'success') {
     return { status: 'failed', msg: circleRes.msg, data: {} };
   }
-  let circle = circleRes.data.circle;
+  const circle = circleRes.data.circle;
   return {
     status: 'success',
     msg: '获取圈子信息成功',
@@ -106,7 +96,7 @@ async function getCircleInfoRequest(cid, uid) {
 // 离开或进入圈子
 async function joinOrleaveCircleRequest(cid, uid, isJoined) {
   // isJoined: true表示需要加入圈子，false表示需要退出圈子
-  let response = isJoined
+  const response = isJoined
     ? await axios.post(`${circleMemberApi}/join`, { cid, uid })
     : await axios.post(`${circleMemberApi}/leave`, { cid, uid });
   console.log(response);
@@ -116,7 +106,7 @@ async function joinOrleaveCircleRequest(cid, uid, isJoined) {
   if (response.status >= 300) {
     return { status: 'error', msg: `${response.status} error`, data: {} };
   }
-  let res = response.data;
+  const res = response.data;
   if (res.status !== 'success') {
     return { status: 'failed', msg: res.msg, data: {} };
   }
@@ -132,7 +122,7 @@ async function joinOrleaveCircleRequest(cid, uid, isJoined) {
 
 // 查看是否是成员
 async function isMemberRequest(cid, uid) {
-  let response = await axios.get(`${circleMemberApi}`, { params: { cid, uid } });
+  const response = await axios.get(`${circleMemberApi}`, { params: { cid, uid } });
   console.log("isMemberRequest:", response);
   if (!response) {
     return { status: 'error', msg: '网络错误', data: {} };
@@ -140,7 +130,7 @@ async function isMemberRequest(cid, uid) {
   if (response.status >= 300) {
     return { status: 'error', msg: `${response.status} error`, data: {} };
   }
-  let res = response.data;
+  const res = response.data;
   if (res.status !== 'success') {
     return { status: 'failed', msg: res.msg, data: {} };
   }
@@ -166,13 +156,13 @@ async function getInterestCirclesRequest(uid) {
   if (response.status >= 300) {
     return { status: 'error', msg: `${response.status} error`, data: {} };
   }
-  let circleRes = response.data;
+  const circleRes = response.data;
   if (circleRes.status !== 'success') {
     return { status: 'failed', msg: circleRes.msg, data: {} };
   }
   const circlesList = circleRes.data.circlesList;
   let circlesJoined = {};
-  for (let circleInfo of circlesList) {
+  for (const circleInfo of circlesList) {
     let circle = circleInfo.circle;
     circlesJoined[circle.cid] = circleInfo.isJoined;
   }
@@ -203,7 +193,7 @@ async function getUserAllCirclesRequest(uid) {
   if (response.status >= 300) {
     return { status: 'error', msg: `${response.status} error`, data: {} };
   }
-  let circleRes = response.data;
+  const circleRes = response.data;
   if (circleRes.status !== 'success') {
     return { status: 'failed', msg: circleRes.msg, data: {} };
   }
@@ -222,30 +212,6 @@ async function getUserAllCirclesRequest(uid) {
     }
   };
 }
-
-
-// // 上传图片测试
-// async function testUploadCircleIconRequest(file) {
-//   const formData = new FormData();
-//   formData.append('image', file);
-//   formData.append('image', file);
-//   formData.append('cname', '游戏');
-
-//   let res = await axios.post('http://127.0.0.1:7002/api/upload',
-//     formData,
-//     {
-//       headers: {
-//         'Content-Type': 'multipart/form-data'
-//       }
-//     }
-//   )
-
-//   return {
-//     status: 'success',
-//     msg: '上传图片成功',
-//     data: res.data
-//   };
-// }
 
 export {
   getCircleActiveUsersRequest,

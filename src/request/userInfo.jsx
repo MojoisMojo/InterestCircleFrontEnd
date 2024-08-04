@@ -1,8 +1,3 @@
-import { sleep } from "../utils/sleep";
-import {
-  static_circles_info,
-  static_empty_user, static_mojo_user
-} from "../assets/static";
 import axios from 'axios';
 import { clientBase, userApi } from "../assets/my.config";
 
@@ -16,7 +11,7 @@ async function getUserInfoWithUid(uid) {
     if (res.status >= 300) {
       return { status: 'error', msg: `${res.status} error`, data: {} };
     }
-    let userRes = res.data;
+    const userRes = res.data;
     if (userRes.status !== 'success') {
       return { status: 'failed', msg: userRes.msg, data: {} };
     }
@@ -47,7 +42,7 @@ async function getUserInfoWithEmail(email) {
     if (res.status >= 300) {
       return { status: 'error', msg: `${res.status} error`, data: {} };
     }
-    let userRes = res.data;
+    const userRes = res.data;
     if (userRes.status !== 'success') {
       return { status: 'failed', msg: userRes.msg, data: {} };
     }
@@ -88,7 +83,7 @@ async function changeUserInfo({ uid, name = null, avatarfile = null, bio = null 
   if (bio != null) {
     formData.append('bio', bio);
   }
-  let response = await axios.put(`${userApi}/uid`,
+  const response = await axios.put(`${userApi}/uid`,
     formData,
     {
       headers: {
@@ -102,7 +97,7 @@ async function changeUserInfo({ uid, name = null, avatarfile = null, bio = null 
   if (response.status >= 300) {
     return { status: 'error', msg: `${response.status} error`, data: {} };
   }
-  let res = response.data;
+  const res = response.data;
   if (res.status !== 'success') {
     return { status: 'failed', msg: res.msg, data: {} };
   }

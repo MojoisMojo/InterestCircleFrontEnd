@@ -1,5 +1,3 @@
-import { comment } from "postcss";
-
 import { static_circle_info, static_circles_info, static_empty_circle_info, } from "./circle";
 
 const static_empty_user = {
